@@ -10,8 +10,8 @@ import java.util.HashMap;
  */
 public class WoZ
 {
-    private Zone currentZone;
-    private ArrayList<Zone> listZone;
+    //private Zone currentZone;
+    //private ArrayList<Zone> listZone;
     
     
 /*    private Zone glade,forestE,forestS,forestW,forestN,bridge,
@@ -41,13 +41,13 @@ public class WoZ
      * Constructeur d'objets de classe WoZ
      * Création player, zones, personnages
      */
-    public WoZ()
-    {
-        currentZone = null;
-        
-        
-        
-    }
+    //public WoZ()
+//    {
+//        currentZone = null;
+//        
+//        
+//        
+//    }
 
     // /**
      // * Cette methode créée toutes les zones du monde
@@ -168,10 +168,24 @@ public class WoZ
      */
    public void fight(Player player,NPC npc)
     {
+	   //get set
+	   while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
+	   { 
+		 
+		 //if attack() method is called 
+		 //if they are both alive 
+		 //Figther_npc --> attackPattern(Fighter npc) , decrease hp of player by the fighternpc atk and up hp_npc by 
+		 //Player --> check currentweapon , decrease fighter npc by atk number
+		   
+		   attackPattern(npc);
+		   player.setHP()=player.getHP()-atknpc;
+		   npc.setHP()= npchp-player.currentweapon.atk;
+	    
+	   }
         
     }
-    public boolean ischecked()
-    {
+   
+    private boolean checkLife(Player player , NPC npc){
         return(false);
     }
 }

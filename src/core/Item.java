@@ -12,17 +12,20 @@ public abstract class Item
 {
     private String nameItem;
     private String descriptionItem;
+    private Player player1;
 
+    
     /**
-     * Constructeur d'objets de classe Item
-     * @param  name nom de l'item, description description de l'item
+     * Constructor of items
+     * @param name the item name
+     * @param description the item description
      */
     public Item(String name, String description)
     {
-        nameItem = name;
-        descriptionItem = description;
+    	nameItem = name;
+    	descriptionItem = description;
     }
-
+    
     /**
      * Cette méthode récupère le nom de l'item
      * @return     le nom de l'item
@@ -41,10 +44,26 @@ public abstract class Item
         return(descriptionItem);
     }
     
-    public boolean rechercheInventaire()
+    
+    public boolean searchInventory(Player player,Item item)
     {
-        return(true);
+    	for (int i = 0; i < player.getInventory().size(); i++) {
+    		if (item == player.getInventory().get(i)) {
+    			return(true);
+    		}
+    	}
+        return(false);
     }
+    
+    /**
+     * This method add an item to the inventory
+     * @param item to add to the inventory (key or medikit or weapon)
+     */
+    public void addItem(Item item)
+    {
+        player1.getInventory().add(item);
+    }
+
     /**
      * exemple :
      * 

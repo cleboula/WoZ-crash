@@ -22,31 +22,22 @@ public class Medikit extends Item
         hpPlayer = HP;
         epPlayer = EP;
     }
-
-    public String getName()
+    
+    public int getHP(Medikit med)
     {
-        return(super.getName());
+        return(med.hpPlayer);
     }
     
-    public String getDescription()
+    public int getEP(Medikit med)
     {
-        return(super.getDescription());
-    }
-    
-    public int getHP()
-    {
-        return(hpPlayer);
-    }
-    
-    public int getEP()
-    {
-        return(hpPlayer);
+        return(med.epPlayer);
     }
     /**
      * Cette méthode applique ses points de vie et d'énergie aux points du joueur
      */
-    private void cure()
+    private void cure(Medikit med,Player player)
     {
-        //il faudrait un setHP dans le player
+    	player.setHp(hpPlayer);
+    	player.setEp(epPlayer);
     }
 }

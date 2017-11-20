@@ -12,7 +12,11 @@ public class Player
     private int hp; //health points of our player (not negative)
     private int ep; //energy points of our player (not negative)
     private String namePlayer; //player name
-    private ArrayList<Item> inventory; //inventory with collected objects    
+    private ArrayList<Item> inventory; //inventory with collected objects 
+    private ArrayList<Item> listM; // list of medikit in the inventory
+    private Player player1;
+    private WoZ woz;
+    private NPC npc;
 
     /**
      * Constructor of player class
@@ -66,17 +70,7 @@ public class Player
 	public void setEp(int ep) {
 		this.ep = ep;
 	}
-
-	/**
-     * This method add an item to the inventory
-     * @param item to add to the inventory (key or medikit or weapon)
-     */
-    public void addItem(Item item)
-    {
-        inventory.add(item);
-    }
-
-    
+   
     /**
      * This method return the player's health points
      */
@@ -99,4 +93,27 @@ public class Player
     {
         return namePlayer;
     }
+    
+    /**
+     * This method calls fight if the player wants to fight
+     */
+    public void attack()
+    {
+    	woz.fight(player1,npc);
+    }
+
+    /**
+    * search all medikits in the inventory
+    */
+    public ArrayList<Item> searchItem(Player player,Item item)
+        {
+        	for (int i = 0; i < player.getInventory().size(); i++) {
+        		if (item == player.getInventory().get(i)) {
+        			listM.add(player.getInventory().get(i));
+        		}
+        	}
+            return(listM);
+        }
+
+	
 }

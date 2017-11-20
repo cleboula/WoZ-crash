@@ -2,9 +2,8 @@ package core;
 
 
 /**
- * Cette classe représente des armes "Weapon" permettant
- * d'appliquer des dégats à un ennemi tout en utilisant 
- * de l'énergie du joueur
+ * This class corresponds to weapons allowing to attack and to cause damages to an enemy
+ * Those weapons use player's energy point
  *
  * @author Groupe1 WoZ
  * @version 09/11/2017

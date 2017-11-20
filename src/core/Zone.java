@@ -3,7 +3,7 @@ package core;
 import java.util.HashMap;
 import java.util.ArrayList;
 /**
- * Cette zone représente une partie de notre monde
+ * This zone is a part of the world
  *
  * @author Groupe 1 WoZ
  * @version 09/11/2017
@@ -13,9 +13,10 @@ public class Zone
     private HashMap<String,Path> hmap;
     private String nameZone;
     private ArrayList<Item> listItems;
+ 
 
     /**
-     * Constructeur d'objets de classe Zone
+     * Object builder for Zone class
      */
     public Zone(String name)
     {
@@ -27,26 +28,26 @@ public class Zone
         listItems = new ArrayList<Item>();
     }
     /**
-     * Cette méthode affiche les zones accessibles à partir de
-     * la zone actuelle
+     * Display all the accessible zone from the current zone
      */
-    public String getExitZone()
+    public HashMap getExitZone()   //Create a view of the hashmap elements to return them
     {
-        return(" ");
+    	return(hmap);
     }
    
-     /**
+   
+	/**
      *Define the exits of this room. 
      */
     public void setExits(String direction,Path path){
         hmap.put(direction,path);
     }
     /**
-     * Cette méthode retourne le nom de la zone actuelle
+     * Return the current zone name
      * @return nom de zone
      */
     public String getZoneName()
     {
-       return(" "); 
+       return("nameZone"); 
     }
 }

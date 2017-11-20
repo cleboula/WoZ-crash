@@ -32,6 +32,11 @@ public class Chest extends Item
         return(isOpened);
     }
     
+    public void checkChest()
+    {
+    	
+    }
+    
     public void open()
     {
         isOpened = true;
