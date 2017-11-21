@@ -14,9 +14,9 @@ public class Player
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
     private ArrayList<Item> listM; // list of medikit in the inventory
-    private Player player1;
-    private WoZ woz;
-    private NPC npc;
+    //private Player player1;
+    //private WoZ woz;
+    //private NPC npc;
 
     /**
      * Constructor of player class
@@ -92,14 +92,6 @@ public class Player
     public String getPlayerName()
     {
         return namePlayer;
-    }
-    
-    /**
-     * This method calls fight if the player wants to fight
-     */
-    public void attack()
-    {
-    	woz.fight(player1,npc);
     }
 
     /**
