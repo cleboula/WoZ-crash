@@ -3,9 +3,9 @@ package core;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
- * Cette classe représente notre monde
+ * This class represents our world
  *
- * @author Groupe 1 WoZ
+ * @author Group 1 WoZ
  * @version 09/11/2017
  */
 public class WoZ
@@ -148,23 +148,13 @@ public class WoZ
         // jailentrance.setExits("north",jailentrance_jail);
         // jailentrance.setExits("south",jailentrance_marketplace);
         // jail.setExits("south",jail_jailentrance);
-
-
-    // }
     
     /**
-     * Cette methode créée tous les personnages non joueurs du monde
-     */
-    private void createNPC ()
-    {
-        
-    }
-    
-    /**
-     * Cette methode permet de simuler un combat entre notre joueur 
-     * et un ennemi
-     * @param player : le joueur principal
-     * @param npc : l'ennemi concerné par le combat
+     * This method simulates a fight between our main player and an enemy
+     * If the npc is dead, the fight is over and the player wins
+     * If the player dies, the game is over
+     * @param player : the main player
+     * @param npc : the enemy involved in the fight
      */
    public void fight(Player player,NPC npc)
     {
@@ -185,7 +175,28 @@ public class WoZ
         
     }
    
-    private boolean checkLife(Player player , NPC npc){
-        return(false);
+    /*
+     * This method checks if the player does not have life anymore.
+     * @param player : the main player
+     */
+    private boolean isAlivePlayer(Player player){
+    	
+    	if (player.getHP()> 0) {
+    		return(true);
+    	}else {
+    		return(false);
+    	}
+    }
+    
+    /*This method checks if the npc does not have life anymore.
+     * @param npc : the enemy involved in the fight
+     */
+    private boolean isAliveNpc(NPC npc){
+    	
+    	if (npc.getHP()> 0) {
+    		return(true);
+    	}else {
+    		return(false);
+    	}
     }
 }
