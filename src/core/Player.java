@@ -16,7 +16,7 @@ public class Player
     private ArrayList<Item> listM; // list of medikit in the inventory
     private Player player1;
     private WoZ woz;
-    private NPC npc;
+    //private NPC npc;
 
     /**
      * Constructor of player class
@@ -97,10 +97,10 @@ public class Player
     /**
      * This method calls fight if the player wants to fight
      */
-    public void attack()
-    {
-    	woz.fight(player1,npc);
-    }
+   // public void attack()
+   // {
+   // 	woz.fight(player1,npc);
+   // }
 
     /**
     * search all medikits in the inventory

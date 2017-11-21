@@ -27,8 +27,13 @@ public class Weapon extends Item
      * Cette méthode applique des dégats à l'ennemi "damages"
      * en utilisant de l'énergie "energybyshot"
      */
-    private void shot()
+    private void shot(Player player)
     {
-        
+    	int newHp;
+    	int newEp;
+    	newHp = player.getHP()-damages;
+    	newEp = player.getEP()-energybyshot;
+    	player.setHp(newHp);
+    	player.setEp(newEp);
     }
 }

@@ -47,12 +47,18 @@ public abstract class Item
     
     public boolean searchInventory(Player player,Item item)
     {
+    	//vérifier que getInventory n'est pas nul
+    	//if(player.getInventory() == null) {
+    	//	return(false);
+    	//}
+    	//else {
     	for (int i = 0; i < player.getInventory().size(); i++) {
     		if (item == player.getInventory().get(i)) {
     			return(true);
     		}
     	}
         return(false);
+    	//}
     }
     
     /**
