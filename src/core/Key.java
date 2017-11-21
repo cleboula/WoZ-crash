@@ -7,7 +7,7 @@ package core;
  * other allow the passage of certain path. 
  * A key is necessarily linked to a path or a chest. 
  * Once the key is used it disappears. 
- * The key must be present in the player's inventory to be used.
+ * The key must be present in the player's inventory to be used
  *
  * @author Group 1
  * @version 09/11/2017
