@@ -1,7 +1,7 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.ArrayList;
+//import java.util.HashMap;
 /**
  * This class represents our world
  *
@@ -41,13 +41,11 @@ public class WoZ
      * Constructeur d'objets de classe WoZ
      * Création player, zones, personnages
      */
-    //public WoZ()
-//    {
-//        currentZone = null;
-//        
-//        
-//        
-//    }
+     public WoZ()
+    {
+        
+  
+    }
 
     // /**
      // * Cette methode créée toutes les zones du monde
@@ -156,30 +154,30 @@ public class WoZ
      * @param player : the main player
      * @param npc : the enemy involved in the fight
      */
-   public void fight(Player player,NPC npc)
-    {
+   //public void fight(Player player,NPC npc)
+    //{
 	   //get set
-	   while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
-	   { 
+	  // while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
+	   //{ 
 		 
 		 //if attack() method is called 
 		 //if they are both alive 
 		 //Figther_npc --> attackPattern(Fighter npc) , decrease hp of player by the fighternpc atk and up hp_npc by 
 		 //Player --> check currentweapon , decrease fighter npc by atk number
 		   
-		   attackPattern(npc);
-		   player.setHP()=player.getHP()-atknpc;
-		   npc.setHP()= npchp-player.currentweapon.atk;
+		   //attackPattern(npc);
+		   //player.setHP()=player.getHP()-atknpc;
+		   //npc.setHP()= npchp-player.currentweapon.atk;
 	    
-	   }
+	   //}
         
-    }
+    //}
    
     /*
      * This method checks if the player does not have life anymore.
      * @param player : the main player
      */
-    private boolean isAlivePlayer(Player player){
+    public boolean isAlivePlayer(Player player){
     	
     	if (player.getHP()> 0) {
     		return(true);
@@ -191,12 +189,12 @@ public class WoZ
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
-    private boolean isAliveNpc(NPC npc){
-    	
-    	if (npc.getHP()> 0) {
-    		return(true);
-    	}else {
-    		return(false);
-    	}
-    }
+//    private boolean isAliveNpc(NPC npc){
+//    	
+//    	if (npc.getHP()> 0) {
+//    		return(true);
+//    	}else {
+//    		return(false);
+//    	}
+//    }
 }
