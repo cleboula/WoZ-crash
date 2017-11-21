@@ -2,8 +2,10 @@ package core;
 
 
 /**
- * Cette classe représente des objets "Medikit" permettant de guérir notre joueur
- * en augmentant ses points de vie "HP" et ses points d'énergie "EP"
+ * This class represents "Medikit" objects to heal our player 
+ * by increasing his "HP" health points and his "EP" energy points. 
+ * The medikit must be present in the player's inventory to be used.
+ * Once the medikit is used it disappears
  *
  * @author Groupe1 WoZ
  * @version 09/11/2017
@@ -22,31 +24,22 @@ public class Medikit extends Item
         hpPlayer = HP;
         epPlayer = EP;
     }
-
-    public String getName()
+    
+    public int getHP(Medikit med)
     {
-        return(super.getName());
+        return(med.hpPlayer);
     }
     
-    public String getDescription()
+    public int getEP(Medikit med)
     {
-        return(super.getDescription());
-    }
-    
-    public int getHP()
-    {
-        return(hpPlayer);
-    }
-    
-    public int getEP()
-    {
-        return(hpPlayer);
+        return(med.epPlayer);
     }
     /**
      * Cette méthode applique ses points de vie et d'énergie aux points du joueur
      */
-    private void cure()
+    private void cure(Medikit med,Player player)
     {
-        //il faudrait un setHP dans le player
+    	player.setHp(hpPlayer);
+    	player.setEp(epPlayer);
     }
 }
