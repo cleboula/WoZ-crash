@@ -2,8 +2,10 @@ package core;
 
 
 /**
- * Cette classe représente des objets "Medikit" permettant de guérir notre joueur
- * en augmentant ses points de vie "HP" et ses points d'énergie "EP"
+ * This class represents "Medikit" objects to heal our player 
+ * by increasing his "HP" health points and his "EP" energy points. 
+ * The medikit must be present in the player's inventory to be used.
+ * Once the medikit is used it disappears.
  *
  * @author Groupe1 WoZ
  * @version 09/11/2017
