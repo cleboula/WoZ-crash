@@ -28,3 +28,4 @@ class KeyTest {
         assertEquals("Opens a door", key1.getDescription());
     }
 }
+

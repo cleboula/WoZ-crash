@@ -1,11 +1,11 @@
 package core;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+//import java.util.ArrayList;
+//import java.util.HashMap;
 /**
- * Cette classe représente notre monde
+ * This class represents our world
  *
- * @author Groupe 1 WoZ
+ * @author Group 1 WoZ
  * @version 09/11/2017
  */
 public class WoZ
@@ -41,13 +41,11 @@ public class WoZ
      * Constructeur d'objets de classe WoZ
      * Création player, zones, personnages
      */
-    //public WoZ()
-//    {
-//        currentZone = null;
-//        
-//        
-//        
-//    }
+     public WoZ()
+    {
+        
+  
+    }
 
     // /**
      // * Cette methode créée toutes les zones du monde
@@ -148,44 +146,55 @@ public class WoZ
         // jailentrance.setExits("north",jailentrance_jail);
         // jailentrance.setExits("south",jailentrance_marketplace);
         // jail.setExits("south",jail_jailentrance);
-
-
-    // }
     
     /**
-     * Cette methode créée tous les personnages non joueurs du monde
+     * This method simulates a fight between our main player and an enemy
+     * If the npc is dead, the fight is over and the player wins
+     * If the player dies, the game is over
+     * @param player : the main player
+     * @param npc : the enemy involved in the fight
      */
-    private void createNPC ()
-    {
-        
-    }
-    
-    /**
-     * Cette methode permet de simuler un combat entre notre joueur 
-     * et un ennemi
-     * @param player : le joueur principal
-     * @param npc : l'ennemi concerné par le combat
-     */
-   public void fight(Player player,NPC npc)
-    {
+   //public void fight(Player player,NPC npc)
+    //{
 	   //get set
-	   while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
-	   { 
+	  // while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
+	   //{ 
 		 
 		 //if attack() method is called 
 		 //if they are both alive 
 		 //Figther_npc --> attackPattern(Fighter npc) , decrease hp of player by the fighternpc atk and up hp_npc by 
 		 //Player --> check currentweapon , decrease fighter npc by atk number
 		   
-		   attackPattern(npc);
-		   player.setHP()=player.getHP()-atknpc;
-		   npc.setHP()= npchp-player.currentweapon.atk;
+		   //attackPattern(npc);
+		   //player.setHP()=player.getHP()-atknpc;
+		   //npc.setHP()= npchp-player.currentweapon.atk;
 	    
-	   }
+	   //}
         
-    }
+    //}
    
-    private boolean checkLife(Player player , NPC npc){
-        return(false);
+    /*
+     * This method checks if the player does not have life anymore.
+     * @param player : the main player
+     */
+    public boolean isAlivePlayer(Player player){
+    	
+    	if (player.getHP()> 0) {
+    		return(true);
+    	}else {
+    		return(false);
+    	}
     }
+    
+    /*This method checks if the npc does not have life anymore.
+     * @param npc : the enemy involved in the fight
+     */
+//    private boolean isAliveNpc(NPC npc){
+//    	
+//    	if (npc.getHP()> 0) {
+//    		return(true);
+//    	}else {
+//    		return(false);
+//    	}
+//    }
 }

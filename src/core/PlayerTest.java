@@ -2,14 +2,13 @@ package core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 class PlayerTest {
 
 	private Player player1;
-	private Key key1;
+	//private Key key1;
 
     /**
      * Sets up the test fixture.

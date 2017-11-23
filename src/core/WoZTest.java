@@ -2,50 +2,43 @@ package core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 class WoZTest {
-
-	private Player player1;
-    private NPC npc1;
-    private WoZ woZTest;
     
-    /**
-     * Default constructor for test class WoZTest
-     */
-    public WoZTest()
+    @Test
+    public void testPlayerIsDead() 
     {
+    	WoZ woz1 = new WoZ ();
+    	Player player1 = new Player("toto");
+    	player1.setHp(0);
+    	assertEquals(false, woz1.isAlivePlayer(player1));	
     }
-
-    /**
-     * Sets up the test fixture.
-     *
-     * Called before every test case method.
-     */
-    @Before
-    public void setUp()
+    
+    @Test
+    public void testPlayerIsNotDead() 
     {
-        woZTest = new WoZ();
-        player1 = new Player(" ");
-        npc1 = new Boss();
+    	WoZ woz1 = new WoZ ();
+    	Player player1 = new Player("toto");
+    	assertEquals(true, woz1.isAlivePlayer(player1));
     }
-
-    /**
-     * Tears down the test fixture.
-     *
-     * Called after every test case method.
-     */
-    @After
-    public void tearDown()
-    {
-    }
-    @Test 
-    public void rigthsobject()
-    {
-    	
-    }
-
-
+    
+//    @Test
+//    public void testNpcIsDead() 
+//    {
+//    	WoZ woz1 = new WoZ ();
+//    	NpcFight npc1 = new NpcFight(100,50,"toto","big wolf");
+//    	npc1.setHp(0);
+//    	assertEquals(true, woz1.isAliveNpc(npc1));	
+//    }
+//    
+//    @Test
+//    public void testNpcIsNotDead() 
+//    {
+//    	WoZ woz1 = new WoZ ();
+//    	NpcFight npc1 = new NpcFight(100,50,"toto","big wolf");
+//    	assertEquals(false, woz1.isAliveNpc(npc1));
+//    	
+//    }
+    
 }
