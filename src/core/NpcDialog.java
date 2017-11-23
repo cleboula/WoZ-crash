@@ -12,6 +12,7 @@ public class NpcDialog extends Npc {
 	
 	
 	private job jobnpc;
+
 	//job is a enum
 	
 	//Dialog Npc constructor
@@ -23,7 +24,9 @@ public class NpcDialog extends Npc {
 	//Method to show the string selected in the dialog tree depending on the job of the Dialog Npc
 
 	//todo 211117
-	//public String speak(){
+	public String speak(){
 
-	//}
+		getSelecteddialog(String);
+			return selecteddialog;
+	}
 }
