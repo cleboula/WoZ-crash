@@ -27,11 +27,11 @@ public class Weapon extends Item
      * Cette méthode applique des dégats à l'ennemi "damages"
      * en utilisant de l'énergie "energybyshot"
      */
-    private void shot(Player player)
+    public void shot(Player player, Npc npc)
     {
     	int newHp;
     	int newEp;
-    	newHp = player.getHP()-damages;
+    	newHp = npc.getHP()-damages; // les dégats doivent être mis aux monstres !!!
     	newEp = player.getEP()-energybyshot;
     	player.setHp(newHp);
     	player.setEp(newEp);
