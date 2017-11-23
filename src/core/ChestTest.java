@@ -54,8 +54,8 @@ class ChestTest {
     public void testCheckChestNoKey()
     {
     	player1 = new Player("bob");
-    	associatedKey = new Key("kkey","testKey",null);
-    	content = new Key("map","testContentKey",null);
+    	associatedKey = new Key("kkey","testKey");
+    	content = new Key("map","testContentKey");
         chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
     	chest3.checkChest(player1);
         assertEquals(false, chest3.getIsOpened());
@@ -65,7 +65,7 @@ class ChestTest {
     public void testCheckChestWithKey()
     {
     	player1 = new Player("bob");
-    	associatedKey = new Key("kkey","testKey",null);
+    	associatedKey = new Key("kkey","testKey");
         chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
         player1.getInventory().add(associatedKey);
     	chest3.checkChest(player1);
