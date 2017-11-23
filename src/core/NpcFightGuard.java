@@ -7,7 +7,6 @@ package core;
  */
 
 public class NpcFightGuard extends NpcFight {
-	
 	private Zone zonejail;
 	// the targeted zone for the transportation of the player
 	private int hpmax;
