@@ -1,5 +1,7 @@
 package core;
 
+import fr.crash.core.NpcFight;
+
 /**
  *  Guard Character, are defined by the use chain method that teleport the player
  * @author G1

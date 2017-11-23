@@ -1,5 +1,8 @@
 package core;
 
+import fr.crash.core.Npc;
+import fr.crash.core.job;
+
 /**
  *  Npc_Dialog is the canvas for all the Npc in the game that are not meant to fight but to Dialog
  *  These are characters that are defined by their jobs and by the speak method

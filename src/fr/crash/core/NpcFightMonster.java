@@ -1,4 +1,4 @@
-package core;
+package fr.crash.core;
 
 /**
  *  Simple Monster , Basic oponent

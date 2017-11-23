@@ -1,4 +1,4 @@
-package core;
+package fr.crash.core;
 /**
  *
  *  The Npc (Non player character) Class is a super class that will implements Basics for all the Non-player-character of WoZ
