@@ -7,6 +7,7 @@ package core;
  * @author Groupe1 WoZ
  * @version 09/11/2017
  */
+
 public class Weapon extends Item
 {
     private int damages; //points of hp lost by the enemy

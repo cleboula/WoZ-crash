@@ -1,3 +1,4 @@
+
 package core;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -13,9 +14,10 @@ class MedikitTest {
         Medikit medikit1 = new Medikit(20, 10, "Medicine", "Small medikit to help you");
         player1.setHp(50);
         player1.setEp(50);
-        medikit1.cure(medikit1);
+        medikit1.cure(player1);
         assertEquals(70, player1.getHP());
-        assertEquals(60, player1.getHP());        
+        assertEquals(60, player1.getEP());        
     }
 
 }
+

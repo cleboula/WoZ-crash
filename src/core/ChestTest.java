@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test;
 
 class ChestTest {
 
-	private Chest chest1,chest2, chest3;
-    private Key content;
+	private Chest chest1,chest2,chest3;
+    private Key content,associatedKey;
+    private Player player1;
 
     /**
      * Sets up the test fixture.
@@ -16,12 +17,13 @@ class ChestTest {
      */
     public void setUp()
     {
-        chest1 = new Chest(content, "chest", "Contents a map");
+        chest1 = new Chest(content, "chest", "Contents a map",associatedKey);
     }
     
     @Test
     public void testCreation()
     {
+    	chest1 = new Chest(content, "chest", "Contents a map",associatedKey);
         chest1.getIsOpened();
         assertEquals(false, chest1.getIsOpened());
         chest1.getName();
@@ -33,7 +35,8 @@ class ChestTest {
     @Test
     public void testIsOpenedFalse()
     {
-        chest2 = new Chest(content, "chest2", "contents a map");
+    	
+        chest2 = new Chest(content, "chest2", "contents a map",associatedKey);
     	chest2.getIsOpened();
         assertEquals(false, chest2.getIsOpened());
     }
@@ -41,7 +44,7 @@ class ChestTest {
     @Test
     public void testIsOpenedTrue()
     {
-        chest3 = new Chest(content, "chest3", "contents a map");
+        chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
         chest3.open();
     	chest3.getIsOpened();
         assertEquals(true, chest3.getIsOpened());
@@ -50,17 +53,24 @@ class ChestTest {
     @Test
     public void testCheckChestNoKey()
     {
-        chest3 = new Chest(content, "chest3", "contents a map");
-    	chest3.checkChest();
+    	player1 = new Player("bob");
+    	associatedKey = new Key("kkey","testKey",null);
+    	content = new Key("map","testContentKey",null);
+        chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
+    	chest3.checkChest(player1);
         assertEquals(false, chest3.getIsOpened());
     }
     
     @Test
     public void testCheckChestWithKey()
     {
-        chest3 = new Chest(content, "chest3", "contents a map");
-    	chest3.checkChest();
+    	player1 = new Player("bob");
+    	associatedKey = new Key("kkey","testKey",null);
+        chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
+        player1.getInventory().add(associatedKey);
+    	chest3.checkChest(player1);
+    	//jouter un addItem pour lui fournir la clef
         assertEquals(true, chest3.getIsOpened());
-        assertEquals(true, content.searchInventory());
+        assertEquals(true, chest3.searchInventory(player1,content));
     }
 }

@@ -37,9 +37,13 @@ public class Medikit extends Item
     /**
      * Cette méthode applique ses points de vie et d'énergie aux points du joueur
      */
-    private void cure(Medikit med,Player player)
+    public void cure(Player player)
     {
-    	player.setHp(hpPlayer);
-    	player.setEp(epPlayer);
+    	int newHp;
+    	int newEp;
+    	newHp = player.getHP()+hpPlayer;
+    	newEp = player.getEP()+epPlayer;
+    	player.setHp(newHp);
+    	player.setEp(newEp);
     }
 }
