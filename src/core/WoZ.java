@@ -202,7 +202,7 @@ public class WoZ
                 }
     		}
     	}  	
-    }
+    } 
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
