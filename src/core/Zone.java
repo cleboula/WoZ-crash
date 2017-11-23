@@ -50,6 +50,7 @@ public class Zone
     public void setExits(String direction,Path path){
         hmap.put(direction,path);
     }
+    
     /**
      * This method gives the name of the current zone
      * in which the player currently stands.
