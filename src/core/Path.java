@@ -2,28 +2,36 @@ package core;
 
 
 /**
- * Cette classe représente les chemins entre les zones
+* This class represents the paths between the zones. 
+ * A path can be locked or not. 
+ * Each path gives access to a different zone of the current zone. 
+ * Locked paths need a key to open and allow the player to pass. 
  *
  * @author Groupe 1 WoZ
  * @version 09/11/2017
  */
 public class Path
 {
-    private Zone nextZone; //zone auquel le chemin mene
-    private boolean isLocked; //pour savoir si le chemin est bloqué ou pas
+    private Zone nextZone; //zone where the path goes
+    private boolean isLocked; //boolean to know if the path is blocked or not
+//    private Player player1; //this is the player who is moving through the path
+    private Key associatedPathKey; //key associated to the path
     
     /**
      * Constructeur d'objets de classe Path
      */
-    public Path(Zone zone, boolean isLocked)
+    public Path(Zone zone, boolean isPathLocked, Key assoKey)
     {
-        nextZone = zone;
-        //nextZone = null;
+    	nextZone = zone;
+        isLocked = isPathLocked;
+        associatedPathKey = assoKey;
+
     }
 
     /**
-     * Cette méthode retourne la zone à laquelle mène le chemin
-     * @return     zone au bout du chemin
+     * This method gives the name of the zone which is on the other side of the path, 
+     * depending on the current zone
+     * @return     zone where the path goes
      */
     public Zone getExit ()
     {
@@ -31,8 +39,8 @@ public class Path
     }
     
     /**
-     * Cette méthode retourne l'état du chemin
-     * @return     l'état du chemin (bloqué(true) ou non(false))
+     * This method allows to know if the path to go to the next zone is locked or not
+     * @return     boolean of the state of the path, locked (true) or not (false)
      */
     public boolean getIsLocked ()
     {
@@ -40,16 +48,21 @@ public class Path
     }
     
     /**
-     * Cette méthode vérifie si le chemin est bloqué ou non 
-     * Si c'est le cas, verification de la possession de la clé 
-     * par le joueur et déplacement dans la zone suivante
-     * Sinon, le joueur passe dans la zone suivante
+     * This method checks if the path is locked. 
+     * If yes, it checks into the inventory of the player 
+     * if he owns the right key to open it or not.
+     * @return	boolean of the new state of the path, still locked (true) or not (false)
     */
-    public Zone checkZone()
+    public boolean checkZone(Player player1)
     {
-        if(getIsLocked()==true){
+        if(getIsLocked()){
             //check if key is in inventory;
+        	if(associatedPathKey.searchInventory(player1, associatedPathKey)){
+        		isLocked = false;
+        	// the character can move
+        	}
         }
-        return(nextZone);
+        return(isLocked);
     }
 }
+
