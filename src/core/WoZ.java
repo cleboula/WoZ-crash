@@ -191,18 +191,21 @@ public class WoZ
     public void setCurrentZone(Zone currentZone) {
         this.currentZone = currentZone;
     }
-    public void move(String dir) {
+    public Zone move(String dir) {
     	if (dir!="") {
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
                                           
                 if(dir.equals(key)) {     
-                   setCurrentZone(value.getExit()) ;                 
+                	setCurrentZone(value.getExit());
+                                   
                 }
     		}
-    	}  	
+    	} 
+		return currentZone;	
     } 
+    
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */

@@ -17,7 +17,7 @@ public class Key extends Item
     /**
      * Constructor of objects of class Key
      */
-    public Key(String name, String description, Chest chest)
+    public Key(String name, String description)
     {
         super(name,description);
         //associatedChest = chest;
