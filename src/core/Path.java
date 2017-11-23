@@ -18,7 +18,7 @@ public class Path
     private Key associatedPathKey; //key associated to the path
     
     /**
-     * Constructeur d'objets de classe Path
+     * Object builder for Path class
      */
     public Path(Zone zone, boolean isPathLocked, Key assoKey)
     {
