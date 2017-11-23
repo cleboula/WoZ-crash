@@ -56,13 +56,13 @@ public class Player
 	 * @return the inventory
 	 */
 	public ArrayList<Item> getInventory() {
-		return inventory;
+		return (inventory);
 	}
 
 	/**
 	 * @param hp the health point to set
 	 */
-	public void setHp(int hp) {
+	public void setHp(int hp) {	
 		this.hp = hp;
 	}
 
