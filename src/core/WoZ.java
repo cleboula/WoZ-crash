@@ -10,7 +10,7 @@ package core;
  */
 public class WoZ
 {
-    //private Zone currentZone;
+    private Zone currentZone;
     //private ArrayList<Zone> listZone;
     
     
@@ -39,7 +39,7 @@ public class WoZ
 
     /**
      * Constructeur d'objets de classe WoZ
-     * Création player, zones, personnages
+     * Crï¿½ation player, zones, personnages
      */
      public WoZ()
     {
@@ -48,7 +48,7 @@ public class WoZ
     }
 
     // /**
-     // * Cette methode créée toutes les zones du monde
+     // * Cette methode crï¿½ï¿½e toutes les zones du monde
      // */
     // private void createZone ()
     // {
@@ -185,7 +185,11 @@ public class WoZ
     		return(false);
     	}
     }
-    
+
+    public void setCurrentZone(Zone currentZone) {
+        this.currentZone = currentZone;
+    }
+
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
