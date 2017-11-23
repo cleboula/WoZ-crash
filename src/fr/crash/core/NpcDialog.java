@@ -1,4 +1,4 @@
-package core;
+package fr.crash.core;
 
 /**
  *  Npc_Dialog is the canvas for all the Npc in the game that are not meant to fight but to Dialog
