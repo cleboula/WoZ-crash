@@ -1,8 +1,11 @@
-package core;
+package fr.crash.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import core.Key;
+import core.Player;
 
 class ItemTest {
 	

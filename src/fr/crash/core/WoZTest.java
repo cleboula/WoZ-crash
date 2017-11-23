@@ -1,9 +1,15 @@
-package core;
+package fr.crash.core;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import core.Key;
+import core.Path;
+import core.Player;
+import core.WoZ;
+import core.Zone;
 
 class WoZTest {
     
@@ -35,7 +41,7 @@ class WoZTest {
     	
     	Key key1;
     	WoZ woz1 = new WoZ ();
-    	key1=new Key("clé","bla bla");
+    	key1=new Key("clï¿½","bla bla");
         glade_forestE = new Path(forestE,false,key1);
         glade.setExits("east",glade_forestE);
         woz1.setCurrentZone(glade);
