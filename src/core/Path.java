@@ -1,6 +1,5 @@
 package core;
 
-
 /**
 * This class represents the paths between the zones. 
  * A path can be locked or not. 
