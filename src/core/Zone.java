@@ -20,7 +20,7 @@ public class Zone
      */
     public Zone(String name)
     {
-        nameZone = " ";
+        nameZone = name;
         hmap = new HashMap<String, Path>();
         
         /*hmap is the object Hashmap which is a list with 
@@ -30,10 +30,11 @@ public class Zone
     /**
      * Display all the accessible zone from the current zone
      */
-    public HashMap getExitZone()   //Create a view of the hashmap elements to return them
+    public HashMap<String, Path> getHMap()   //Create a view of the hashmap elements to return them
     {
     	return(hmap);
     }
+
    
    
 	/**
@@ -48,6 +49,6 @@ public class Zone
      */
     public String getZoneName()
     {
-       return("nameZone"); 
+       return(nameZone); 
     }
 }
