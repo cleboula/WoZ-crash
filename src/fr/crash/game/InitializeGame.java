@@ -24,7 +24,10 @@ public class InitializeGame {
 			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;
 
 public InitializeGame() {
-		   //create zones
+		   //images
+		
+	
+			//create zones
            glade = new Zone("glade");
            forestE = new Zone("forestE");
            forestS = new Zone("forestS");
@@ -45,7 +48,7 @@ public InitializeGame() {
            lairofthebeast = new Zone("lairofthebeast");
          
            //create path
-           glade_forestE = new Path(forestE,false);
+           /*glade_forestE = new Path(forestE,false);
            forestE_glade = new Path(glade,false);
            glade_forestS = new Path(forestS,false);
            forestS_glade = new Path(glade,false);
@@ -80,7 +83,7 @@ public InitializeGame() {
            marketplace_cityentrance = new Path(cityentrance, false);
            cityentrance_marketplace = new Path(marketplace, false);
            marketplace_house = new Path(house, false);
-           house_marketplace = new Path(marketplace, false);
+           house_marketplace = new Path(marketplace, false);*/
  
          
            //initialization of exits
@@ -153,8 +156,8 @@ public InitializeGame() {
            //creation of images
            //TODO
            
-           //LaunchGame launchGame = new LaunchGame();
-           HUD hud = new HUD();
+           LaunchGame launchGame = new LaunchGame();
+           //HUD hud = new HUD();
            
 
 	}

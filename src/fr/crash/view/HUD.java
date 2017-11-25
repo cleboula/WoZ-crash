@@ -28,10 +28,11 @@ public class HUD {
     private JPanel myPanelUp;//myLittlePanelUp + button for the inventory + image of the weapon
     private JPanel myPanelDown;//image + text
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myAttackButton;
+    private JButton mySearchButton, myOpenButton;
     
     private Icon crash;
     	//displays the image corresponding to the current zone
+        //public HUD(String playerName) {
         public HUD() {
         	myFrame = new JFrame("Crash");
             myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
@@ -45,10 +46,10 @@ public class HUD {
             myWestArrow = new JButton("West");//put an image here
             mySearchButton = new JButton("Search");
             myOpenButton = new JButton("Open");
-            myAttackButton = new JButton("Attack");
             
             //instantiation of labels
-            myPlayerName = new JLabel("Insert name here");
+            //myPlayerName = new JLabel(playerName);
+            myPlayerName = new JLabel("insert name here");
             myHP = new JLabel("insert HP here");
             myEP = new JLabel("insert EP here");
             myText = new JLabel("insert myText here");
@@ -69,7 +70,6 @@ public class HUD {
             myPanelRight.add(myMap);
             myPanelRight.add(mySearchButton);
             myPanelRight.add(myOpenButton);
-            myPanelRight.add(myAttackButton);
             
             myLittlePanelUp = new JPanel();
             myLittlePanelUp.setLayout(new GridLayout(3,1));
@@ -84,19 +84,19 @@ public class HUD {
             myPanelUp.add(myWeapon);
             
             myPanelDown = new JPanel();
-            myPanelUp.setLayout(new GridLayout(1,2));
-            
-            crash = new ImageIcon(getClass().getResource("/images/crash.jpg"));
+            crash = new ImageIcon(getClass().getResource("/images/crash.png"));
             JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(myFrame.getHeight(),myFrame.getWidth()));
-            
+            labelCrash.setPreferredSize(new Dimension(1000,550));
+            myPanelDown.setLayout(new GridLayout(2,1));
+            myPanelDown.add(labelCrash);
+            myPanelDown.add(myText);
+
             myPanel = new JPanel();
             
             //the all panel
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
-            myPanel.add(labelCrash, BorderLayout.WEST);
-            myPanel.add(myPanelDown, BorderLayout.SOUTH);
+            myPanel.add(myPanelDown, BorderLayout.WEST);
             myPanel.add(myPanelRight, BorderLayout.EAST);      
             
             myFrame.add(myPanel);
