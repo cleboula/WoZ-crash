@@ -25,14 +25,14 @@ public class NpcFightGuard extends NpcFight {
 	}
 	
 	//Attack pattern :
-	// If the Guard has less than 99% hp he teleport the player to jail and is dead, if not he attack
+	// If the Guard has less than hpmax he teleport the player to jail and is dead, if not he attack
 	public int attackPattern(){ 
-		if ( super.getHp() < hpmax*99/100 ){
+		if ( getHp() < hpmax ){
 		chain();
-		super.setHp(0);
+		setHp(0);
 		}
 	
-	return(super.getAtk());
+		return(getAtk());
 	}
 	
 	
