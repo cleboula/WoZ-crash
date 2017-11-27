@@ -1,10 +1,8 @@
-package core;
+package fr.crash.core;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import fr.crash.core.job;
 
 import static org.junit.jupiter.api.Assertions.*;
 

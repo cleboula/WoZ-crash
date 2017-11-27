@@ -1,8 +1,15 @@
-package core;
+package fr.crash.core;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import core.Key;
+import core.Path;
+import core.Player;
+import core.WoZ;
+import core.Zone;
 
 class WoZTest {
     
@@ -21,6 +28,27 @@ class WoZTest {
     	WoZ woz1 = new WoZ ();
     	Player player1 = new Player("toto");
     	assertEquals(true, woz1.isAlivePlayer(player1));
+    }
+    
+    @Test
+    public void moveIsPossible() 
+    {	
+    	
+    	Zone glade,forestE;
+    	Path glade_forestE;
+    	glade = new Zone("glade", null);
+        forestE = new Zone("forestE", null);
+    	
+    	Key key1;
+    	WoZ woz1 = new WoZ ();
+    	key1=new Key("cl�","bla bla");
+        glade_forestE = new Path(forestE,false,key1);
+        glade.setExits("east",glade_forestE);
+        woz1.setCurrentZone(glade);
+        woz1.move("east");
+    	
+    	assertEquals(forestE, woz1.move("east"));
+    	
     }
     
 //    @Test

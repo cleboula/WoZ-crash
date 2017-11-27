@@ -1,6 +1,4 @@
-package core;
-
-import fr.crash.core.NpcFight;
+package fr.crash.core;
 
 /**
  *  Guard Character, are defined by the use chain method that teleport the player
@@ -25,14 +23,14 @@ public class NpcFightGuard extends NpcFight {
 	}
 	
 	//Attack pattern :
-	// If the Guard has less than hpmax he teleport the player to jail and is dead, if not he attack
+	// If the Guard has less than 99% hp he teleport the player to jail and is dead, if not he attack
 	public int attackPattern(){ 
-		if ( getHp() < hpmax ){
+		if ( super.getHp() < hpmax*99/100 ){
 		chain();
-		setHp(0);
+		super.setHp(0);
 		}
 	
-		return(getAtk());
+	return(super.getAtk());
 	}
 	
 	

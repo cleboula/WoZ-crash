@@ -1,8 +1,11 @@
-package core;
+package fr.crash.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
+
+import core.Chest;
+import core.Key;
 
 class KeyTest {
 
@@ -15,13 +18,13 @@ class KeyTest {
      */
     public void setUp()
     {
-        key1 = new Key("key", "Opens a door", chest1);
+        key1 = new Key("key", "Opens a door");
     }
 
     @Test
     public void testCreationKey()
     {
-    	key1 = new Key("key", "Opens a door", null);
+    	key1 = new Key("key", "Opens a door");
         key1.getName();
     	assertEquals("key", key1.getName());
     	key1.getDescription();

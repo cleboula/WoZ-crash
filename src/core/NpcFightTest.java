@@ -8,21 +8,20 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class NpcFightTest {
 
-
-    @Test
-    void attackPattern() {
-    }
-
-    @Test
-    void getHp() {
-    }
-
-    @Test
-    void getAtk() {
-    }
-
+	private NpcFight npcFight;
+	
     @Test
     void setHp() {
+    	//npcFight = new NpcFight(10,2,"snake","A snaaaake !!!!!!");
+			
+	//		@Override
+	//		public int attackPattern() {
+	//			// TODO Auto-generated method stub
+	//			return 0;
+	//		}
+	//	};
+    	//player1.setHp(50);
+        //assertEquals(50,player1.getHP());
     }
 
     @Test
