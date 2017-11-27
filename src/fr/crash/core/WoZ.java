@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
+import fr.crash.game.InitializeGame;
 
 //import java.util.ArrayList;
 //import java.util.HashMap;
@@ -14,17 +15,18 @@ import fr.crash.core.Zone;
  * @version 09/11/2017
  */
 public class WoZ
+
 {
     private Zone currentZone;
     
     /**
      * Constructeur d'objets de classe WoZ
-     * Cr�ation player, zones, personnages
+     * Creation player, zones, personnages
      */
      public WoZ()
     {
-        
-  
+    	 InitializeGame objGame = new InitializeGame();
+    	 currentZone = objGame.crashzone;
     }
 
  
@@ -92,10 +94,20 @@ public class WoZ
     	}
     }
     
-    
+    /*
+     * This method defines a new current zone
+     */
     public void setCurrentZone(Zone glade) {
         this.currentZone = glade;
     }
+    
+    /*
+     * This method returns the current zone
+     * @return current zone, the zone where the player is
+     */
+    public Zone getCurrentZone() {
+		return currentZone;
+	}
     
     
     public Zone move(String dir) {

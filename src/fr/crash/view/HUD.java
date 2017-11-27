@@ -12,6 +12,9 @@ import javax.swing.*;
 //import java.awt.*;
 //import java.awt.event.*;
 
+import fr.crash.core.Player;
+import fr.crash.core.WoZ;
+
 /**
  * @author Group 1
  * @version 21/11/2017
@@ -26,22 +29,25 @@ public class HUD {
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
     private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
-    //private JPanel myPanelDown;//image + text
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton;
     
-    private Icon crash;// to remove
+    private Icon zone, weapon;// to remove
     
     	//displays the image corresponding to the current zone
-        //public HUD(Player player, Zone currentZone) {
-        public HUD() {
+        public HUD(Player player, WoZ woz) {
+        //public HUD() {
         	myFrame = new JFrame("Crash");
             myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
             
             //instantiation of buttons
             myInventory = new JButton("My Inventory");
+            
+            //pic1 = new ImageIcon(getClass().getResource("/Pictures/War.png"));
+            //butChar1 = new JButton (pic1);
+            
             myMap = new JButton("The Map");
             myNorthArrow = new JButton("North");//put an image here
             myEastArrow = new JButton("East");//put an image here
@@ -51,13 +57,14 @@ public class HUD {
             myOpenButton = new JButton("Open");
             
             //instantiation of labels
-            //myPlayerName = new JLabel(playerName);
             myPlayerName = new JLabel("player.getName()");
             myHP = new JLabel("My HP : " + "player.getHP()");
             myEP = new JLabel("My EP : " + "player.getEP()");
             myText = new JLabel("insert myText here");
-            myWeapon = new JLabel("insert weapon here");
-         
+
+            weapon = new ImageIcon(getClass().getResource("/images/sword.png"));
+            myWeapon = new JLabel(weapon);
+            myWeapon.setPreferredSize(new Dimension(40,40));
             
             //instantiation of panels
             myPanelArrows = new JPanel();
@@ -92,20 +99,17 @@ public class HUD {
             myPanelUp.add(myWeapon);
             myPanelUp.add(myInventory);
             
-            //myPanelDown = new JPanel();
-            crash = new ImageIcon(getClass().getResource("/images/crash.png"));
-            JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(700,500));
-            //myPanelDown.add(labelCrash);
-            //myPanelDown.add(myText);
-
-            myPanel = new JPanel();
+            
+            zone = new ImageIcon(getClass().getResource("/images/crash.png"));
+            JLabel labelZone = new JLabel(zone);
+            labelZone.setPreferredSize(new Dimension(700,450));
+     
             
             //the all panel
+            myPanel = new JPanel();
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
-            //myPanel.add(myPanelDown, BorderLayout.CENTER);
-            myPanel.add(labelCrash, BorderLayout.CENTER);
+            myPanel.add(labelZone, BorderLayout.CENTER);
             myPanel.add(myText, BorderLayout.SOUTH);
             myPanel.add(myPanelRight, BorderLayout.EAST);
             //myPanel.setOpaque(false);

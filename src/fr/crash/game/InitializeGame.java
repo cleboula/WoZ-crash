@@ -2,6 +2,9 @@ package fr.crash.game;
 
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
 import fr.crash.view.HUD;
@@ -27,6 +30,7 @@ public class InitializeGame {
 	private Zone glade, crashzone, forestS, forestW, forestN, bridge, cityentrance, marketplace, house, church,
 			jailentrance, jail, caveentrance, frozenlake, mountainbase, pick, cave, lairofthebeast;
 
+	
 	private Path glade_crashzone, crashzone_glade, glade_forestS, forestS_glade, glade_forestW, forestW_glade,
 			glade_forestN, forestN_glade, bridge_forestW, forestW_bridge, bridge_forestN, forestN_bridge,
 			bridge_cityentrance, forestN_caveentrance, caveentrance_forestN, pick_mountainbase,
@@ -35,11 +39,13 @@ public class InitializeGame {
 			lairofthebeast_cave, jailentrance_jail, jail_jailentrance, jailentrance_marketplace,
 			marketplace_jailentrance, marketplace_church, church_marketplace, marketplace_cityentrance,
 			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;
-
+	
+	public Icon crashZonePic;
+	
 public InitializeGame() {
 		   //images
-		
-	
+		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
+
 			
 			//creation of the items
 			//creation of the weapons
@@ -72,10 +78,10 @@ public InitializeGame() {
 			chestMarketplace = new Chest(sword, "chestMarketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
 			chestHouse = new Chest(keySSWheel, "chestHouse", "A big tidying chest. Something is shining inside...", keyChestHouse);
 			chestChurch = new Chest(medChurch, "chestChurch", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
-			
+
 			//create zones
+		   crashzone = new Zone("crashZone", crashZonePic);
            glade = new Zone("glade", null);
-           crashzone = new Zone("crashzone", null);
            forestS = new Zone("forestS", null);
            forestW = new Zone("forestW", null);
            forestN = new Zone("forestN", null);
@@ -226,7 +232,7 @@ public InitializeGame() {
            //creation of images
            //TODO
            
-           LaunchGame launchGame = new LaunchGame();
+           //LaunchGame launchGame = new LaunchGame();
            //HUD hud = new HUD();
            
 
