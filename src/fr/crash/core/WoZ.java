@@ -2,8 +2,8 @@ package fr.crash.core;
 
 import java.util.HashMap;
 
-import core.Path;
-import core.Zone;
+import fr.crash.core.Path;
+import fr.crash.core.Zone;
 
 //import java.util.ArrayList;
 //import java.util.HashMap;
@@ -69,8 +69,8 @@ public class WoZ
     }
     
     
-    public void setCurrentZone(Zone currentZone) {
-        this.currentZone = currentZone;
+    public void setCurrentZone(Zone glade) {
+        this.currentZone = glade;
     }
     
     
@@ -99,4 +99,7 @@ public class WoZ
 //    		return(false);
 //    	}
 //    }
+
+
+
 }
