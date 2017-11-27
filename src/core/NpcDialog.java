@@ -23,6 +23,7 @@ public class NpcDialog extends Npc {
 		jobnpc=npcjob;
 	}
 
+
 	public job getJobnpc() {
 		return jobnpc;
 		}
