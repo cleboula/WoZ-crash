@@ -5,11 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-import core.Key;
-import core.Path;
-import core.Player;
-import core.WoZ;
-import core.Zone;
 
 class WoZTest {
     
