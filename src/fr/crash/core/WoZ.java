@@ -25,8 +25,8 @@ public class WoZ
      */
      public WoZ()
     {
-    	 InitializeGame obj_game = new InitializeGame();
-    	 currentZone = setCurrentZone(crashZone);
+    	 InitializeGame objGame = new InitializeGame();
+    	 currentZone = objGame.crashZone;
     }
 
  
