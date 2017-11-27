@@ -1,7 +1,4 @@
-package core;
-
-import fr.crash.core.Npc;
-import fr.crash.core.job;
+package fr.crash.core;
 
 /**
  *  Npc_Dialog is the canvas for all the Npc in the game that are not meant to fight but to Dialog
@@ -25,7 +22,6 @@ public class NpcDialog extends Npc {
 		super(name,description);
 		jobnpc=npcjob;
 	}
-
 
 	public job getJobnpc() {
 		return jobnpc;

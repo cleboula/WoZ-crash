@@ -1,4 +1,5 @@
-package core;
+package fr.crash.core;
+
 /**
  * Npc_Fight is the canvas class for all the Npc that are meant to fight
  * They are definided by their attack score

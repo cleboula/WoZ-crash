@@ -1,4 +1,4 @@
-package core;
+package fr.crash.core;
 
 /**
  * This class represents a key to a chest or path. There are two different types of keys. 
@@ -17,7 +17,7 @@ public class Key extends Item
     /**
      * Constructor of objects of class Key
      */
-    public Key(String name, String description)
+    public Key(String name, String description, Chest chest)
     {
         super(name,description);
         //associatedChest = chest;

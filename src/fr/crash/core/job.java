@@ -1,4 +1,4 @@
-package core;
+package fr.crash.core;
 
 //Enumerated type for jobs ( NpcDialog)
  // @author G1
