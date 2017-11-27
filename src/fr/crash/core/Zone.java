@@ -20,6 +20,7 @@ public class Zone
     private HashMap<String,Path> hmap; // hashmap of the direction and the path possibles depending on the current zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
+    private Npc currentNpc; 
  
 
     /**
@@ -29,10 +30,28 @@ public class Zone
     {
         nameZone = name;
         hmap = new HashMap<String, Path>();
+        currentNpc = null;
         
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
         listItems = new ArrayList<Item>();
+        
+        if(nameZone=="forestN"||nameZone=="forestW")
+        {
+        	currentNpc = new NpcFightMonster(10,2,"Snake","small snake");
+        }
+        else if(nameZone=="caveentrance")
+        {
+        	currentNpc = new NpcFightMonster(20,5,"Snake","big snake");
+        }
+        else if(nameZone=="cave")
+        {
+        	currentNpc = new NpcFightMonster(50,10,"Wolf","black wolf");
+        }
+        else if(nameZone == "bridge")
+        {
+        	currentNpc = new NpcFightMonster(25,5,"Shark","shark");
+        }
     }
     /**
      * This method gives all of the names of the zones in which the player can go into, 

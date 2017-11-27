@@ -1,5 +1,7 @@
 package fr.crash.core;
 
+import javax.swing.Icon;
+
 /**
  * This class corresponds to weapons allowing to attack and to cause damages to an enemy
  * Those weapons use player's energy point
@@ -13,10 +15,11 @@ public class Weapon extends Item
     private int damages; //points of hp lost by the enemy
     private int energybyshot; //points of energy lost by the player
     //these parameters can't be negative
+
     /**
      * Constructor of class Weapon
      */
-    public Weapon(int degats, int energieutilisee, String name, String description)
+    public Weapon(int degats, int energieutilisee, String name, String description, Icon image)
     {
         super(name,description); 
         damages = degats;
