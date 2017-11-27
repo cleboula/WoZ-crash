@@ -2,19 +2,22 @@ package fr.crash.game;
 
 import java.util.ArrayList;
 
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
 import fr.crash.view.HUD;
 
 public class InitializeGame {
 	//construction of our world
-	private Zone currentZone;
-	private ArrayList<Zone> listZone;
+	public Zone currentZone;
+	public ArrayList<Zone> listZone;
 
-	private Zone glade, forestE, forestS, forestW, forestN, bridge, cityentrance, marketplace, house, church,
-			jailentrance, jail, caveentrance, frozenlake, mountainbase, pick, cave, lairofthebeast;
+	public Zone glade, forestE, forestS, forestW, forestN, bridge, cityentrance, marketplace, house, church,
+			jailentrance, jail, caveentrance, frozenlake, mountainbase, pick, cave, lairofthebeast, crashZone;
 
-	private Path glade_forestE, forestE_glade, glade_forestS, forestS_glade, glade_forestW, forestW_glade,
+	public Path glade_forestE, forestE_glade, glade_forestS, forestS_glade, glade_forestW, forestW_glade,
 			glade_forestN, forestN_glade, bridge_forestW, forestW_bridge, bridge_forestN, forestN_bridge,
 			bridge_cityentrance, forestN_caveentrance, caveentrance_forestN, pick_mountainbase,
 			cavenentrance_frozenlake, mountainbase_pick, mountainbase_caveentrance, caveentrance_mountainbase,
@@ -22,12 +25,15 @@ public class InitializeGame {
 			lairofthebeast_cave, jailentrance_jail, jail_jailentrance, jailentrance_marketplace,
 			marketplace_jailentrance, marketplace_church, church_marketplace, marketplace_cityentrance,
 			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;
-
+	
+	public Icon crashZonePic;
+	
 public InitializeGame() {
 		   //images
-		
-	
+		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
+		   
 			//create zones
+		   crashZone = new Zone("crashZone", crashZonePic);
            glade = new Zone("glade",null);
            forestE = new Zone("forestE",null);
            forestS = new Zone("forestS",null);
@@ -156,7 +162,7 @@ public InitializeGame() {
            //creation of images
            //TODO
            
-           LaunchGame launchGame = new LaunchGame();
+           //LaunchGame launchGame = new LaunchGame();
            //HUD hud = new HUD();
            
 

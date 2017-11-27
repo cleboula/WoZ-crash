@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import fr.crash.core.WoZ;
 import fr.crash.core.Player;
 
 public class LaunchGame implements ActionListener {
@@ -20,7 +21,6 @@ public class LaunchGame implements ActionListener {
 	
 	public LaunchGame() {
 
-		
 		myFrame = new JFrame();
 		myFrame.setTitle("World Of Zuul");// Titre
 	    myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -84,8 +84,9 @@ public class LaunchGame implements ActionListener {
 		if (e.getSource() == butStart)
 		{
 			playerName = fieldName.getText();
+			WoZ woz = new WoZ();
 			Player player = new Player(playerName);
-			new Game(player);
+			new Game(player, woz);
 			//this.dispose();
 				
 		} else if (e.getSource() == fieldName){

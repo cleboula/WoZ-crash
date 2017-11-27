@@ -4,6 +4,7 @@
 package fr.crash;
 
 import fr.crash.game.InitializeGame;
+import fr.crash.game.LaunchGame;
 import fr.crash.view.HUD;
 
 /**
@@ -17,7 +18,8 @@ public class main {
 	 */
 	public static void main(String[] args) {
 		//InitializeGame obj_game = new InitializeGame();
-		HUD hud = new HUD();
+		//HUD hud = new HUD();
+		LaunchGame launchGame = new LaunchGame();
 	}
 
 }
