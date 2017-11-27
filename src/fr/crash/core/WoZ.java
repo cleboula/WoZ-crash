@@ -36,7 +36,31 @@ public class WoZ
      * @param player : the main player
      * @param npc : the enemy involved in the fight
      */
-   //public void fight(Player player,NPC npc)
+   public void fight(Player player1,NpcFight npc1){
+	   
+	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
+		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages(player1.getCurrentWeapon()));//set the npc hp
+		   
+	   }else if(player1.getHP()!=0){
+		   //game over      
+	   }
+	}
+   
+   	public void switchWeapon(Player player1){
+   		Item item1;
+   		for(int i=0; i<player1.getListweapon().size(); i++) {
+   		    item1=player1.getListweapon().get(i);
+	   		    if ( player1.getCurrentWeapon()!=null){
+	   			player1.setCurrentWeapon(player1.getListweapon().get(i));	
+	   		    }
+   		}   		
+   	}
+ 
+
+
+
+//search, fight ,speak, switch weapon
     //{
 	   //get set
 	  // while (player.getHP()!=0 && npc.getHP()!=0) //while the player and the npc are still not dead
