@@ -32,7 +32,8 @@ public class HUD {
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton;
     
-    private Icon crash;
+    private Icon crash;// to remove
+    
     	//displays the image corresponding to the current zone
         //public HUD(Player player, Zone currentZone) {
         public HUD() {

@@ -27,7 +27,7 @@ public class Player
     {
         hp = 100; //default value for health points
         ep = 100; //default value for energy points
-        currentWeapon = new Weapon(10, 0, "Knife", "");
+        currentWeapon = new Weapon(10, 0, "Knife", "", null);
         
         inventory = new ArrayList<Item> ();
         
