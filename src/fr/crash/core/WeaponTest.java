@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import fr.crash.game.InitializeGame;
+
 public class WeaponTest {
 
   
@@ -29,7 +31,8 @@ public class WeaponTest {
     @Test
     public void shot()
     {
-    	Player player1 = new Player("toto");
+    	InitializeGame objGame = new InitializeGame();
+    	Player player1 = new Player("toto", objGame);
     							// degat / energie
         Weapon weapon2 = new Weapon(5, 2, "knife", "weapon for small targets",null);
         weapon2.shot(player1);
@@ -40,7 +43,8 @@ public class WeaponTest {
     @Test
     public void hit()
     {
-        Player player2 = new Player("toto"); //ep = 100
+    	InitializeGame objGame = new InitializeGame();
+        Player player2 = new Player("toto", objGame); //ep = 100
         Weapon weapon3 = new Weapon(20,10,"gun","can kill",null);    
         weapon3.shot(player2);
     	assertEquals(90, player2.getEP());

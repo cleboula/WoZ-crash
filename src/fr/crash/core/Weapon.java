@@ -15,6 +15,7 @@ public class Weapon extends Item
     private int damages; //points of hp lost by the enemy
     private int energybyshot; //points of energy lost by the player
     //these parameters can't be negative
+    private Icon picWeapon;
 
     /**
      * Constructor of class Weapon
@@ -24,9 +25,17 @@ public class Weapon extends Item
         super(name,description); 
         damages = degats;
         energybyshot = energieutilisee;
+        picWeapon = image;
     }
 
     /**
+	 * @return the picWeapon
+	 */
+	public Icon getPicWeapon() {
+		return picWeapon;
+	}
+
+	/**
      * this method allows to hit the enemy,
      * he loose hp an the player loose energy (energybyshot)
      */

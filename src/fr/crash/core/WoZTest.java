@@ -5,24 +5,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import fr.crash.game.InitializeGame;
+
 
 class WoZTest {
     
     @Test
     public void testPlayerIsDead() 
     {
-    	WoZ woz1 = new WoZ ();
-    	Player player1 = new Player("toto");
-    	player1.setHp(0);
-    	assertEquals(false, woz1.isAlivePlayer(player1));	
+    	WoZ woz1 = new WoZ ("toto");
+    	woz1.getPlayer().setHp(0);
+    	assertEquals(false, woz1.isAlivePlayer(woz1.getPlayer()));	
     }
     
     @Test
     public void testPlayerIsNotDead() 
     {
-    	WoZ woz1 = new WoZ ();
-    	Player player1 = new Player("toto");
-    	assertEquals(true, woz1.isAlivePlayer(player1));
+    	WoZ woz1 = new WoZ ("toto");
+    	assertEquals(true, woz1.isAlivePlayer(woz1.getPlayer()));
     }
     
     @Test
@@ -35,8 +35,8 @@ class WoZTest {
         forestE = new Zone("forestE", null);
     	
     	Key key1;
-    	WoZ woz1 = new WoZ ();
-    	key1=new Key("cl�","bla bla");
+    	WoZ woz1 = new WoZ ("toto");
+    	key1=new Key("cle","bla bla");
         glade_forestE = new Path(forestE,false,key1);
         glade.setExits("east",glade_forestE);
         woz1.setCurrentZone(glade);

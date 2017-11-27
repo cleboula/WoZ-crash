@@ -8,9 +8,10 @@ public class Game {
 	//deroulement du jeu
 	//appelle interfaces en cas de besoin
 	
-	public Game(Player player, WoZ woz) {
-		
-		HUD hud = new HUD(player, woz);
+	public Game(WoZ woz) {
+	//public Game(Player player, WoZ woz) {	
+		HUD hud = new HUD(woz);
+		//HUD hud = new HUD(player, woz);
 		
 	}
 }
