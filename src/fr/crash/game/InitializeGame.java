@@ -93,7 +93,27 @@ public InitializeGame() {
            cave = new Zone("cave", null);
            lairofthebeast = new Zone("lairofthebeast", null);
 
-         
+           //implementation of the list of zones
+           listZone.add(glade);
+           listZone.add(crashzone);
+           listZone.add(forestS);
+           listZone.add(forestW);
+           listZone.add(forestN);
+           listZone.add(bridge);
+           listZone.add(cityentrance);
+           listZone.add(marketplace);
+           listZone.add(house);
+           listZone.add(church);
+           listZone.add(jailentrance);
+           listZone.add(jail);
+           listZone.add(caveentrance);
+           listZone.add(frozenlake);
+           listZone.add(mountainbase);
+           listZone.add(pick);
+           listZone.add(cave);
+           listZone.add(lairofthebeast);
+           
+           
            //create path
            glade_crashzone = new Path(crashzone,false, null);
            crashzone_glade = new Path(glade,false, null);
