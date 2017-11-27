@@ -32,4 +32,5 @@ public abstract class Npc {
 		public String getDescription(){
 			return(description);		
 		}
+		
 }

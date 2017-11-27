@@ -25,15 +25,17 @@ public class HUD {
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
-    private JPanel myLittlePanelUp;//player name + labels of HP and EP 
-    private JPanel myPanelUp;//myLittlePanelUp + button for the inventory + image of the weapon
-    private JPanel myPanelDown;//image + text
+    private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
+    //private JPanel myPanelDown;//image + text
+    private JPanel myPanelLittleRight;//search button + open button
+    private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton;
     
-    private Icon crash;
+    private Icon crash;// to remove
+    
     	//displays the image corresponding to the current zone
-        //public HUD(String playerName, Zone currentZone) {
+        //public HUD(Player player, Zone currentZone) {
         public HUD() {
         	myFrame = new JFrame("Crash");
             myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
@@ -50,68 +52,78 @@ public class HUD {
             
             //instantiation of labels
             //myPlayerName = new JLabel(playerName);
-            myPlayerName = new JLabel("insert name here");
-            myHP = new JLabel("insert HP here");
-            myEP = new JLabel("insert EP here");
+            myPlayerName = new JLabel("player.getName()");
+            myHP = new JLabel("My HP : " + "player.getHP()");
+            myEP = new JLabel("My EP : " + "player.getEP()");
             myText = new JLabel("insert myText here");
             myWeapon = new JLabel("insert weapon here");
-
+         
+            
             //instantiation of panels
             myPanelArrows = new JPanel();
             myPanelArrows.setLayout(new GridLayout(3,3));
+            myPanelArrows.add(myEmptyLabel = new JLabel());
             myPanelArrows.add(myNorthArrow);
+            myPanelArrows.add(myEmptyLabel = new JLabel());
             myPanelArrows.add(myWestArrow);
+            myPanelArrows.add(myEmptyLabel = new JLabel());
             myPanelArrows.add(myEastArrow);
+            myPanelArrows.add(myEmptyLabel = new JLabel());
             myPanelArrows.add(mySouthArrow);
+            myPanelArrows.add(myEmptyLabel = new JLabel());
+            
+            myPanelLittleRight = new JPanel();
+            myPanelLittleRight.setLayout(new GridLayout(2,1));
+            myPanelLittleRight.add(mySearchButton);
+            myPanelLittleRight.add(myOpenButton);
             
             myPanelRight = new JPanel();
-            myPanelRight.setLayout(new GridLayout(5,1));
+            myPanelRight.setLayout(new GridLayout(3,1));
             myPanelRight.add(myMap);
             myPanelRight.add(myPanelArrows);
-            myPanelRight.add(myMap);
-            myPanelRight.add(mySearchButton);
-            myPanelRight.add(myOpenButton);
+            myPanelRight.add(myPanelLittleRight);
             
-            myLittlePanelUp = new JPanel();
-            myLittlePanelUp.setLayout(new GridLayout(3,1));
-            myLittlePanelUp.add(myPlayerName);
-            myLittlePanelUp.add(myHP);
-            myLittlePanelUp.add(myEP);
-            
+
             myPanelUp = new JPanel();
-            myPanelUp.setLayout(new GridLayout(3,1));
-            myPanelUp.add(myLittlePanelUp);
-            myPanelUp.add(myInventory);
+            myPanelUp.setLayout(new GridLayout(1,5));
+            myPanelUp.add(myPlayerName);
+            myPanelUp.add(myHP);
+            myPanelUp.add(myEP);
             myPanelUp.add(myWeapon);
+            myPanelUp.add(myInventory);
             
-            myPanelDown = new JPanel();
+            //myPanelDown = new JPanel();
             crash = new ImageIcon(getClass().getResource("/images/crash.png"));
             JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(800,550));
-            myPanelDown.setLayout(new GridLayout(2,1));
-            myPanelDown.add(labelCrash);
-            myPanelDown.add(myText);
+            labelCrash.setPreferredSize(new Dimension(700,500));
+            //myPanelDown.add(labelCrash);
+            //myPanelDown.add(myText);
 
             myPanel = new JPanel();
             
             //the all panel
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
-            myPanel.add(myPanelDown, BorderLayout.WEST);
+            //myPanel.add(myPanelDown, BorderLayout.CENTER);
+            myPanel.add(labelCrash, BorderLayout.CENTER);
+            myPanel.add(myText, BorderLayout.SOUTH);
             myPanel.add(myPanelRight, BorderLayout.EAST);
-            myPanel.setOpaque(false);
+            //myPanel.setOpaque(false);
             
-            Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
+            //myFrame.setContentPane(new JLabel(new ImageIcon("/images/fondGris.png")));
+            
+            //Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
             //c.setLayout(new BoxLayout(c, BoxLayout.X_AXIS));
-            c.add(myPanel);
-            c.setPreferredSize(new Dimension(1000,570));
-            c.setMaximumSize(new Dimension(1000,570));
-            c.setMinimumSize(new Dimension(1000,570));
-            myFrame.add(c);
+            //c.add(myPanel);
+            //c.setPreferredSize(new Dimension(1000,570));
+            //c.setMaximumSize(new Dimension(1000,570));
+            //c.setMinimumSize(new Dimension(1000,570));
+            myFrame.add(myPanel);
+            
             myFrame.setResizable(false);
-            myFrame.setPreferredSize(new Dimension(1000,570));
-            myFrame.setMaximumSize(new Dimension(1000,570));
-            myFrame.setMinimumSize(new Dimension(1000,570));
+            myFrame.setPreferredSize(new Dimension(1000,700));
+            myFrame.setMaximumSize(new Dimension(1000,700));
+            myFrame.setMinimumSize(new Dimension(1000,700));
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);

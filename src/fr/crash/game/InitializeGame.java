@@ -43,9 +43,9 @@ public InitializeGame() {
 			
 			//creation of the items
 			//creation of the weapons
-			knife = new Weapon(5, 2, "knife", "This knife can be useful to fight small targets.");
-			sword = new Weapon(15, 6, "sword", "This sword was found in the Market place. It is surely more powerful than your knife!");
-			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.");
+			knife = new Weapon(5, 2, "knife", "This knife can be useful to fight small targets.", null);
+			sword = new Weapon(15, 6, "sword", "This sword was found in the Market place. It is surely more powerful than your knife!", null);
+			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", null);
 			
 			//creation of the medikits
 			medChurch = new Medikit(60, 40, "medChurch", "This is a medikit. Use it carefully!");
@@ -92,6 +92,7 @@ public InitializeGame() {
            pick = new Zone("pick", null);
            cave = new Zone("cave", null);
            lairofthebeast = new Zone("lairofthebeast", null);
+
          
            //create path
            glade_crashzone = new Path(crashzone,false, null);
