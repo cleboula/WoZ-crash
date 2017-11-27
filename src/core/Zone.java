@@ -1,6 +1,9 @@
 package core;
 
 import java.util.HashMap;
+
+import javax.swing.Icon;
+
 import java.util.ArrayList;
  
 /**
@@ -22,7 +25,7 @@ public class Zone
     /**
      * Object builder for Zone class
      */
-    public Zone(String name)
+    public Zone(String name, Icon picZone)
     {
         nameZone = name;
         hmap = new HashMap<String, Path>();
