@@ -2,7 +2,6 @@ package fr.crash.core;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
@@ -27,7 +26,7 @@ class PathTest {
     @Test
     public void initialTest()
     {
-    	assoKey = new Key("testKey", "opening first path", null);
+    	assoKey = new Key("testKey", "opening first path");
         path1 = new Path(zone1, true, assoKey);
         player1 = new Player("bob");
 

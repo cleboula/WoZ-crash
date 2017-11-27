@@ -4,6 +4,7 @@
 package fr.crash.view;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
@@ -32,7 +33,7 @@ public class HUD {
     
     private Icon crash;
     	//displays the image corresponding to the current zone
-        //public HUD(String playerName) {
+        //public HUD(String playerName, Zone currentZone) {
         public HUD() {
         	myFrame = new JFrame("Crash");
             myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
@@ -86,7 +87,7 @@ public class HUD {
             myPanelDown = new JPanel();
             crash = new ImageIcon(getClass().getResource("/images/crash.png"));
             JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(1000,550));
+            labelCrash.setPreferredSize(new Dimension(800,550));
             myPanelDown.setLayout(new GridLayout(2,1));
             myPanelDown.add(labelCrash);
             myPanelDown.add(myText);
@@ -97,14 +98,24 @@ public class HUD {
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
             myPanel.add(myPanelDown, BorderLayout.WEST);
-            myPanel.add(myPanelRight, BorderLayout.EAST);      
+            myPanel.add(myPanelRight, BorderLayout.EAST);
+            myPanel.setOpaque(false);
             
-            myFrame.add(myPanel);
+            Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
+            //c.setLayout(new BoxLayout(c, BoxLayout.X_AXIS));
+            c.add(myPanel);
+            c.setPreferredSize(new Dimension(1000,570));
+            c.setMaximumSize(new Dimension(1000,570));
+            c.setMinimumSize(new Dimension(1000,570));
+            myFrame.add(c);
+            myFrame.setResizable(false);
+            myFrame.setPreferredSize(new Dimension(1000,570));
+            myFrame.setMaximumSize(new Dimension(1000,570));
+            myFrame.setMinimumSize(new Dimension(1000,570));
+            myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
     	
     	
-    }//
-    
-    
+    }
 }
