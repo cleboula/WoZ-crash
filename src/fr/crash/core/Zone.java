@@ -92,4 +92,12 @@ public class Zone
     {
     	listItems.add(item);
     }
+    /**
+     * This method implements the NPC present in the zone 
+     * @param npc is the NPC that can be found in the zone
+     */
+    public void setNPC(Npc npc)
+    {
+    	currentNpc = npc;
+    }
 }

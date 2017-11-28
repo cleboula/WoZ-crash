@@ -119,6 +119,35 @@ public InitializeGame() {
            listZone.add(cave);
            listZone.add(lairofthebeast);
            
+           //list of items per zone
+           forestS.setItems(keyForestS);
+           forestS.setItems(keySSGenerator);
+           
+           forestW.setItems(keyForestWForestN);
+           
+           forestN.setItems(keyForestWForestN);
+           
+           marketplace.setItems(chestMarketplace);
+           marketplace.setItems(keyChestMarketplace);
+           marketplace.setItems(keyHouse);
+           
+           house.setItems(chestHouse);
+           house.setItems(keyChestHouse);
+           
+           church.setItems(chestChurch);
+           church.setItems(keyChestChurch);
+           
+           jailentrance.setItems(gun);
+           
+           jail.setItems(keyJail);
+           
+           frozenlake.setItems(medLake);
+           
+           pick.setItems(keySSFTL);
+           
+           cave.setItems(keyPick);
+           
+           lairofthebeast.setItems(keySSEnergyCell);
            
            //create path
            glade_crashzone = new Path(crashzone,false, null);
@@ -215,15 +244,6 @@ public InitializeGame() {
            pick.setExits("south", pick_mountainbase);
                       
            //creation of NPC
-           //TODO
-           
-           //creation of chest
-           //TODO
-           
-           //creation of key
-           //TODO
-           
-           //creation of medikit
            //TODO
            
            //creation of the player
