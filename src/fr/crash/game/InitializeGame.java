@@ -103,7 +103,7 @@ public InitializeGame() {
            pick = new Zone("pick", null);
            cave = new Zone("cave", null);
            lairofthebeast = new Zone("lairofthebeast", null);
-
+/*
            //implementation of the list of zones
            listZone.add(glade);
            listZone.add(crashzone);
@@ -123,7 +123,7 @@ public InitializeGame() {
            listZone.add(pick);
            listZone.add(cave);
            listZone.add(lairofthebeast);
-           
+ */          
            //list of items per zone
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
@@ -248,22 +248,6 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
                       
-<<<<<<< HEAD
-           //creation of NPC
-           //TODO
-           
-           //creation of the player
-           //TODO
-           
-=======
-
->>>>>>> branch 'master' of https://github.com/cleboula/WoZ-crash.git
-           //creation of images
-           //TODO
-           
-           //LaunchGame launchGame = new LaunchGame();
-           //HUD hud = new HUD();
-           
 
 	}
 
