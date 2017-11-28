@@ -43,8 +43,9 @@ public class LaunchGame implements ActionListener {
 	    
 	    butStart = new JButton();
         butStart.setPreferredSize(new Dimension(100,60));
-        System.out.println(getClass().getResource("/images/espace.png"));
-        butStart.setIcon(new ImageIcon(getClass().getResource("/images/espace.png")));
+        butStart.setOpaque(false);
+        butStart.setContentAreaFilled(false);
+        butStart.setBorderPainted(false);
         
         butStart.setText("Start Game");
         butStart.setForeground(Color.white);
@@ -84,10 +85,9 @@ public class LaunchGame implements ActionListener {
 		if (e.getSource() == butStart)
 		{
 			playerName = fieldName.getText();
-			WoZ woz = new WoZ();
-			Player player = new Player(playerName);
-			new Game(player, woz);
-			//this.dispose();
+			WoZ woz = new WoZ(playerName);
+			new Game(woz);
+			myFrame.dispose();
 				
 		} else if (e.getSource() == fieldName){
 			butStart.setEnabled(true);

@@ -17,21 +17,32 @@ import fr.crash.game.InitializeGame;
 public class WoZ
 
 {
+	private Player player;
     private Zone currentZone;
     
     /**
      * Constructeur d'objets de classe WoZ
      * Creation player, zones, personnages
      */
-     public WoZ()
+     public WoZ(String playerName)
     {
     	 InitializeGame objGame = new InitializeGame();
-    	 currentZone = objGame.crashzone;
+    	 currentZone = objGame.getCrashzone();//car private
+    	 player = new Player(playerName,objGame);
     }
-
- 
- 
+     
     /**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+
+
+
+
+	/**
      * This method simulates a fight between our main player and an enemy
      * If the npc is dead, the fight is over and the player wins
      * If the player dies, the game is over

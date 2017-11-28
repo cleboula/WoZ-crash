@@ -1,6 +1,8 @@
 package fr.crash.core;
 
 import java.util.ArrayList;
+
+import fr.crash.game.InitializeGame;
 /**
  * This class represents our principal player
  *
@@ -19,17 +21,11 @@ public class Player
     private Player player1;
     private WoZ woz;
     private Weapon currentWeapon;
-	
-
-    //private NPC npc;
-
-
-
 
 	/**
      * Constructor of player class
      */
-    public Player(String name)
+    public Player(String name, InitializeGame objGame)
     {
         hp = 100; //default value for health points
         ep = 100; //default value for energy points
@@ -41,6 +37,8 @@ public class Player
         if (verifName(name) == true){ //if the name is correct, the player name is accepted
             namePlayer = name;
         }
+        
+        currentWeapon = objGame.getKnife();
     }
 
     /**
