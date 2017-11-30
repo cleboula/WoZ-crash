@@ -1,13 +1,17 @@
 package fr.crash.core;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.HashMap;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
 import fr.crash.game.InitializeGame;
 
 //import java.util.ArrayList;
-//import java.util.HashMap;
 /**
  * This class represents our world
  *
@@ -19,6 +23,7 @@ public class WoZ
 {
 	private Player player;
     private Zone currentZone;
+
     
     /**
      * Constructeur d'objets de classe WoZ
@@ -27,7 +32,7 @@ public class WoZ
      public WoZ(String playerName)
     {
     	 InitializeGame objGame = new InitializeGame();
-    	 currentZone = objGame.getCrashzone();//car private
+    	 currentZone = objGame.getCurrentZone();//car private
     	 player = new Player(playerName,objGame);
     }
      
@@ -129,12 +134,13 @@ public class WoZ
                                           
                 if(dir.equals(key)) {     
                 	setCurrentZone(value.getExit());
-                                   
+                	System.out.println(currentZone.getZoneName()); 
                 }
     		}
     	} 
 		return currentZone;	
     }  
+    
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */

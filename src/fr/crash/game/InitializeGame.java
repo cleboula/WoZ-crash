@@ -40,14 +40,33 @@ public class InitializeGame {
 			marketplace_jailentrance, marketplace_church, church_marketplace, marketplace_cityentrance,
 			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;
 	
-	private Icon crashZonePic;
+	private Icon crashZonePic, gladePic, forestWPic, forestSPic, forestNPic, bridgePic, cityentrancePic, 
+	marketplacePic, housePic, churchPic,jailentrancePic, jailPic, caveentrancePic, frozenlakePic, 
+	mountainbasePic, pickPic, cavePic, lairofthebeastPic;
 	
 	private Icon swordPic, knifePic, gunPic;
 	
 public InitializeGame() {
 		   //images
 		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
-
+		   gladePic = new ImageIcon(getClass().getResource("/images/glade.jpg"));
+		   forestWPic = new ImageIcon(getClass().getResource("/images/forestW.jpg"));
+		   forestSPic = new ImageIcon(getClass().getResource("/images/forestS.jpg"));
+		   forestNPic = new ImageIcon(getClass().getResource("/images/forestN.jpg"));
+		   housePic = new ImageIcon(getClass().getResource("/images/house.jpg"));
+		   lairofthebeastPic = new ImageIcon(getClass().getResource("/images/lairodthebeastPic.jpg"));
+		   cavePic = new ImageIcon(getClass().getResource("/images/cave.jpg"));
+		   frozenlakePic = new ImageIcon(getClass().getResource("/images/frozenlake.gif"));
+		   pickPic = new ImageIcon(getClass().getResource("/images/peak.jpg"));
+		   mountainbasePic = new ImageIcon(getClass().getResource("/images/mountainbase.jpg"));
+		   bridgePic = new ImageIcon(getClass().getResource("/images/bridge.jpg"));
+		   jailPic = new ImageIcon(getClass().getResource("/images/jail.jpg"));
+		   jailentrancePic = new ImageIcon(getClass().getResource("/images/jailentrance.jpg"));
+		   churchPic = new ImageIcon(getClass().getResource("/images/church.jpg"));
+		   cityentrancePic = new ImageIcon(getClass().getResource("/images/cityentrance.jpg"));
+		   marketplacePic = new ImageIcon(getClass().getResource("/images/marketplace.jpg"));
+		   caveentrancePic = new ImageIcon(getClass().getResource("/images/caveentrance.png"));
+		   
 		   
 		   swordPic = new ImageIcon(getClass().getResource("/images/sword.png"));
 		   knifePic = new ImageIcon(getClass().getResource("/images/knife.png"));
@@ -83,28 +102,30 @@ public InitializeGame() {
 			chestMarketplace = new Chest(sword, "chestMarketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
 			chestHouse = new Chest(keySSWheel, "chestHouse", "A big tidying chest. Something is shining inside...", keyChestHouse);
 			chestChurch = new Chest(medChurch, "chestChurch", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
-
+ 
 			//create zones
 		   crashzone = new Zone("crashZone", crashZonePic);
-           glade = new Zone("glade", null);
-           forestS = new Zone("forestS", null);
-           forestW = new Zone("forestW", null);
-           forestN = new Zone("forestN", null);
-           bridge = new Zone("bridge", null);
-           cityentrance = new Zone("cityentrance", null);
-           marketplace = new Zone("marketplace", null);
-           house= new Zone("house", null);
-           church = new Zone("church", null);
-           jailentrance = new Zone("jailentrance", null);
-           jail = new Zone("jail", null);
-           caveentrance = new Zone("caveentrance", null);
-           frozenlake = new Zone("frozenlake", null);
-           mountainbase= new Zone("mountainbase", null);
-           pick = new Zone("pick", null);
-           cave = new Zone("cave", null);
-           lairofthebeast = new Zone("lairofthebeast", null);
-/*
-           //implementation of the list of zones
+           glade = new Zone("glade", gladePic);
+           forestS = new Zone("forestS", forestSPic);
+           forestW = new Zone("forestW", forestWPic);
+           forestN = new Zone("forestN", forestNPic);
+           bridge = new Zone("bridge", bridgePic);
+           cityentrance = new Zone("cityentrance", cityentrancePic);
+           marketplace = new Zone("marketplace", marketplacePic);
+           house= new Zone("house", housePic);
+           church = new Zone("church", churchPic);
+           jailentrance = new Zone("jailentrance", jailentrancePic);
+           jail = new Zone("jail", jailPic);
+           caveentrance = new Zone("caveentrance", caveentrancePic);
+           frozenlake = new Zone("frozenlake", frozenlakePic);
+           mountainbase= new Zone("mountainbase", mountainbasePic);
+           pick = new Zone("pick", pickPic);
+           cave = new Zone("cave", cavePic);
+           lairofthebeast = new Zone("lairofthebeast", lairofthebeastPic);
+           currentZone = crashzone;
+ 
+       
+/*           //implementation of the list of zones
            listZone.add(glade);
            listZone.add(crashzone);
            listZone.add(forestS);
@@ -247,7 +268,7 @@ public InitializeGame() {
            jail.setExits("south",jail_jailentrance);
            
            pick.setExits("south", pick_mountainbase);
-                      
+              
 
 	}
 
