@@ -56,6 +56,13 @@ public class Chest extends Item
     	}
     }
     /**
+	 * @return the content
+	 */
+	public Item getContent() {
+		return content;
+	}
+
+	/**
      * This method allows to open a chest, by setting
      * a boolean isOpened from false to true.
      */

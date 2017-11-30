@@ -108,4 +108,12 @@ public class Zone
 	public Icon getPicZone() {
 		return picZone;
 	}
+	/**
+	 * @return the listItems
+	 */
+	public ArrayList<Item> getListItems() {
+		return listItems;
+	}
+	
+	
 }
