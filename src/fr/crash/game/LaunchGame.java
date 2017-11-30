@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import fr.crash.core.WoZ;
 import fr.crash.core.Player;
 
 public class LaunchGame implements ActionListener {
@@ -20,7 +21,6 @@ public class LaunchGame implements ActionListener {
 	
 	public LaunchGame() {
 
-		
 		myFrame = new JFrame();
 		myFrame.setTitle("World Of Zuul");// Titre
 	    myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -43,8 +43,9 @@ public class LaunchGame implements ActionListener {
 	    
 	    butStart = new JButton();
         butStart.setPreferredSize(new Dimension(100,60));
-        System.out.println(getClass().getResource("/images/espace.png"));
-        butStart.setIcon(new ImageIcon(getClass().getResource("/images/espace.png")));
+        butStart.setOpaque(false);
+        butStart.setContentAreaFilled(false);
+        butStart.setBorderPainted(false);
         
         butStart.setText("Start Game");
         butStart.setForeground(Color.white);
@@ -84,9 +85,9 @@ public class LaunchGame implements ActionListener {
 		if (e.getSource() == butStart)
 		{
 			playerName = fieldName.getText();
-			Player player = new Player(playerName);
-			new Game(player);
-			//this.dispose();
+			WoZ woz = new WoZ(playerName);
+			new Game(woz);
+			myFrame.dispose();
 				
 		} else if (e.getSource() == fieldName){
 			butStart.setEnabled(true);

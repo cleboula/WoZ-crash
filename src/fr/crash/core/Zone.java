@@ -21,13 +21,15 @@ public class Zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
     private Npc currentNpc; 
+    private Icon picZone;
  
 
     /**
      * Object builder for Zone class
      */
-    public Zone(String name, Icon picZone)
+    public Zone(String name, Icon pic)
     {
+    		picZone = pic;
         nameZone = name;
         hmap = new HashMap<String, Path>();
         currentNpc = null;
@@ -92,4 +94,18 @@ public class Zone
     {
     	listItems.add(item);
     }
+    /**
+     * This method implements the NPC present in the zone 
+     * @param npc is the NPC that can be found in the zone
+     */
+    public void setNPC(Npc npc)
+    {
+    	currentNpc = npc;
+    }
+    /**
+	 * @return the picZone
+	 */
+	public Icon getPicZone() {
+		return picZone;
+	}
 }

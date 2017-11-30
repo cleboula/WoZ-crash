@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
+import fr.crash.game.InitializeGame;
+
 class PathTest {
 
 	private Path path1;
@@ -28,7 +30,8 @@ class PathTest {
     {
     	assoKey = new Key("testKey", "opening first path");
         path1 = new Path(zone1, true, assoKey);
-        player1 = new Player("bob");
+        InitializeGame objGame = new InitializeGame();
+    	player1 = new Player("toto", objGame);
 
         path1.getIsLocked();
         assertEquals(true, path1.getIsLocked());

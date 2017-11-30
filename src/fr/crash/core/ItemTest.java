@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import fr.crash.game.InitializeGame;
+
 
 class ItemTest {
 	
@@ -13,7 +15,8 @@ class ItemTest {
 	@Test 
     public void testAddItem()
     {
-		player1 = new Player("toto");
+		InitializeGame objGame = new InitializeGame();
+    	player1 = new Player("toto", objGame);
 		key1 = new Key("kkey","testKey");
     	key1.addItem(key1);
     	assertEquals(true, key1.searchInventory(player1, key1));
@@ -22,7 +25,8 @@ class ItemTest {
 	@Test 
     public void testSearchInventory()
     {
-		player1 = new Player("toto");
+		InitializeGame objGame = new InitializeGame();
+    	player1 = new Player("toto", objGame);
 		key1 = new Key("kkey","testKey");
     	player1.getInventory().add(key1);
     	assertEquals(true, key1.searchInventory(player1, key1));

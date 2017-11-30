@@ -13,7 +13,7 @@ package fr.crash.core;
 public class Chest extends Item
 {
     private boolean isOpened;
-    private Key content;
+    private Item content;
     //private Player player1;
     private Key associatedKey;
 
@@ -21,7 +21,7 @@ public class Chest extends Item
      * Constructor of objects of class Chest. At its creation the safe has a name, 
      * a description, a key to open it and a content. It is automatically closed.
      */
-    public Chest(Key cont, String name, String description, Key assoKey)
+    public Chest(Item cont, String name, String description, Key assoKey)
     {
         super(name,description); 
         isOpened = false;

@@ -3,8 +3,7 @@
  */
 package fr.crash;
 
-import fr.crash.game.InitializeGame;
-import fr.crash.view.HUD;
+import fr.crash.game.LaunchGame;
 
 
 /**
@@ -17,9 +16,7 @@ public class main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		InitializeGame obj_game = new InitializeGame();
-		//HUD hud = new HUD();
-
+		LaunchGame launchGame = new LaunchGame();
 	}
 
 }

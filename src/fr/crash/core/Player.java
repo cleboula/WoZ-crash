@@ -1,6 +1,8 @@
 package fr.crash.core;
 
 import java.util.ArrayList;
+
+import fr.crash.game.InitializeGame;
 /**
  * This class represents our principal player
  *
@@ -14,27 +16,29 @@ public class Player
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
     private ArrayList<Item> listM; // list of medikit in the inventory
+    private ArrayList<Weapon>listweapon;
 
     private Player player1;
     private WoZ woz;
     private Weapon currentWeapon;
-    //private NPC npc;
 
-    /**
+	/**
      * Constructor of player class
      */
-    public Player(String name)
+    public Player(String name, InitializeGame objGame)
     {
         hp = 100; //default value for health points
         ep = 100; //default value for energy points
-        currentWeapon = new Weapon(10, 0, "Knife", "", null);
         
         inventory = new ArrayList<Item> ();
+        listweapon = new ArrayList<Weapon>();
         
         name = name.trim(); //trim() removes any leading and trailing whitespace
         if (verifName(name) == true){ //if the name is correct, the player name is accepted
             namePlayer = name;
         }
+        
+        currentWeapon = objGame.getKnife();
     }
 
     /**
@@ -52,8 +56,24 @@ public class Player
         }
         return correctName;
     }
+    
+    public Weapon getCurrentWeapon() {
+		return currentWeapon;
+	}
 
-    /**
+	public void setCurrentWeapon(Weapon currentWeapon) {
+		this.currentWeapon = currentWeapon;
+	}
+
+	public ArrayList<Weapon> getListweapon() {
+		return listweapon;
+	}
+
+	public void setListweapon(ArrayList<Weapon> listweapon) {
+		this.listweapon = listweapon;
+	}
+
+	/**
 	 * @return the inventory
 	 */
 	public ArrayList<Item> getInventory() {
@@ -120,11 +140,5 @@ public class Player
             return(listM);
         }
 
-	/**
-	 * change the current weapon
-	 */
-    public void setWeapon (Weapon weap)
-    {
-    	currentWeapon = weap;
-    }
+	
 }

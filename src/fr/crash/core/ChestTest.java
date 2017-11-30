@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import fr.crash.game.InitializeGame;
+
 
 class ChestTest {
 
@@ -54,7 +56,8 @@ class ChestTest {
     @Test
     public void testCheckChestNoKey()
     {
-    	player1 = new Player("bob");
+    	InitializeGame objGame = new InitializeGame();
+    	player1 = new Player("bob", objGame);
     	associatedKey = new Key("kkey","testKey");
     	content = new Key("map","testContentKey");
         chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
@@ -65,7 +68,8 @@ class ChestTest {
     @Test
     public void testCheckChestWithKey()
     {
-    	player1 = new Player("bob");
+    	InitializeGame objGame = new InitializeGame();
+    	player1 = new Player("bob", objGame);
     	associatedKey = new Key("kkey","testKey");
         chest3 = new Chest(content, "chest3", "contents a map",associatedKey);
         player1.getInventory().add(associatedKey);

@@ -4,13 +4,15 @@
 package fr.crash.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 
 import javax.swing.*;
 //import java.awt.*;
 //import java.awt.event.*;
+import fr.crash.core.WoZ;
 
 /**
  * @author Group 1
@@ -21,43 +23,70 @@ import javax.swing.*;
 public class HUD {
 	
 	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myWeapon, myText;
+    private JLabel myPlayerName, myHP, myEP, myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
     private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
-    //private JPanel myPanelDown;//image + text
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton;
-    
-    private Icon crash;// to remove
+   
     
     	//displays the image corresponding to the current zone
-        //public HUD(Player player, Zone currentZone) {
-        public HUD() {
+        public HUD(WoZ woz) {
+        //public HUD(Player player, WoZ woz) {
+        //public HUD() {
         	myFrame = new JFrame("Crash");
             myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
             
             //instantiation of buttons
             myInventory = new JButton("My Inventory");
+            myInventory.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myInventory.setForeground(Color.black);
+            
             myMap = new JButton("The Map");
-            myNorthArrow = new JButton("North");//put an image here
-            myEastArrow = new JButton("East");//put an image here
-            mySouthArrow = new JButton("South");//put an image here
-            myWestArrow = new JButton("West");//put an image here
+            myMap.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myMap.setForeground(Color.black);
+            
+            myNorthArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheN.png")));
+            myEastArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheE.png")));//put an image here
+            mySouthArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheS.png")));//put an image here
+            myWestArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheW.png")));//put an image here
+            
             mySearchButton = new JButton("Search");
+            mySearchButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            mySearchButton.setForeground(Color.black);
+            
             myOpenButton = new JButton("Open");
+            myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myOpenButton.setForeground(Color.black);
+            
             
             //instantiation of labels
-            //myPlayerName = new JLabel(playerName);
-            myPlayerName = new JLabel("player.getName()");
-            myHP = new JLabel("My HP : " + "player.getHP()");
-            myEP = new JLabel("My EP : " + "player.getEP()");
+            myPlayerName = new JLabel(woz.getPlayer().getPlayerName());
+            myPlayerName.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myPlayerName.setForeground(Color.black);
+            
+            myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
+            myHP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myHP.setForeground(Color.black);
+            
+            myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
+            myEP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myEP.setForeground(Color.black);
+            
             myText = new JLabel("insert myText here");
-            myWeapon = new JLabel("insert weapon here");
-         
+            myText.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,15));
+            myText.setForeground(Color.black);
+
+            //image of the current weapon
+            JLabel myWeapon = new JLabel(woz.getPlayer().getCurrentWeapon().getPicWeapon());
+            myWeapon.setPreferredSize(new Dimension(40,40));
+          //image of the current zone
+            JLabel labelZone = new JLabel(woz.getCurrentZone().getPicZone());
+            labelZone.setPreferredSize(new Dimension(700,450));
             
             //instantiation of panels
             myPanelArrows = new JPanel();
@@ -92,32 +121,15 @@ public class HUD {
             myPanelUp.add(myWeapon);
             myPanelUp.add(myInventory);
             
-            //myPanelDown = new JPanel();
-            crash = new ImageIcon(getClass().getResource("/images/crash.png"));
-            JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(700,500));
-            //myPanelDown.add(labelCrash);
-            //myPanelDown.add(myText);
 
-            myPanel = new JPanel();
-            
             //the all panel
+            myPanel = new JPanel();
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
-            //myPanel.add(myPanelDown, BorderLayout.CENTER);
-            myPanel.add(labelCrash, BorderLayout.CENTER);
+            myPanel.add(labelZone, BorderLayout.CENTER);
             myPanel.add(myText, BorderLayout.SOUTH);
             myPanel.add(myPanelRight, BorderLayout.EAST);
-            //myPanel.setOpaque(false);
             
-            //myFrame.setContentPane(new JLabel(new ImageIcon("/images/fondGris.png")));
-            
-            //Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
-            //c.setLayout(new BoxLayout(c, BoxLayout.X_AXIS));
-            //c.add(myPanel);
-            //c.setPreferredSize(new Dimension(1000,570));
-            //c.setMaximumSize(new Dimension(1000,570));
-            //c.setMinimumSize(new Dimension(1000,570));
             myFrame.add(myPanel);
             
             myFrame.setResizable(false);
@@ -127,8 +139,7 @@ public class HUD {
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
-    	
-    	
+	
     }
         
 }
