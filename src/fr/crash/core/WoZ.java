@@ -1,13 +1,17 @@
 package fr.crash.core;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.HashMap;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
 import fr.crash.game.InitializeGame;
 
 //import java.util.ArrayList;
-//import java.util.HashMap;
 /**
  * This class represents our world
  *
@@ -19,6 +23,7 @@ public class WoZ
 {
 	private Player player;
     private Zone currentZone;
+
     
     /**
      * Constructeur d'objets de classe WoZ
@@ -27,7 +32,7 @@ public class WoZ
      public WoZ(String playerName)
     {
     	 InitializeGame objGame = new InitializeGame();
-    	 currentZone = objGame.getCrashzone();//car private
+    	 currentZone = objGame.getCurrentZone();//car private
     	 player = new Player(playerName,objGame);
     }
      
@@ -121,20 +126,27 @@ public class WoZ
 	}
     
     
-    public Zone move(String dir) {
+    public String move(String dir) {
+    	String message = "";
     	if (dir!="") {
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
                                           
-                if(dir.equals(key)) {     
-                	setCurrentZone(value.getExit());
-                                   
+                if(dir.equals(key)) {  
+                	if (value.checkZone(player) == false) {
+                		setCurrentZone(value.getExit());
+                		message = "You are in " + currentZone.getZoneName(); 
+                	} else {
+                		
+                		message = "You cannot go this way ! ";
+                	}
                 }
     		}
     	} 
-		return currentZone;	
+		return message;	
     }  
+    
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
