@@ -126,19 +126,25 @@ public class WoZ
 	}
     
     
-    public Zone move(String dir) {
+    public String move(String dir) {
+    	String message = "";
     	if (dir!="") {
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
                                           
-                if(dir.equals(key)) {     
-                	setCurrentZone(value.getExit());
-                	System.out.println(currentZone.getZoneName()); 
+                if(dir.equals(key)) {  
+                	if (value.checkZone(player) == false) {
+                		setCurrentZone(value.getExit());
+                		message = "You are in " + currentZone.getZoneName(); 
+                	} else {
+                		
+                		message = "You cannot go this way ! ";
+                	}
                 }
     		}
     	} 
-		return currentZone;	
+		return message;	
     }  
     
     /*This method checks if the npc does not have life anymore.

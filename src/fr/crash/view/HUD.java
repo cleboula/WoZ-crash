@@ -211,29 +211,29 @@ public class HUD implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (e.getSource() == myNorthArrow)
     		{
-    			woz.move("north");
-            	myText = new JLabel (woz.getCurrentZone().getZoneName());	
-    		    myFrame.setContentPane(newPanel());
-    		    myFrame.repaint();
-    		    myFrame.revalidate();
+    				
+    				myText = new JLabel (woz.move("north"));	
+    				myFrame.setContentPane(newPanel());
+    				myFrame.repaint();
+    				myFrame.revalidate();
 	
     		} else if (e.getSource() == myEastArrow){
-    			woz.move("east");
-            	myText = new JLabel (woz.getCurrentZone().getZoneName());
+    			
+            	myText = new JLabel (woz.move("east"));
     		    myFrame.setContentPane(newPanel());
     		    myFrame.repaint();
     		    myFrame.revalidate();
     		
 		} else if (e.getSource() == mySouthArrow){
-			woz.move("south");
-			myText = new JLabel (woz.getCurrentZone().getZoneName());
+			
+			myText = new JLabel (woz.move("south"));
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
  	    	
 		} else if (e.getSource() == myWestArrow){
-		    woz.move("west");
-		    myText = new JLabel (woz.getCurrentZone().getZoneName());
+		    
+		    myText = new JLabel (woz.move("west"));
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
