@@ -146,6 +146,9 @@ public InitializeGame() {
            listZone.add(lairofthebeast);
  */          
            //list of items per zone
+          // crashzone.setItems(keyChestMarketplace); // test pour le bouton open
+          // crashzone.setItems(chestMarketplace); // test pour le bouton open
+           
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
            

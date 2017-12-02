@@ -51,8 +51,31 @@ public class HUD implements ActionListener {
             myInventory = new JButton("My Inventory");
             myInventory.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myInventory.setForeground(Color.black);
-            myInventory.addActionListener(this);
-
+            myInventory.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		 if (e.getSource()==myInventory) {
+            				String content = "";
+            				frameInventory = new JFrame("Inventory");
+            	         	//frameInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            	         	if (woz.getPlayer().getInventory().isEmpty()) {
+            	         		textInventory = new JLabel ("Inventory is empty");
+            	         	} else {
+            	         		for (Item item : woz.getPlayer().getInventory()) {
+            	         			content = content + item.getName();
+            	         		}
+            	         		textInventory = new JLabel (content);
+            	         	}
+            	         	frameInventory.add(textInventory);
+            	         	frameInventory.setResizable(false);
+            	         	frameInventory.setPreferredSize(new Dimension(500,200));
+            	         	frameInventory.setMaximumSize(new Dimension(500,200));
+            	         	frameInventory.setMinimumSize(new Dimension(500,200));
+            	         	frameInventory.setLocationRelativeTo(null);
+            	         	frameInventory.pack();
+            	         	frameInventory.setVisible(true);
+            		 }
+            	}
+            });
             /*myInventory.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
                     Example
@@ -109,6 +132,8 @@ public class HUD implements ActionListener {
             myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myOpenButton.setForeground(Color.black);
             myOpenButton.setEnabled(false);//open button is not available
+            myOpenButton.addActionListener(this);
+
             myOpenButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
@@ -260,27 +285,17 @@ public class HUD implements ActionListener {
 			woz.getCurrentZone().setListItemsEmpty();
 			myTakeButton.setEnabled(false);
 			
-		} else if (e.getSource()==myInventory) {
-			String content = "";
-			frameInventory = new JFrame("Inventory");
-         	//frameInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         	//textInventory = new JLabel();
-         	if (woz.getPlayer().getInventory().isEmpty()) {
-         		textInventory = new JLabel ("Inventory is empty");
-         	} else {
-         		for (Item item : woz.getPlayer().getInventory()) {
-         			content = content + item.getName();
-         		}
-         		textInventory = new JLabel (content);
-         	}
-         	frameInventory.add(textInventory);
-         	frameInventory.setResizable(false);
-         	frameInventory.setPreferredSize(new Dimension(500,200));
-         	frameInventory.setMaximumSize(new Dimension(500,200));
-         	frameInventory.setMinimumSize(new Dimension(500,200));
-         	frameInventory.setLocationRelativeTo(null);
-         	frameInventory.pack();
-         	frameInventory.setVisible(true);
+		} else if (e.getSource()==myOpenButton) {
+			for (Item i : woz.getPlayer().getInventory()) {//check if there is a chest in the inventory
+    			if (i instanceof Chest) {//if an item is a chest
+    				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
+    				if (((Chest) i).getIsOpened() == true) {
+    					myText = new JLabel("You have a new item! " + ((Chest)i).getContent().getDescription()); 
+    					woz.getPlayer().getInventory().add(((Chest) i).getContent());
+    					woz.getPlayer().getInventory().remove((Chest) i);
+    				}
+    			}
+			}
 		}
 
 }	        
