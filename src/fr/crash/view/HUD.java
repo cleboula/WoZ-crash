@@ -35,7 +35,7 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myTakeButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
     private WoZ woz;
     
    
@@ -146,6 +146,24 @@ public class HUD implements ActionListener {
 					}
             	}
             });
+            //the Attack button
+            myAttackButton = new JButton("Attack");
+            myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myAttackButton.setForeground(Color.black);
+            myAttackButton.setEnabled(false);//attack button is not available
+            if(woz.isCurrentfight()==true) {
+                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+            }
+            myAttackButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		if(woz.getCurrentZone().getCurrentNpc()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpc());
+	            		if (woz.getCurrentZone().getCurrentNpc().getHp()!=0) {
+		            		myText = new JLabel("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpc());
+		            	}
+            		}
+            	}
+            });
             
             //instantiation of labels
             myPlayerName = new JLabel(woz.getPlayer().getPlayerName());
@@ -185,10 +203,11 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(3,1));
+            myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
             myPanelLittleRight.add(myOpenButton);
+            myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
             myPanelRight.setLayout(new GridLayout(3,1));

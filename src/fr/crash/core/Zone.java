@@ -21,6 +21,7 @@ public class Zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
     private Npc currentNpc; 
+    private NpcFight currentNpc; 
     private Icon picZone;
  
 
@@ -94,6 +95,12 @@ public class Zone
     {
     	listItems.add(item);
     }
+    /**
+     * This method returns the NPC present in the zone 
+     */
+    public NpcFight getCurrentNpc() {
+		return currentNpc;
+	}
     /**
      * This method implements the NPC present in the zone 
      * @param npc is the NPC that can be found in the zone

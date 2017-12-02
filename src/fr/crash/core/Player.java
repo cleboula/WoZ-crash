@@ -22,6 +22,7 @@ public class Player
     private WoZ woz;
     private Weapon currentWeapon;
 
+
 	/**
      * Constructor of player class
      */
@@ -29,6 +30,7 @@ public class Player
     {
         hp = 100; //default value for health points
         ep = 100; //default value for energy points
+        currentWeapon = new Weapon(10, 0, "Knife", "", null);
         
         inventory = new ArrayList<Item> ();
         listweapon = new ArrayList<Weapon>();
@@ -140,5 +142,11 @@ public class Player
             return(listM);
         }
 
-	
+	/**
+	 * change the current weapon
+	 */
+    public void setWeapon (Weapon weap)
+    {
+    	currentWeapon = weap;
+    }
 }
