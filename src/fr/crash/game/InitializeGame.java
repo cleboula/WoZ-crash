@@ -28,24 +28,24 @@ public InitializeGame() {
 		
 	
 			//create zones
-           glade = new Zone("glade");
-           forestE = new Zone("forestE");
-           forestS = new Zone("forestS");
-           forestW = new Zone("forestW");
-           forestN = new Zone("forestN");
-           bridge = new Zone("bridge");
-           cityentrance = new Zone("cityentrance");
-           marketplace = new Zone("marketplace");
-           house= new Zone("house");
-           church = new Zone("church");
-           jailentrance = new Zone("jailentrance");
-           jail = new Zone("jail");
-           caveentrance = new Zone("caveentrance");
-           frozenlake = new Zone("frozenlake");
-           mountainbase= new Zone("mountainbase");
-           pick = new Zone("pick");
-           cave = new Zone("cave");
-           lairofthebeast = new Zone("lairofthebeast");
+           glade = new Zone("glade",null);
+           forestE = new Zone("forestE",null);
+           forestS = new Zone("forestS",null);
+           forestW = new Zone("forestW",null);
+           forestN = new Zone("forestN",null);
+           bridge = new Zone("bridge",null);
+           cityentrance = new Zone("cityentrance",null);
+           marketplace = new Zone("marketplace",null);
+           house= new Zone("house",null);
+           church = new Zone("church",null);
+           jailentrance = new Zone("jailentrance",null);
+           jail = new Zone("jail",null);
+           caveentrance = new Zone("caveentrance",null);
+           frozenlake = new Zone("frozenlake",null);
+           mountainbase= new Zone("mountainbase",null);
+           pick = new Zone("pick",null);
+           cave = new Zone("cave",null);
+           lairofthebeast = new Zone("lairofthebeast",null);
          
            //create path
            /*glade_forestE = new Path(forestE,false);

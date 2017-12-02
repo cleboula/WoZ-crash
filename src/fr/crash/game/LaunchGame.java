@@ -6,6 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
+import fr.crash.core.Player;
+
 public class LaunchGame implements ActionListener {
 	//when we want to play first frame where we enter the name
 	//Game
@@ -82,7 +84,8 @@ public class LaunchGame implements ActionListener {
 		if (e.getSource() == butStart)
 		{
 			playerName = fieldName.getText();
-			new Game(playerName);
+			Player player = new Player(playerName);
+			new Game(player);
 			//this.dispose();
 				
 		} else if (e.getSource() == fieldName){

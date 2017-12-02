@@ -19,7 +19,7 @@ public class WeaponTest {
     @Test
     public void creation()
     {
-        Weapon weapon2 = new Weapon(5, 2, "knife", "weapon for small targets");
+        Weapon weapon2 = new Weapon(5, 2, "knife", "weapon for small targets",null);
         assertEquals("weapon for small targets", weapon2.getDescription());
         assertEquals("knife", weapon2.getName());
         assertEquals(5, weapon2.getDamages(weapon2));
@@ -31,7 +31,7 @@ public class WeaponTest {
     {
     	Player player1 = new Player("toto");
     							// degat / energie
-        Weapon weapon2 = new Weapon(5, 2, "knife", "weapon for small targets");
+        Weapon weapon2 = new Weapon(5, 2, "knife", "weapon for small targets",null);
         weapon2.shot(player1);
         assertEquals(98, player1.getEP());
     }
@@ -41,7 +41,7 @@ public class WeaponTest {
     public void hit()
     {
         Player player2 = new Player("toto"); //ep = 100
-        Weapon weapon3 = new Weapon(20,10,"gun","can kill");    
+        Weapon weapon3 = new Weapon(20,10,"gun","can kill",null);    
         weapon3.shot(player2);
     	assertEquals(90, player2.getEP());
     }
