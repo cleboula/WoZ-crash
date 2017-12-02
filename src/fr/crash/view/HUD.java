@@ -62,12 +62,20 @@ public class HUD implements ActionListener {
             });
             
             //my map
-            myMap = new JButton("The Map");
-            myMap.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
-            myMap.setForeground(Color.black);
+            myMap = new JButton(new ImageIcon(getClass().getResource("/images/mapButton.png")));
             myMap.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-                    /*call the image*/
+            		JFrame mapFrame = new JFrame("My Map");
+            		JLabel myMapLabel = new JLabel(new ImageIcon(getClass().getResource("/images/map.png")));
+            		mapFrame.setContentPane(myMapLabel);
+            		mapFrame.setResizable(false);
+            		mapFrame.setPreferredSize(new Dimension(700,450));
+            		mapFrame.setMaximumSize(new Dimension(700,450));
+            		mapFrame.setMinimumSize(new Dimension(700,450));
+            		mapFrame.setLocationRelativeTo(null);
+            		mapFrame.pack();
+            		mapFrame.setVisible(true);
+            		
             	}
             });
             
