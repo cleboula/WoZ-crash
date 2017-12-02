@@ -78,30 +78,30 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-			medChurch = new Medikit(60, 40, "medChurch", "This is a medikit. Use it carefully!");
-			medLake = new Medikit(30,30,"medLake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.");
+			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!");
+			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.");
 	
 			// creation of the keys
 			//keys to unlock the paths
-			keyForestS = new Key("keyForestS", "This is a machete. Perfect to pull some wood out of the way.");
-			keyForestWForestN = new Key("keyForestWForestN", "Large wooden planks, great to build a path across gaps.");
-			keyHouse = new Key("keyHouse", "This is a key. No idea of what it can open...");
-			keyJail = new Key("keyJail", "A bunch of keys, given by a helpful prisoner in jail.");
-			keyPick = new Key("keyPick", "This is a climbing kit. Perfect to cross difficulties on the way.");
+			keyForestS = new Key("Machete", "This is a machete. Perfect to pull some wood out of the way.");
+			keyForestWForestN = new Key("Planks", "Large wooden planks, great to build a path across gaps.");
+			keyHouse = new Key("Old Key", "This is a key. No idea of what it can open...");
+			keyJail = new Key("Bunch of keys", "A bunch of keys, given by a helpful prisoner in jail.");
+			keyPick = new Key("Climbing kit", "This is a climbing kit. Perfect to cross difficulties on the way.");
 			//keys to open the chests
-			keyChestMarketplace = new Key("keyChestMarketplace", "This is a key, found in the Market place.");
-			keyChestHouse = new Key("keyChestHouse", "This is a key, found in a house.");
-			keyChestChurch = new Key("keyChestChurch", "This is a key, pick up in the Church.");
+			keyChestMarketplace = new Key("Old Key", "This is a key, found in the Market place.");
+			keyChestHouse = new Key("Old Key", "This is a key, found in a house.");
+			keyChestChurch = new Key("Old Key", "This is a key, picked up in the Church.");
 			//keys to repair the spaceship (SS)
-			keySSGenerator = new Key("keySSGenerator", "This is the generator cell of your spaceship.");
-			keySSWheel = new Key("keySSWheel", "These are the wheels of your spaceship.");
-			keySSEnergyCell = new Key("keySSEnergyCell", "This is the energy cell of your spaceship.");
-			keySSFTL = new Key("keySSFTL", "This is your 'faster than light' technology, necessary for your spaceship.");
+			keySSGenerator = new Key("Generator Cell", "This is the generator cell of your spaceship.");
+			keySSWheel = new Key("Wheels", "These are the wheels of your spaceship.");
+			keySSEnergyCell = new Key("Energy Cell", "This is the energy cell of your spaceship.");
+			keySSFTL = new Key("FTL", "This is your 'faster than light' technology, necessary for your spaceship.");
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "chestMarketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
-			chestHouse = new Chest(keySSWheel, "chestHouse", "A big tidying chest. Something is shining inside...", keyChestHouse);
-			chestChurch = new Chest(medChurch, "chestChurch", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
+			chestMarketplace = new Chest(sword, "Chest of the Marketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
+			chestHouse = new Chest(keySSWheel, "Tidying Chest", "A big tidying chest. Something is shining inside...", keyChestHouse);
+			chestChurch = new Chest(medChurch, "Chest in a Church", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
  
 			//create zones
 		   crashzone = new Zone("crashZone", crashZonePic);

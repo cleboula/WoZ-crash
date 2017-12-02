@@ -26,8 +26,8 @@ import fr.crash.core.WoZ;
 
 public class HUD implements ActionListener {
 
-	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myText;
+	private JFrame myFrame, frameInventory;  
+    private JLabel myPlayerName, myHP, myEP, myText, textInventory;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
@@ -35,7 +35,7 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton;
     private WoZ woz;
     
    
@@ -51,15 +51,17 @@ public class HUD implements ActionListener {
             myInventory = new JButton("My Inventory");
             myInventory.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myInventory.setForeground(Color.black);
-            myInventory.addActionListener(new ActionListener (){
+            myInventory.addActionListener(this);
+
+            /*myInventory.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-                    /*Example
+                    Example
                     answer = areaToWrite.getText();
                     areaToWrite.setText("");
                     addMessageToConsole(answer);
-                    ok.setEnabled(false);*/
+                    ok.setEnabled(false);
             	}
-            });
+            });*/
             
             //my map
             myMap = new JButton(new ImageIcon(getClass().getResource("/images/mapButton.png")));
@@ -93,18 +95,14 @@ public class HUD implements ActionListener {
             mySearchButton = new JButton("Search");
             mySearchButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             mySearchButton.setForeground(Color.black);
-            mySearchButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		String zoneItems = null;
-            		for (Item i : woz.getCurrentZone().getListItems()) { //the list of items of the current zone
-            			if (i instanceof Chest) { //if an item is a chest
-            				myOpenButton.setEnabled(true); //the open button is available
-            			}
-						zoneItems = zoneItems + i.getName() + i.getDescription() + " "; 
-						myText = new JLabel("In this zone, you can find : " + zoneItems); //to display objects of this zone
-					}
-            	}
-            });
+            mySearchButton.addActionListener(this);
+
+            // the take button
+            myTakeButton = new JButton("Take");
+            myTakeButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myTakeButton.setForeground(Color.black);
+            myTakeButton.addActionListener(this);
+            myTakeButton.setEnabled(false);
             
             //the open button
             myOpenButton = new JButton("Open");
@@ -162,8 +160,9 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(2,1));
+            myPanelLittleRight.setLayout(new GridLayout(3,1));
             myPanelLittleRight.add(mySearchButton);
+            myPanelLittleRight.add(myTakeButton);
             myPanelLittleRight.add(myOpenButton);
             
             myPanelRight = new JPanel();
@@ -245,6 +244,44 @@ public class HUD implements ActionListener {
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
+		    
+		} else if (e.getSource()== mySearchButton) {
+			myText = new JLabel(woz.search());
+		    myFrame.setContentPane(newPanel());
+		    myFrame.repaint();
+		    myFrame.revalidate();
+		    if (woz.getCurrentZone().getListItems().isEmpty()==false) {
+			    myTakeButton.setEnabled(true);
+		    }
+		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
+			for (Item item : woz.getCurrentZone().getListItems()) {
+				woz.getPlayer().getInventory().add(item);
+			}
+			woz.getCurrentZone().setListItemsEmpty();
+			myTakeButton.setEnabled(false);
+			
+		} else if (e.getSource()==myInventory) {
+			String content = "";
+			frameInventory = new JFrame("Inventory");
+         	//frameInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         	//textInventory = new JLabel();
+         	if (woz.getPlayer().getInventory().isEmpty()) {
+         		textInventory = new JLabel ("Inventory is empty");
+         	} else {
+         		for (Item item : woz.getPlayer().getInventory()) {
+         			content = content + item.getName();
+         		}
+         		textInventory = new JLabel (content);
+         	}
+         	frameInventory.add(textInventory);
+         	frameInventory.setResizable(false);
+         	frameInventory.setPreferredSize(new Dimension(500,200));
+         	frameInventory.setMaximumSize(new Dimension(500,200));
+         	frameInventory.setMinimumSize(new Dimension(500,200));
+         	frameInventory.setLocationRelativeTo(null);
+         	frameInventory.pack();
+         	frameInventory.setVisible(true);
 		}
+
 }	        
 }

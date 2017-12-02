@@ -147,6 +147,25 @@ public class WoZ
 		return message;	
     }  
     
+    public String search() {
+    
+    	String zoneItems = "";
+    	String message = "";
+    	String newline = System.getProperty("line.separator");
+    	if (getCurrentZone().getListItems().isEmpty()) {
+    		message = "It seems there is nothing interesting to take in this zone.";
+    	}else {
+    		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
+    			/*if (i instanceof Chest) { //if an item is a chest
+    				myOpenButton.setEnabled(true); //the open button is available
+    			}*/
+    			zoneItems = zoneItems + i.getName() + ": " + i.getDescription() + newline + " "; 
+    			message = "In this zone, you can find: " + zoneItems; //to display objects of this zone
+    		}
+    	}
+    	return message;
+    }
+    
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
