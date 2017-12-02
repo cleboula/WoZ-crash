@@ -4,13 +4,18 @@
 package fr.crash.view;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.*;
 
 import javax.swing.*;
-//import java.awt.*;
-//import java.awt.event.*;
+
+import fr.crash.core.Chest;
+import fr.crash.core.Item;
+import fr.crash.core.WoZ;
+
 
 /**
  * @author Group 1
@@ -18,46 +23,148 @@ import javax.swing.*;
  * This class represents the interface with the image, 
  * the buttons to move and interact with objects and the world
  */
-public class HUD {
-	
+
+public class HUD implements ActionListener {
+
 	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myWeapon, myText;
+    private JLabel myPlayerName, myHP, myEP, myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
     private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
-    //private JPanel myPanelDown;//image + text
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton;
+    private JButton mySearchButton, myOpenButton,myAttackButton;
+    private WoZ woz;
     
-    private Icon crash;// to remove
-    
+   
     	//displays the image corresponding to the current zone
-        //public HUD(Player player, Zone currentZone) {
-        public HUD() {
-        	myFrame = new JFrame("Crash");
-            myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
+        public HUD(WoZ woz) {
+
+        		this.woz=woz;
+         	myFrame = new JFrame("Crash");//give the name to the frame
+         	myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
             
             //instantiation of buttons
+            //my inventory
             myInventory = new JButton("My Inventory");
-            myMap = new JButton("The Map");
-            myNorthArrow = new JButton("North");//put an image here
-            myEastArrow = new JButton("East");//put an image here
-            mySouthArrow = new JButton("South");//put an image here
-            myWestArrow = new JButton("West");//put an image here
+            myInventory.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myInventory.setForeground(Color.black);
+            myInventory.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+                    /*Example
+                    answer = areaToWrite.getText();
+                    areaToWrite.setText("");
+                    addMessageToConsole(answer);
+                    ok.setEnabled(false);*/
+            	}
+            });
+            
+            //my map
+            myMap = new JButton(new ImageIcon(getClass().getResource("/images/mapButton.png")));
+            myMap.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		JFrame mapFrame = new JFrame("My Map");
+            		JLabel myMapLabel = new JLabel(new ImageIcon(getClass().getResource("/images/map.png")));
+            		mapFrame.setContentPane(myMapLabel);
+            		mapFrame.setResizable(false);
+            		mapFrame.setPreferredSize(new Dimension(700,450));
+            		mapFrame.setMaximumSize(new Dimension(700,450));
+            		mapFrame.setMinimumSize(new Dimension(700,450));
+            		mapFrame.setLocationRelativeTo(null);
+            		mapFrame.pack();
+            		mapFrame.setVisible(true);
+            		
+            	}
+            });
+            
+            //the arrow buttons
+            myNorthArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheN.png")));
+            myNorthArrow.addActionListener(this);
+            myEastArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheE.png")));
+            myEastArrow.addActionListener(this);
+            mySouthArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheS.png")));
+            mySouthArrow.addActionListener(this);
+            myWestArrow = new JButton(new ImageIcon(getClass().getResource("/images/flecheW.png")));
+            myWestArrow.addActionListener(this);
+            
+            //the search button
             mySearchButton = new JButton("Search");
+            mySearchButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            mySearchButton.setForeground(Color.black);
+            mySearchButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		String zoneItems = null;
+            		for (Item i : woz.getCurrentZone().getListItems()) { //the list of items of the current zone
+            			if (i instanceof Chest) { //if an item is a chest
+            				myOpenButton.setEnabled(true); //the open button is available
+            			}
+						zoneItems = zoneItems + i.getName() + i.getDescription() + " "; 
+						myText = new JLabel("In this zone, you can find : " + zoneItems); //to display objects of this zone
+					}
+            	}
+            });
+            
+            //the open button
             myOpenButton = new JButton("Open");
+            myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myOpenButton.setForeground(Color.black);
+            myOpenButton.setEnabled(false);//open button is not available
+            myOpenButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
+            			if (i instanceof Chest) {//in an item is a chest
+            				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if it is ok
+            				if (((Chest) i).getIsOpened() == true) {
+            					myText = new JLabel("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
+            }
+            			}
+					}
+            	}
+            });
+          //the Attack button
+            myAttackButton = new JButton("Attack");
+            myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myAttackButton.setForeground(Color.black);
+            myAttackButton.setEnabled(false);//attack button is not available
+            if(woz.isCurrentfight()==true) {
+                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+            }
+            myAttackButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		if(woz.getCurrentZone().getCurrentNpc()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpc());
+	            		if (woz.getCurrentZone().getCurrentNpc().getHp()!=0) {
+		            		myText = new JLabel("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpc());
+		            	}
+            		}
+            	}
+            });
             
             //instantiation of labels
-            //myPlayerName = new JLabel(playerName);
-            myPlayerName = new JLabel("player.getName()");
-            myHP = new JLabel("My HP : " + "player.getHP()");
-            myEP = new JLabel("My EP : " + "player.getEP()");
-            myText = new JLabel("insert myText here");
-            myWeapon = new JLabel("insert weapon here");
-         
+            myPlayerName = new JLabel(woz.getPlayer().getPlayerName());
+            myPlayerName.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myPlayerName.setForeground(Color.black);
+            
+            myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
+            myHP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myHP.setForeground(Color.black);
+            
+            myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
+            myEP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myEP.setForeground(Color.black);
+            
+            myText = new JLabel();
+            myText.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,15));
+            myText.setForeground(Color.black);
+
+            //image of the current weapon
+            JLabel myWeapon = new JLabel(woz.getPlayer().getCurrentWeapon().getPicWeapon());
+            myWeapon.setPreferredSize(new Dimension(40,40));
+          //image of the current zone
+            JLabel labelZone = new JLabel(woz.getCurrentZone().getPicZone());
+            labelZone.setPreferredSize(new Dimension(700,450));
             
             //instantiation of panels
             myPanelArrows = new JPanel();
@@ -73,9 +180,10 @@ public class HUD {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(2,1));
+            myPanelLittleRight.setLayout(new GridLayout(3,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myOpenButton);
+            myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
             myPanelRight.setLayout(new GridLayout(3,1));
@@ -92,32 +200,15 @@ public class HUD {
             myPanelUp.add(myWeapon);
             myPanelUp.add(myInventory);
             
-            //myPanelDown = new JPanel();
-            crash = new ImageIcon(getClass().getResource("/images/crash.png"));
-            JLabel labelCrash = new JLabel(crash);
-            labelCrash.setPreferredSize(new Dimension(700,500));
-            //myPanelDown.add(labelCrash);
-            //myPanelDown.add(myText);
 
-            myPanel = new JPanel();
-            
             //the all panel
+            myPanel = new JPanel();
             myPanel.setLayout(new BorderLayout());
             myPanel.add(myPanelUp, BorderLayout.NORTH);
-            //myPanel.add(myPanelDown, BorderLayout.CENTER);
-            myPanel.add(labelCrash, BorderLayout.CENTER);
+            myPanel.add(labelZone, BorderLayout.CENTER);
             myPanel.add(myText, BorderLayout.SOUTH);
             myPanel.add(myPanelRight, BorderLayout.EAST);
-            //myPanel.setOpaque(false);
             
-            //myFrame.setContentPane(new JLabel(new ImageIcon("/images/fondGris.png")));
-            
-            //Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
-            //c.setLayout(new BoxLayout(c, BoxLayout.X_AXIS));
-            //c.add(myPanel);
-            //c.setPreferredSize(new Dimension(1000,570));
-            //c.setMaximumSize(new Dimension(1000,570));
-            //c.setMinimumSize(new Dimension(1000,570));
             myFrame.add(myPanel);
             
             myFrame.setResizable(false);
@@ -127,7 +218,52 @@ public class HUD {
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
-    	
-    	
-    }
+	
+        }
+        
+        private JPanel newPanel() {
+            JLabel l1 = new JLabel(woz.getCurrentZone().getPicZone());
+            l1.setPreferredSize(new Dimension(700,450));
+            JPanel p1 = new JPanel();
+            p1.setLayout(new BorderLayout());
+            p1.add(l1, BorderLayout.CENTER);
+            p1.add(myPanelUp, BorderLayout.NORTH);
+            p1.add(myText, BorderLayout.SOUTH);
+            p1.add(myPanelRight, BorderLayout.EAST);
+        	return p1;
+        }
+      
+        
+    	@Override
+    	public void actionPerformed(ActionEvent e) {
+    		if (e.getSource() == myNorthArrow)
+    		{
+    				
+    				myText = new JLabel (woz.move("north"));	
+    				myFrame.setContentPane(newPanel());
+    				myFrame.repaint();
+    				myFrame.revalidate();
+	
+    		} else if (e.getSource() == myEastArrow){
+    			
+            	myText = new JLabel (woz.move("east"));
+    		    myFrame.setContentPane(newPanel());
+    		    myFrame.repaint();
+    		    myFrame.revalidate();
+    		
+		} else if (e.getSource() == mySouthArrow){
+			
+			myText = new JLabel (woz.move("south"));
+		    myFrame.setContentPane(newPanel());
+		    myFrame.repaint();
+		    myFrame.revalidate();
+ 	    	
+		} else if (e.getSource() == myWestArrow){
+		    
+		    myText = new JLabel (woz.move("west"));
+		    myFrame.setContentPane(newPanel());
+		    myFrame.repaint();
+		    myFrame.revalidate();
+		}
+}	        
 }

@@ -1,12 +1,17 @@
 package fr.crash.core;
 
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.HashMap;
+
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 import fr.crash.core.Path;
 import fr.crash.core.Zone;
+import fr.crash.game.InitializeGame;
 
 //import java.util.ArrayList;
-//import java.util.HashMap;
 /**
  * This class represents our world
  *
@@ -14,22 +19,37 @@ import fr.crash.core.Zone;
  * @version 09/11/2017
  */
 public class WoZ
+
 {
+	private Player player;
     private Zone currentZone;
+    private boolean currentfight;
+
     
     /**
      * Constructeur d'objets de classe WoZ
-     * Cr�ation player, zones, personnages
+     * Creation player, zones, personnages
      */
-     public WoZ()
+     public WoZ(String playerName)
     {
-        
-  
+    	 InitializeGame objGame = new InitializeGame();
+    	 currentZone = objGame.getCurrentZone();//car private
+    	 player = new Player(playerName,objGame);
+    	 currentfight=false;
     }
-
- 
- 
+     
     /**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+
+
+
+
+	/**
      * This method simulates a fight between our main player and an enemy
      * If the npc is dead, the fight is over and the player wins
      * If the player dies, the game is over
@@ -37,13 +57,16 @@ public class WoZ
      * @param npc : the enemy involved in the fight
      */
    public void fight(Player player1,NpcFight npc1){
-	   
+	   currentfight=true;	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages(player1.getCurrentWeapon()));//set the npc hp
 		   
-	   }else if(player1.getHP()!=0){
-		   //game over      
+	   }else if(npc1.getHp()==0){ 
+		   currentfight=false;
+		    
+	   }else if(player1.getHP()==0){
+		   //game over  
 	   }
 	}
    
@@ -92,26 +115,49 @@ public class WoZ
     	}
     }
     
-    
+    public boolean isCurrentfight() {
+		return currentfight;
+	}
+
+	/*
+     * This method defines a new current zone
+     */
     public void setCurrentZone(Zone glade) {
         this.currentZone = glade;
     }
     
+    /*
+     * This method returns the current zone
+     * @return current zone, the zone where the player is
+     */
+    public Zone getCurrentZone() {
+		return currentZone;
+	}
     
-    public Zone move(String dir) {
+    
+    public String move(String dir) {
+    	String message = "";
     	if (dir!="") {
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
                                           
-                if(dir.equals(key)) {     
-                	setCurrentZone(value.getExit());
-                                   
+                if(dir.equals(key)) {  
+                	if (value.checkZone(player) == false) {
+                		setCurrentZone(value.getExit());
+                		message = "You are in " + currentZone.getZoneName(); 
+                	} else {
+                		
+                		message = "You cannot go this way ! ";
+                	}
                 }
     		}
     	} 
-		return currentZone;	
-    }  
+		return message;	
+    }
+
+
+	
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
