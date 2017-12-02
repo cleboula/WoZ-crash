@@ -156,10 +156,10 @@ public class HUD implements ActionListener {
             }
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-            		if(woz.getCurrentZone().getCurrentNpc()!=null) {
-	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpc());
-	            		if (woz.getCurrentZone().getCurrentNpc().getHp()!=0) {
-		            		myText = new JLabel("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpc());
+            		if(woz.getCurrentZone().getCurrentNpcFight()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFight());
+	            		if (woz.getCurrentZone().getCurrentNpcFight().getHp()!=0) {
+		            		myText = new JLabel("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFight());
 		            	}
             		}
             	}
