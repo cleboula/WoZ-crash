@@ -14,6 +14,9 @@ import javax.swing.*;
 
 import fr.crash.core.Chest;
 import fr.crash.core.Item;
+import fr.crash.core.Key;
+import fr.crash.core.Medikit;
+import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
 
 
@@ -26,8 +29,9 @@ import fr.crash.core.WoZ;
 
 public class HUD implements ActionListener {
 
-	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myText;
+	private JFrame myFrame, frameInventory;  
+    private JLabel myPlayerName, myHP, myEP;
+    private JTextArea textInventory, myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
@@ -35,7 +39,7 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
     private WoZ woz;
     
    
@@ -53,13 +57,40 @@ public class HUD implements ActionListener {
             myInventory.setForeground(Color.black);
             myInventory.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-                    /*Example
+            		 if (e.getSource()==myInventory) {
+            				String content = "";
+            				frameInventory = new JFrame("Inventory");
+            	         	//frameInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            	         	if (woz.getPlayer().getInventory().isEmpty()) {
+            	         		textInventory = new JTextArea ("Inventory is empty");
+            	         		textInventory.setEditable(false);
+            	         	} else {
+            	         		for (Item item : woz.getPlayer().getInventory()) {
+            	         			content = content + item.getName() + "\n";
+            	         		}
+            	         		textInventory = new JTextArea (content);
+            	         		textInventory.setEditable(false);
+            	         	}
+            	         	frameInventory.add(textInventory);
+            	         	frameInventory.setResizable(false);
+            	         	frameInventory.setPreferredSize(new Dimension(500,200));
+            	         	frameInventory.setMaximumSize(new Dimension(500,200));
+            	         	frameInventory.setMinimumSize(new Dimension(500,200));
+            	         	frameInventory.setLocationRelativeTo(null);
+            	         	frameInventory.pack();
+            	         	frameInventory.setVisible(true);
+            		 }
+            	}
+            });
+            /*myInventory.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+                    Example
                     answer = areaToWrite.getText();
                     areaToWrite.setText("");
                     addMessageToConsole(answer);
-                    ok.setEnabled(false);*/
+                    ok.setEnabled(false);
             	}
-            });
+            });*/
             
             //my map
             myMap = new JButton(new ImageIcon(getClass().getResource("/images/mapButton.png")));
@@ -93,34 +124,59 @@ public class HUD implements ActionListener {
             mySearchButton = new JButton("Search");
             mySearchButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             mySearchButton.setForeground(Color.black);
-            mySearchButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		String zoneItems = null;
-            		for (Item i : woz.getCurrentZone().getListItems()) { //the list of items of the current zone
-            			if (i instanceof Chest) { //if an item is a chest
-            				myOpenButton.setEnabled(true); //the open button is available
-            			}
-						zoneItems = zoneItems + i.getName() + i.getDescription() + " "; 
-						myText = new JLabel("In this zone, you can find : " + zoneItems); //to display objects of this zone
-					}
-            	}
-            });
+            mySearchButton.addActionListener(this);
+
+            // the take button
+            myTakeButton = new JButton("Take");
+            myTakeButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myTakeButton.setForeground(Color.black);
+            myTakeButton.addActionListener(this);
+            myTakeButton.setEnabled(false);
             
             //the open button
             myOpenButton = new JButton("Open");
             myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myOpenButton.setForeground(Color.black);
             myOpenButton.setEnabled(false);//open button is not available
-            myOpenButton.addActionListener(new ActionListener (){
+            myOpenButton.addActionListener(this);
+
+			/*myOpenButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
             			if (i instanceof Chest) {//in an item is a chest
             				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if it is ok
             				if (((Chest) i).getIsOpened() == true) {
-            					myText = new JLabel("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
-            }
+            					myText = new JTextArea("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
+            					myText.setEditable(false);
+            				}
             			}
-					}
+				}
+            	}
+            });*/
+
+            myOpenPathButton = new JButton("Unlock Path");
+            myOpenPathButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myOpenPathButton.setForeground(Color.black);
+            myOpenPathButton.setEnabled(false);//open button is not available
+            myOpenPathButton.addActionListener(this);
+            
+            //the Attack button
+            myAttackButton = new JButton("Attack");
+            myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myAttackButton.setForeground(Color.black);
+            myAttackButton.setEnabled(false);//attack button is not available
+            if(woz.isCurrentfight()==true) {
+                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+            }
+            myAttackButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		if(woz.getCurrentZone().getCurrentNpcFight()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFight());
+	            		if (woz.getCurrentZone().getCurrentNpcFight().getHp()!=0) {
+		            		myText = new JTextArea("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFight());
+		            		myText.setEditable(false);
+	            		}
+            		}
             	}
             });
             
@@ -137,7 +193,10 @@ public class HUD implements ActionListener {
             myEP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myEP.setForeground(Color.black);
             
-            myText = new JLabel();
+            myText = new JTextArea ("You crashed in " + woz.getCurrentZone().getZoneName() 
+                	+ ".\n Your spaceship is broken and monsters have stolen some components,\n"  
+                	+ " So you need to find the missing parts in order to escape this weird planet !!! ");
+            myText.setEditable(false);
             myText.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,15));
             myText.setForeground(Color.black);
 
@@ -146,7 +205,9 @@ public class HUD implements ActionListener {
             myWeapon.setPreferredSize(new Dimension(40,40));
           //image of the current zone
             JLabel labelZone = new JLabel(woz.getCurrentZone().getPicZone());
-            labelZone.setPreferredSize(new Dimension(700,450));
+            labelZone.setPreferredSize(new Dimension(700,400));
+            labelZone.setMaximumSize(new Dimension(700,400));
+            labelZone.setMinimumSize(new Dimension(700,400));
             
             //instantiation of panels
             myPanelArrows = new JPanel();
@@ -162,9 +223,11 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(2,1));
+            myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
+            myPanelLittleRight.add(myTakeButton);
             myPanelLittleRight.add(myOpenButton);
+            myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
             myPanelRight.setLayout(new GridLayout(3,1));
@@ -193,9 +256,9 @@ public class HUD implements ActionListener {
             myFrame.add(myPanel);
             
             myFrame.setResizable(false);
-            myFrame.setPreferredSize(new Dimension(1000,700));
-            myFrame.setMaximumSize(new Dimension(1000,700));
-            myFrame.setMinimumSize(new Dimension(1000,700));
+            myFrame.setPreferredSize(new Dimension(1050,700));
+            myFrame.setMaximumSize(new Dimension(1050,700));
+            myFrame.setMinimumSize(new Dimension(1050,700));
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
@@ -219,32 +282,93 @@ public class HUD implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		if (e.getSource() == myNorthArrow)
     		{
-    				
-    				myText = new JLabel (woz.move("north"));	
-    				myFrame.setContentPane(newPanel());
-    				myFrame.repaint();
-    				myFrame.revalidate();
+    			myTakeButton.setEnabled(false);
+    			myOpenButton.setEnabled(false);
+    			myText = new JTextArea (woz.move("north"));	
+    			myText.setEditable(false);
+    			myFrame.setContentPane(newPanel());
+    			myFrame.repaint();
+    			myFrame.revalidate();
 	
     		} else if (e.getSource() == myEastArrow){
     			
-            	myText = new JLabel (woz.move("east"));
+    			myTakeButton.setEnabled(false);
+    			myOpenButton.setEnabled(false);
+            	myText = new JTextArea (woz.move("east"));
+            	myText.setEditable(false);
     		    myFrame.setContentPane(newPanel());
     		    myFrame.repaint();
     		    myFrame.revalidate();
     		
 		} else if (e.getSource() == mySouthArrow){
 			
-			myText = new JLabel (woz.move("south"));
+			myTakeButton.setEnabled(false);
+			myOpenButton.setEnabled(false);
+			myText = new JTextArea (woz.move("south"));
+			myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
  	    	
 		} else if (e.getSource() == myWestArrow){
 		    
-		    myText = new JLabel (woz.move("west"));
+			myTakeButton.setEnabled(false);
+			myOpenButton.setEnabled(false);
+		    myText = new JTextArea (woz.move("west"));
+		    myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
-		}
+		    
+		} else if (e.getSource()== mySearchButton) {
+			myText = new JTextArea(woz.search());
+			myText.setEditable(false);
+		    myFrame.setContentPane(newPanel());
+		    myFrame.repaint();
+		    myFrame.revalidate();
+			for (Item j : woz.getCurrentZone().getListItems()) {
+				if (j instanceof Weapon || j instanceof Key || j instanceof Medikit) {
+					myTakeButton.setEnabled(true);}
+				else if (j instanceof Chest) {
+					myOpenButton.setEnabled(true);
+					myTakeButton.setEnabled(true);
+				}
+		    }
+		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
+			for (Item j : woz.getCurrentZone().getListItems()) {
+				woz.getPlayer().getInventory().add(j);
+			}
+			woz.getCurrentZone().setListItemsEmpty();
+			myTakeButton.setEnabled(false);
+			
+		} else if (e.getSource()==myOpenButton) {
+			for (Item i : woz.getCurrentZone().getListItems()) {
+    			if (i instanceof Chest) {//if an item is a chest
+    				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
+    				if (((Chest) i).getIsOpened() == true) {
+    					myText = new JTextArea("You have a new item! " + ((Chest)i).getContent().getDescription());
+    					myText.setEditable(false);
+    					myOpenButton.setEnabled(false);
+    					woz.getCurrentZone().setListItemsEmpty();
+    				    myFrame.setContentPane(newPanel());
+    				    myFrame.repaint();
+    				    myFrame.revalidate();
+    					woz.getPlayer().getInventory().remove((Chest) i);
+    				}
+    			}
+			}
+			
+		} /*else if (myOpenPathButton.isEnabled() && e.getSource()==myOpenPathButton) {
+			for (Item itemKey : woz.getPlayer().getInventory()) {
+    			if (itemKey instanceof Key) {
+    				(((Key) itemKey).checkZone(woz.getPlayer()));
+    				if (((Key) itemKey).getIsLocked()==false) {
+    					myText = new JLabel("The path is unlocked! You can pass now.");
+    				}
+    			}
+		//	woz.getCurrentZone().getHMap().checkZone(woz.getPlayer());
+			}
+		}*/
+
 }	        
 }

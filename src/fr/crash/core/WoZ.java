@@ -23,7 +23,7 @@ public class WoZ
 {
 	private Player player;
     private Zone currentZone;
-
+	private boolean currentfight;
     
     /**
      * Constructeur d'objets de classe WoZ
@@ -34,6 +34,8 @@ public class WoZ
     	 InitializeGame objGame = new InitializeGame();
     	 currentZone = objGame.getCurrentZone();//car private
     	 player = new Player(playerName,objGame);
+       	 currentfight=false;
+    	 
     }
      
     /**
@@ -55,13 +57,16 @@ public class WoZ
      * @param npc : the enemy involved in the fight
      */
    public void fight(Player player1,NpcFight npc1){
-	   
+	   currentfight=true;	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages(player1.getCurrentWeapon()));//set the npc hp
 		   
-	   }else if(player1.getHP()!=0){
-		   //game over      
+	   }else if(npc1.getHp()==0){ 
+		   currentfight=false;
+		    
+	   }else if(player1.getHP()==0){
+		   //game over  
 	   }
 	}
    
@@ -110,6 +115,9 @@ public class WoZ
     	}
     }
     
+    public boolean isCurrentfight() {
+		return currentfight;
+	}
     /*
      * This method defines a new current zone
      */
@@ -129,23 +137,68 @@ public class WoZ
     public String move(String dir) {
     	String message = "";
     	if (dir!="") {
+    		message = "You are in " + currentZone.getZoneName();
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
-                                          
+        		                           
                 if(dir.equals(key)) {  
-                	if (value.checkZone(player) == false) {
+                if (value.checkZone(player) == false) {
                 		setCurrentZone(value.getExit());
-                		message = "You are in " + currentZone.getZoneName(); 
+                		message = "You are in " + currentZone.getZoneName();
+                		if(getCurrentZone().getCurrentNpcFight()!=null) {
+                			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
+                			fight(player,getCurrentZone().getCurrentNpcFight());
+                			
+                		}
                 	} else {
-                		
-                		message = "You cannot go this way ! ";
-                	}
-                }
-    		}
-    	} 
+                		if (currentZone.getZoneName() == "mountainbase") {
+                	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
+                		}
+                			else {
+                        		if (currentZone.getZoneName() == "marketplace") {
+                            	    message = "You cannot go this way ! The door is close.";
+                            	}
+                        			else {
+                        				if (currentZone.getZoneName() == "bridge") {
+                        					message = "You cannot go this way ! You need wood to build the bridge.";
+                        				}
+                            				else {
+                            					if (currentZone.getZoneName() == "jailentrance") {
+                            						message = "You cannot go this way ! Do you really want to go to jail ?";
+                            					}
+                            						else {
+                            							if (currentZone.getZoneName() == "glade") {
+                            							message = "You cannot go this way ! You need a machete to cut branches ";
+                            							}
+                            						}
+                            				}
+                        			}
+                			}
+                		}
+                	}   
+    				}
+    		} 
 		return message;	
     }  
+
+    
+
+    
+    public String search() {
+	String zoneItems = "";
+    	String message = "";
+    	String newline = System.getProperty("line.separator");
+    	if (getCurrentZone().getListItems().isEmpty()) {
+    		message = "It seems there is nothing interesting to take in this zone.";
+    	}else {
+    		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
+    			zoneItems = zoneItems + newline + i.getName() + ": " + i.getDescription(); 
+    			message = "In this zone, you can find: " + zoneItems; //to display objects of this zone
+    		}
+    	}
+    	return message;
+    }
     
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
