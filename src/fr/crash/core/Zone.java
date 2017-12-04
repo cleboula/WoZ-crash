@@ -21,7 +21,7 @@ public class Zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
     private NpcDialog currentNpcDialog; 
-    private NpcFight currentNpcFight; 
+    private NpcFight currentNpcFight;
     private NpcFightBoss currentNpcFightBoss;
     private Icon picZone;
  

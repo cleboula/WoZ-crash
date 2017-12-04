@@ -1,5 +1,6 @@
 package fr.crash.core;
 
+import javax.swing.Icon;
 
 /**
  * This class represents all the objects in the game. All these objects can be used by
@@ -12,6 +13,7 @@ public abstract class Item
 {
     private String nameItem;
     private String descriptionItem;
+    private Icon imageItem;
     private Player player1;
 
     
@@ -20,10 +22,11 @@ public abstract class Item
      * @param name the item name
      * @param description the item description
      */
-    public Item(String name, String description)
+    public Item(String name, String description, Icon image)
     {
     	nameItem = name;
     	descriptionItem = description;
+    	imageItem = image;
     }
     
     /**
@@ -43,6 +46,14 @@ public abstract class Item
     public String getDescription()
     {
         return(descriptionItem);
+    }
+    /**
+     * This method return the image of an item
+     * @return     the icon of the item
+     */
+    public Icon getImage()
+    {
+        return(imageItem);
     }
     
     /**
@@ -72,6 +83,7 @@ public abstract class Item
     {
         player1.getInventory().add(item);
     }
-
+    
+    
 }
 

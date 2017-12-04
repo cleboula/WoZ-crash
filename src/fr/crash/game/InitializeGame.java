@@ -43,6 +43,8 @@ public class InitializeGame {
 
 	private NpcDialog shaman,prisoner,citizen1,citizen2,citizen3,citizen4;
 
+	private String selecteddialogline;
+
 public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
@@ -108,30 +110,36 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!");
-			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.");
+
+			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",null);
+			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
 	
 			// creation of the keys
 			//keys to unlock the paths
-			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.");
-			keyForestW = new Key("Planks", " Great to build a path across gaps.");
-			keyHouse = new Key("Old Key", " No idea of what it can open...");
-			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.");
-			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.");
+
+			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.",null);
+			keyForestW = new Key("Planks", " Great to build a path across gaps.",null);
+			keyHouse = new Key("Old Key", " No idea of what it can open...",null);
+			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.",null);
+			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.",null);
+
 			//keys to open the chests
-			keyChestMarketplace = new Key("A very old Key", " Found in the house.");
-			keyChestHouse = new Key("A big old Key", " Wandering on the ground.");
-			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.");
+			keyChestMarketplace = new Key("A very old Key", " Found in the house.",null);
+			keyChestHouse = new Key("A big old Key", " Wandering on the ground.",null);
+			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.",null);
+
 			//keys to repair the spaceship (SS)
-			keySSGenerator = new Key("Generator Cell", " Generator cell of your spaceship.");
-			keySSWheel = new Key("Wheels", " Wheels of your spaceship.");
-			keySSEnergyCell = new Key("Energy Cell", " Energy cell of your spaceship.");
-			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.");
+
+			keySSGenerator = new Key("Generator Cell", " Generator cell of your spaceship.",null);
+			keySSWheel = new Key("Wheels", " Wheels of your spaceship.",null);
+			keySSEnergyCell = new Key("Energy Cell", " Energy cell of your spaceship.",null);
+			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.",null);
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
-			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse);
-			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
+
+			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace,null);
+			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse,null);
+			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,null);
  
 			//create zones
 		   crashzone = new Zone("crashZone", crashZonePic);
@@ -176,8 +184,8 @@ public InitializeGame() {
            listZone.add(lairofthebeast);
  */          
            //list of items per zone
-          // crashzone.setItems(keyChestMarketplace); // test pour le bouton open
-          // crashzone.setItems(chestMarketplace); // test pour le bouton open
+           crashzone.setItems(keyChestMarketplace); // test pour le bouton open
+           crashzone.setItems(chestMarketplace); // test pour le bouton open
            
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
@@ -303,6 +311,48 @@ public InitializeGame() {
               
            
 	}
+
+
+
+
+	public String DialogTree (Player player,Item keyForestWForestN,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial,String selecteddialogline)
+	{
+		if (npcdial.getJobnpc()== job.prisoner)
+		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+		else if (npcdial.getJobnpc()== job.citizen)
+		{
+
+			if (player.searchInventory(player, keyJail)) {
+				selecteddialogline = "Guards !!!! seize that rogue !!!";
+			}
+			if (!player.searchInventory(player, keyJail)) {
+				selecteddialogline = "We don't take kindly your types in here!";
+			}
+		}
+		else if (npcdial.getJobnpc()== job.shaman) {
+			if (!player.searchInventory(player, keyPick)) {
+				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+			}
+			if (!player.searchInventory(player, keyJail)) {
+				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+			}
+			if (player.searchInventory(player, keyForestWForestN)) {
+				selecteddialogline = "You must go to the city and find the next part of your starship";
+			}
+			if (player.searchInventory(player, keyForestS)) {
+				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+			}
+			if (!player.searchInventory(player, keyForestS)) {
+				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+			}
+			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
+
+		} return selecteddialogline;
+	}
+
+
+
+
 
 
 /**

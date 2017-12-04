@@ -1,5 +1,7 @@
 package fr.crash.core;
 
+import javax.swing.Icon;
+
 /**
  * This class represents a key to a chest or path. There are two different types of keys. 
  * Some keys allow the opening of chest and other allow the passage of certain path. A key 
@@ -17,9 +19,9 @@ public class Key extends Item
     /**
      * Constructor of objects of class Key
      */
-    public Key(String name, String description)
+    public Key(String name, String description, Icon image)
     {
-        super(name,description);
+        super(name,description,image);
         //associatedChest = chest;
         //associatedPath = null;
     }
