@@ -16,12 +16,8 @@ public class Player
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
     private ArrayList<Item> listM; // list of medikit in the inventory
-    private ArrayList<Weapon>listweapon;
-
-    private Player player1;
-    private WoZ woz;
-    private Weapon currentWeapon;
-
+    private ArrayList<Weapon>listweapon; //list of weapon in the inventory
+    private Weapon currentWeapon; //the current weapon
 
 	/**
      * Constructor of player class
@@ -30,53 +26,50 @@ public class Player
     {
         hp = 100; //default value for health points
         ep = 100; //default value for energy points
-        currentWeapon = new Weapon(10, 0, "Knife", "", null);
-        
-        inventory = new ArrayList<Item> ();
-        listweapon = new ArrayList<Weapon>();
-        
-        name = name.trim(); //trim() removes any leading and trailing whitespace
-        if (verifName(name) == true){ //if the name is correct, the player name is accepted
-            namePlayer = name;
-        }
-        
-        currentWeapon = objGame.getKnife();
-        inventory.add(currentWeapon);
-    }
 
-    /**
-     * This method check if the name is correct or not
-     * @return correctName boolean indicates if the name is correct or not
-     */
-    private boolean verifName(String nom)
-    {
-        boolean correctName = true; //certifies that the name has the correct format or not
-        if (nom.length() < 1 || nom.length() > 20){
-            correctName = false;
-        }
-        else {
-            correctName = true;
-        }
-        return correctName;
+        inventory = new ArrayList<Item> (); //creation of an empty inventory
+        listweapon = new ArrayList<Weapon>(); //creation of a weapon list
+        
+        namePlayer = name.trim(); //trim() removes any leading and trailing whitespace
+        
+        currentWeapon = objGame.getKnife(); //the default weapon is the knife
+        inventory.add(currentWeapon); //add this current weapon to the inventory
     }
     
+    /**
+     * Getter of the current weapon
+     * @return the current weapon
+     */
     public Weapon getCurrentWeapon() {
 		return currentWeapon;
 	}
 
+    /**
+     * Setter of the current weapon
+     * @param currentWeapon
+     */
 	public void setCurrentWeapon(Weapon currentWeapon) {
 		this.currentWeapon = currentWeapon;
 	}
 
+	/**
+	 * Getter of the weapon list
+	 * @return weapon list
+	 */
 	public ArrayList<Weapon> getListweapon() {
 		return listweapon;
 	}
 
+	/**
+	 * Setter of the weapon list
+	 * @param listweapon
+	 */
 	public void setListweapon(ArrayList<Weapon> listweapon) {
 		this.listweapon = listweapon;
 	}
 
 	/**
+	 * Getter of the inventory
 	 * @return the inventory
 	 */
 	public ArrayList<Item> getInventory() {
@@ -84,6 +77,7 @@ public class Player
 	}
 
 	/**
+	 * Setter of the player health points
 	 * @param hp the health point to set
 	 */
 	public void setHp(int hp) {	
@@ -91,6 +85,7 @@ public class Player
 	}
 
 	/**
+	 * Setter of the player energy points
 	 * @param ep the energy points to set
 	 */
 	public void setEp(int ep) {
@@ -98,7 +93,8 @@ public class Player
 	}
    
     /**
-     * This method return the player's health points
+     * Getter of the player health points
+     * @return health points
      */
     public int getHP()
     {
@@ -106,72 +102,74 @@ public class Player
     }
     
     /**
-     * This method return the player's energy points
+     * Getter of the player energy points
+     * @return energy points
      */
     public int getEP()
     {
         return(ep);
     }
     /**
-     * This method return the player's name
+     * Getter of the player name
+     * @return namePlayer
      */
     public String getPlayerName()
     {
         return namePlayer;
     }
 
-    
-    /**
-     * This method calls fight if the player wants to fight
-     */
-   // public void attack()
-   // {
-   // 	woz.fight(player1,npc);
-   // }
-
-
-    /**
-    * search all medikits in the inventory
+    /** 
+    * Search all medikits in the inventory and return the list of medikits
+    * @param player
+    * @param ite
     */
+    //TODO
     public ArrayList<Item> searchItem(Player player,Item item)
-        {
-        	for (int i = 0; i < player.getInventory().size(); i++) {
-        		if (item == player.getInventory().get(i)) {
-        			listM.add(player.getInventory().get(i));
-        		}
-        	}
-            return(listM);
-        }
+    {
+     	for (int i = 0; i < player.getInventory().size(); i++) {
+       		if (item == player.getInventory().get(i)) {
+       			listM.add(player.getInventory().get(i));
+       		}
+       	}
+        return(listM);
+    }
 
 	/**
-	 * change the current weapon
+	 * Setter of the current weapon
+	 * @param weapon the new weapon that will be used by the player
 	 */
     public void setWeapon (Weapon weap)
     {
     	currentWeapon = weap;
     }
 
-
+    
     /**
-     * This method is used to search if a specific item is present in the inventory of
+     * This method is used to search if a specific item is present in the inventory of 
      * the player
      * @param player
      * @param item
      * @return true if the item is present in the inventory of the player
      */
-    //note:  this is a duplicata of Item.searchInventory
-    public boolean searchInventory(Player player,Item item)
+    public boolean searchInventory(Item item)
     {
-
-        for (int i = 0; i < player.getInventory().size(); i++) {
-            if (item == player.getInventory().get(i)) {
-                return(true);
-            }
-        }
+    	for (int i = 0; i < getInventory().size(); i++) {
+    		if (item == getInventory().get(i)) {
+    			return(true);
+    		}
+    	}
         return(false);
 
     }
-
+    
+    /**
+     * This method add an item to the inventory
+     * @param item to add to the inventory (key or medikit or weapon)
+     */
+    public void addItem(Item item)
+    {
+        getInventory().add(item);
+    }
 
 
 }

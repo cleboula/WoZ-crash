@@ -21,7 +21,6 @@ import fr.crash.core.Medikit;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
 
-
 /**
  * @author Group 1
  * @version 21/11/2017
@@ -31,10 +30,10 @@ import fr.crash.core.WoZ;
 
 public class HUD implements ActionListener {
 
-	private JFrame myFrame, frameInventory;  
+	private JFrame myFrame;  
     private JLabel myPlayerName, myHP, myEP, myInvent;
-    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelObject, myPanelMedikit;  
-    private JTextArea textInventory, myText;
+    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelMedikit;  
+    private JTextArea myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
@@ -44,12 +43,11 @@ public class HUD implements ActionListener {
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
     private WoZ woz;
-    
-   
-    	//displays the image corresponding to the current zone
+     
+    	//displays the image corresponding to the current zone, the different buttons to interact with the world
         public HUD(WoZ woz) {
 
-        		this.woz=woz;
+        	this.woz=woz;
          	myFrame = new JFrame("Crash");//give the name to the frame
          	myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
             
@@ -63,7 +61,7 @@ public class HUD implements ActionListener {
             		Player player = woz.getPlayer();
             		ArrayList<Item> inventory = player.getInventory();
             		
-            		JFrame inventFrame = new JFrame("Inventory");//give the name to the frame
+            		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame
                  	myInvent = new JLabel("Voila l'inventaire");
                  	myPanelWeapon = new JPanel();
                     myPanelWeapon.setLayout(new GridLayout(2,2));
@@ -105,40 +103,6 @@ public class HUD implements ActionListener {
                  	inventFrame.setLocationRelativeTo(null);
                  	inventFrame.pack();
                  	inventFrame.setVisible(true);
-                    /*Example
-            		 if (e.getSource()==myInventory) {
-            				String content = "";
-            				frameInventory = new JFrame("Inventory");
-            	         	//frameInventory.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            	         	if (woz.getPlayer().getInventory().isEmpty()) {
-            	         		textInventory = new JTextArea ("Inventory is empty");
-            	         		textInventory.setEditable(false);
-            	         	} else {
-            	         		for (Item item : woz.getPlayer().getInventory()) {
-            	         			content = content + item.getName() + "\n";
-            	         		}
-            	         		textInventory = new JTextArea (content);
-            	         		textInventory.setEditable(false);
-            	         	}
-            	         	frameInventory.add(textInventory);
-            	         	frameInventory.setResizable(false);
-            	         	frameInventory.setPreferredSize(new Dimension(500,200));
-            	         	frameInventory.setMaximumSize(new Dimension(500,200));
-            	         	frameInventory.setMinimumSize(new Dimension(500,200));
-            	         	frameInventory.setLocationRelativeTo(null);
-            	         	frameInventory.pack();
-            	         	frameInventory.setVisible(true);
-            		 }
-            	}
-            });
-            /*myInventory.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-                    Example
-
-                    answer = areaToWrite.getText();
-                    areaToWrite.setText("");
-                    addMessageToConsole(answer);
-                    ok.setEnabled(false);*/
             	}
             });
             

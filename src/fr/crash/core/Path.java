@@ -56,7 +56,7 @@ public class Path
     {
         if(getIsLocked()){
             //check if key is in inventory;
-        	if(associatedPathKey.searchInventory(player1, associatedPathKey)){
+        	if(player1.searchInventory(associatedPathKey)){
         		isLocked = false;
         	// the character can move
         	}
