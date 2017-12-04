@@ -5,5 +5,5 @@ package fr.crash.core;
  // @version 21/11/17
 
 public enum job {
-	shaman,citizen
+	shaman,citizen,prisoner
 }
