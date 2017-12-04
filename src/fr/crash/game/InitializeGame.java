@@ -49,6 +49,7 @@ public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
 			shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
+
 			//The prisoner Npc
 			prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
 			// A bunch of generic citizen npc's
@@ -56,6 +57,7 @@ public InitializeGame() {
 			citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
 			citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
 			citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
+
 
 		   //images
 		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
