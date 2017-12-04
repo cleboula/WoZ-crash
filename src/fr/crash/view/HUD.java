@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ import fr.crash.core.Key;
 import fr.crash.core.Medikit;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
+import fr.crash.core.Zone;
 
 
 /**
@@ -40,6 +42,7 @@ public class HUD implements ActionListener {
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
+    private ArrayList<Item> newlist;
     private WoZ woz;
     
    
@@ -73,9 +76,9 @@ public class HUD implements ActionListener {
             	         	}
             	         	frameInventory.add(textInventory);
             	         	frameInventory.setResizable(false);
-            	         	frameInventory.setPreferredSize(new Dimension(500,200));
-            	         	frameInventory.setMaximumSize(new Dimension(500,200));
-            	         	frameInventory.setMinimumSize(new Dimension(500,200));
+            	         	frameInventory.setPreferredSize(new Dimension(400,300));
+            	         	frameInventory.setMaximumSize(new Dimension(400,300));
+            	         	frameInventory.setMinimumSize(new Dimension(400,300));
             	         	frameInventory.setLocationRelativeTo(null);
             	         	frameInventory.pack();
             	         	frameInventory.setVisible(true);
@@ -330,8 +333,15 @@ public class HUD implements ActionListener {
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
+				woz.getPlayer().getnewlist().add(j);
 			}
+			String content2 = "";
+			for (Item item : woz.getPlayer().getnewlist()) {
+     			content2 = content2 + item.getName() + "\n";
+     		}
+			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
+			woz.getPlayer().setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 		} else if (e.getSource()==myOpenButton) {

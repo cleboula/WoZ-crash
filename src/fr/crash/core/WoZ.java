@@ -149,7 +149,7 @@ public class WoZ
                 	} else {
                 		if (currentZone.getZoneName() == "mountainbase") {
                 	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
-                		}
+                 		}
                 			else {
                         		if (currentZone.getZoneName() == "marketplace") {
                             	    message = "You cannot go this way ! The door is close.";

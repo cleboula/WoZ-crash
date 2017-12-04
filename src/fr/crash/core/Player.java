@@ -15,6 +15,7 @@ public class Player
     private int ep; //energy points of our player (not negative)
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
+    private ArrayList<Item> newlist;
     private ArrayList<Item> listM; // list of medikit in the inventory
     private ArrayList<Weapon>listweapon;
 
@@ -33,6 +34,7 @@ public class Player
         currentWeapon = new Weapon(10, 0, "Knife", "", null);
         
         inventory = new ArrayList<Item> ();
+        newlist = new ArrayList<Item> ();
         listweapon = new ArrayList<Weapon>();
         
         name = name.trim(); //trim() removes any leading and trailing whitespace
@@ -82,6 +84,13 @@ public class Player
 		return (inventory);
 	}
 
+	/**
+	 * @return the inventory
+	 */
+	public ArrayList<Item> getnewlist() {
+		return (newlist);
+	}
+	
 	/**
 	 * @param hp the health point to set
 	 */
@@ -149,4 +158,13 @@ public class Player
     {
     	currentWeapon = weap;
     }
+    
+	
+	/**
+	 * This method allows to set empty the list of items per zone after the player took them
+	 */
+	public void setnewlistEmpty() {
+		newlist = new ArrayList<Item>();
+	}
+	
 }
