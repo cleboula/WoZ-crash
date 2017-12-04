@@ -36,7 +36,7 @@ class WoZTest {
     	
     	Key key1;
     	WoZ woz1 = new WoZ ("toto");
-    	key1=new Key("cle","bla bla",null);
+    	key1=new Key("cle","bla bla", null);
         glade_forestE = new Path(forestE,false,key1);
         glade.setExits("east",glade_forestE);
         woz1.setCurrentZone(glade);
