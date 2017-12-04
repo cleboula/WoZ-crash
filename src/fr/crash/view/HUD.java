@@ -217,14 +217,22 @@ public class HUD implements ActionListener {
             myAttackButton.setEnabled(false);//attack button is not available
             if(woz.isCurrentfight()==true) {
                 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                myNorthArrow.setEnabled(false); // disable direction button
+                myEastArrow.setEnabled(false);
+                myWestArrow.setEnabled(false);
+                mySouthArrow.setEnabled(false);
+                
             }
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
 	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
-		            		myText = new JTextArea("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFightMonster());
+		            		myText =new JTextArea(woz.fight(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myText.setEditable(false);
+		            		myFrame.setContentPane(newPanel());
+		        			myFrame.repaint();
+		        			myFrame.revalidate();
 	            		}
             		}
             	}
