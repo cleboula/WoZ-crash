@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.HashMap;
 
 import javax.swing.*;
 
@@ -16,6 +17,7 @@ import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
+import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
 
@@ -39,8 +41,10 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
     private WoZ woz;
+    private JOptionPane optionPane;
+    private JOptionPane options;
     
    
     	//displays the image corresponding to the current zone
@@ -154,11 +158,6 @@ public class HUD implements ActionListener {
             	}
             });*/
 
-            myOpenPathButton = new JButton("Unlock Path");
-            myOpenPathButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
-            myOpenPathButton.setForeground(Color.black);
-            myOpenPathButton.setEnabled(false);//open button is not available
-            myOpenPathButton.addActionListener(this);
             
             //the Attack button
             myAttackButton = new JButton("Attack");
@@ -223,10 +222,9 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(4,1));
+            myPanelLittleRight.setLayout(new GridLayout(3,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
-            myPanelLittleRight.add(myOpenButton);
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -277,6 +275,33 @@ public class HUD implements ActionListener {
         	return p1;
         }
       
+        public void dialogMove(String dir) {
+        	//String message = "";
+        	if (dir!="") {
+    				for (HashMap.Entry<String, Path> entry:woz.getCurrentZone().getHMap().entrySet()){
+    	                String key= entry.getKey();
+    	                Path value= entry.getValue(); 
+    	                if(dir.equals(key)) {
+    	                if (value.getIsLocked()==true) {
+    	                	if (value.checkZone(woz.getPlayer())==true) {
+        	                	//creation of the dialog box
+        	                    int n = JOptionPane.showConfirmDialog(null,
+        	                    "Do you want to unlock the path?",
+        	                    "Information",
+        	                    JOptionPane.YES_NO_OPTION);
+        	                    
+        	                    if (n == JOptionPane.YES_OPTION) {
+        	                    	value.haveKey(woz.getPlayer());
+        	    					JOptionPane.showMessageDialog(null,  "The path is unlocked! You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                    
+        	                    } else if (n == JOptionPane.NO_OPTION) {
+        	                    	JOptionPane.showMessageDialog(null,  "The path is locked! You shall not pass.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                    }
+        	                   }
+    	                }
+    				}}
+        	}
+        }
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -284,7 +309,10 @@ public class HUD implements ActionListener {
     		{
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
-    			myText = new JTextArea (woz.move("north"));	
+    			
+    			dialogMove("north");
+        		myText = new JTextArea (woz.move("north"));	
+
     			myText.setEditable(false);
     			myFrame.setContentPane(newPanel());
     			myFrame.repaint();
@@ -294,6 +322,8 @@ public class HUD implements ActionListener {
     			
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
+    			dialogMove("east");
+
             	myText = new JTextArea (woz.move("east"));
             	myText.setEditable(false);
     		    myFrame.setContentPane(newPanel());
@@ -304,6 +334,8 @@ public class HUD implements ActionListener {
 			
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			dialogMove("south");
+
 			myText = new JTextArea (woz.move("south"));
 			myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
@@ -314,6 +346,8 @@ public class HUD implements ActionListener {
 		    
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			dialogMove("west");
+
 		    myText = new JTextArea (woz.move("west"));
 		    myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
@@ -358,17 +392,7 @@ public class HUD implements ActionListener {
     			}
 			}
 			
-		} /*else if (myOpenPathButton.isEnabled() && e.getSource()==myOpenPathButton) {
-			for (Item itemKey : woz.getPlayer().getInventory()) {
-    			if (itemKey instanceof Key) {
-    				(((Key) itemKey).checkZone(woz.getPlayer()));
-    				if (((Key) itemKey).getIsLocked()==false) {
-    					myText = new JLabel("The path is unlocked! You can pass now.");
-    				}
-    			}
-		//	woz.getCurrentZone().getHMap().checkZone(woz.getPlayer());
-			}
-		}*/
+		} 
 
 }	        
 }

@@ -143,7 +143,7 @@ public class WoZ
                 Path value= entry.getValue();              
         		                           
                 if(dir.equals(key)) {  
-                if (value.checkZone(player) == false) {
+                if (value.getIsLocked() == false) {
                 		setCurrentZone(value.getExit());
                 		message = "You are in " + currentZone.getZoneName();
                 		if(getCurrentZone().getCurrentNpcFight()!=null) {
