@@ -5,27 +5,27 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 
-
+/** 
+ * This class displays the context of the game
+ * with frame with piece of story and next button
+ * @author Groupe 1
+ */
 public class Launcher implements ActionListener{
-	//when we want to play first frame where we enter the name
-	//Game
+	
 	private JButton nextButton, secondButton, thirdButton, fourthButton, fifthButton, sixthButton, seventhButton;
 	private JFrame myFrame,mySecondFrame, myThirdFrame, myFourthFrame, myFifthFrame, mySixthFrame, mySeventhFrame;
 	private JLabel firstLabel,secondLabel, thirdLabel, fourthLabel, fifthLabel, sixthLabel, seventhLabel;
 	private JPanel firstPanel, secondPanel, thirdPanel, fourthPanel, fifthPanel, sixthPanel, seventhPanel;
 
 	public Launcher() {
-
 		myFrame = new JFrame();
 		myFrame.setTitle("World Of Zuul");// Titre
 	    myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    //----------------------------------------------------------------------
-	    
 	    //first label
 	    firstLabel = new JLabel("<html>You are in a spaceship traveling quietly between the stars...</html>");
 	    firstLabel.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,30));
 	    firstLabel.setForeground(Color.white);
-    
+	    //first next button
 	    nextButton = new JButton("Next...");   
 	    nextButton.setOpaque(false);
 	    nextButton.setContentAreaFilled(false);
@@ -35,13 +35,13 @@ public class Launcher implements ActionListener{
 	    nextButton.setVerticalTextPosition(SwingConstants.CENTER);
 	    nextButton.setHorizontalTextPosition(SwingConstants.CENTER);
 	    nextButton.addActionListener(this);
-	    
+	    //first panel with the text and the next button
 	    firstPanel = new JPanel();
         firstPanel.setLayout(new GridLayout(1,2));
 	    firstPanel.add(firstLabel);
 	    firstPanel.add(nextButton);
 	    firstPanel.setOpaque(false);
-	    
+	    //container that contains the background image and the panel
 	    Container c = new JLabel(new ImageIcon(getClass().getResource("/images/espace.png")));
 	    c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
         c.add(firstPanel);
@@ -58,10 +58,13 @@ public class Launcher implements ActionListener{
         myFrame.setVisible(true);      
 	}
 
+	
+	
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == nextButton) {
-			myFrame.dispose();
+			myFrame.dispose();//close the precedent window
 			mySecondFrame = new JFrame();
 			mySecondFrame.setTitle("World Of Zuul");// Titre
 			mySecondFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
