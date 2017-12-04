@@ -30,7 +30,7 @@ import fr.crash.core.WoZ;
  */
 
 public class HUD implements ActionListener {
-
+	
 	private JFrame myFrame, frameInventory;  
     private JLabel myPlayerName, myHP, myEP, myInvent;
     private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
