@@ -150,15 +150,6 @@ public class Player
     	currentWeapon = weap;
     }
 
-    /**
-     * This method gives the description of an item, so that the player can know how to
-     * use it.
-     * @return     the description of the item
-     */
-    public String getDescription()
-    {
-        return(descriptionItem);
-    }
 
     /**
      * This method is used to search if a specific item is present in the inventory of
