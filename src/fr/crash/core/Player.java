@@ -39,6 +39,7 @@ public class Player
         }
         
         currentWeapon = objGame.getKnife();
+        inventory.add(currentWeapon);
     }
 
     /**

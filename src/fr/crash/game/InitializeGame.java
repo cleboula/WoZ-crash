@@ -78,30 +78,30 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-			medChurch = new Medikit(60, 40, "medChurch", "This is a medikit. Use it carefully!");
-			medLake = new Medikit(30,30,"medLake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.");
+			medChurch = new Medikit(60, 40, "medChurch", "This is a medikit. Use it carefully!",null);
+			medLake = new Medikit(30,30,"medLake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
 	
 			// creation of the keys
 			//keys to unlock the paths
-			keyForestS = new Key("keyForestS", "This is a machete. Perfect to pull some wood out of the way.");
-			keyForestWForestN = new Key("keyForestWForestN", "Large wooden planks, great to build a path across gaps.");
-			keyHouse = new Key("keyHouse", "This is a key. No idea of what it can open...");
-			keyJail = new Key("keyJail", "A bunch of keys, given by a helpful prisoner in jail.");
-			keyPick = new Key("keyPick", "This is a climbing kit. Perfect to cross difficulties on the way.");
+			keyForestS = new Key("keyForestS", "This is a machete. Perfect to pull some wood out of the way.",null);
+			keyForestWForestN = new Key("keyForestWForestN", "Large wooden planks, great to build a path across gaps.",null);
+			keyHouse = new Key("keyHouse", "This is a key. No idea of what it can open...",null);
+			keyJail = new Key("keyJail", "A bunch of keys, given by a helpful prisoner in jail.",null);
+			keyPick = new Key("keyPick", "This is a climbing kit. Perfect to cross difficulties on the way.",null);
 			//keys to open the chests
-			keyChestMarketplace = new Key("keyChestMarketplace", "This is a key, found in the Market place.");
-			keyChestHouse = new Key("keyChestHouse", "This is a key, found in a house.");
-			keyChestChurch = new Key("keyChestChurch", "This is a key, pick up in the Church.");
+			keyChestMarketplace = new Key("keyChestMarketplace", "This is a key, found in the Market place.",null);
+			keyChestHouse = new Key("keyChestHouse", "This is a key, found in a house.",null);
+			keyChestChurch = new Key("keyChestChurch", "This is a key, pick up in the Church.",null);
 			//keys to repair the spaceship (SS)
-			keySSGenerator = new Key("keySSGenerator", "This is the generator cell of your spaceship.");
-			keySSWheel = new Key("keySSWheel", "These are the wheels of your spaceship.");
-			keySSEnergyCell = new Key("keySSEnergyCell", "This is the energy cell of your spaceship.");
-			keySSFTL = new Key("keySSFTL", "This is your 'faster than light' technology, necessary for your spaceship.");
+			keySSGenerator = new Key("keySSGenerator", "This is the generator cell of your spaceship.",null);
+			keySSWheel = new Key("keySSWheel", "These are the wheels of your spaceship.",null);
+			keySSEnergyCell = new Key("keySSEnergyCell", "This is the energy cell of your spaceship.",null);
+			keySSFTL = new Key("keySSFTL", "This is your 'faster than light' technology, necessary for your spaceship.",null);
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "chestMarketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
-			chestHouse = new Chest(keySSWheel, "chestHouse", "A big tidying chest. Something is shining inside...", keyChestHouse);
-			chestChurch = new Chest(medChurch, "chestChurch", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
+			chestMarketplace = new Chest(sword, "chestMarketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace,null);
+			chestHouse = new Chest(keySSWheel, "chestHouse", "A big tidying chest. Something is shining inside...", keyChestHouse,null);
+			chestChurch = new Chest(medChurch, "chestChurch", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,null);
  
 			//create zones
 		   crashzone = new Zone("crashZone", crashZonePic);
