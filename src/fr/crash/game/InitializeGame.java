@@ -181,10 +181,7 @@ public InitializeGame() {
            listZone.add(cave);
            listZone.add(lairofthebeast);
  */          
-           //list of items per zone
-           crashzone.setItems(keyChestMarketplace); // test pour le bouton open
-           crashzone.setItems(chestMarketplace); // test pour le bouton open
-           
+           //list of items per zone           
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
            
@@ -218,12 +215,12 @@ public InitializeGame() {
            crashzone_glade = new Path(glade,false, null);
            glade_forestS = new Path(forestS,false, null);
            forestS_glade = new Path(glade,false, null);
-           glade_forestW = new Path(forestW,true, keyForestS);//path initially blocked
+           glade_forestW = new Path(forestW,false, null);
            forestW_glade = new Path(glade,false, null);
            glade_forestN = new Path(forestN,true, keyForestS);//path initially blocked
            forestN_glade = new Path(glade,false, null);
            bridge_forestW = new Path(forestW,false, null);
-           forestW_bridge = new Path(bridge,false, null);
+           forestW_bridge = new Path(bridge,true, keyForestS);//path initially blocked
            bridge_forestN = new Path(forestN,false, null);
            forestN_bridge = new Path(bridge,false, null);
            bridge_cityentrance = new Path(cityentrance,true, keyForestW);//path initially blocked
