@@ -149,4 +149,37 @@ public class Player
     {
     	currentWeapon = weap;
     }
+
+    /**
+     * This method gives the description of an item, so that the player can know how to
+     * use it.
+     * @return     the description of the item
+     */
+    public String getDescription()
+    {
+        return(descriptionItem);
+    }
+
+    /**
+     * This method is used to search if a specific item is present in the inventory of
+     * the player
+     * @param player
+     * @param item
+     * @return true if the item is present in the inventory of the player
+     */
+    //note:  this is a duplicata of Item.searchInventory
+    public boolean searchInventory(Player player,Item item)
+    {
+
+        for (int i = 0; i < player.getInventory().size(); i++) {
+            if (item == player.getInventory().get(i)) {
+                return(true);
+            }
+        }
+        return(false);
+
+    }
+
+
+
 }
