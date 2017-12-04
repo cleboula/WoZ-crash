@@ -21,6 +21,7 @@ import fr.crash.core.Medikit;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
 
+import javax.swing.JOptionPane;
 
 /**
  * @author Group 1
@@ -66,41 +67,57 @@ public class HUD implements ActionListener {
             		JFrame inventFrame = new JFrame("Inventory");//give the name to the frame
                  	//myInvent = new JLabel("Voila l'inventaire");
                  	myPanelObject = new JPanel();
-                    myPanelObject.setLayout(new GridLayout(2,2));
+                 	int o = 1;
+                    //myPanelObject.setLayout(new GridLayout(2,2));
                  	myPanelWeapon = new JPanel();
-                    myPanelWeapon.setLayout(new GridLayout(2,2));
+                 	int w = 1;
+                    //myPanelWeapon.setLayout(new GridLayout(1,2));
                     myPanelKey = new JPanel();
-                    myPanelKey.setLayout(new GridLayout(3,3));
+                    int k = 1;
+                    //myPanelKey.setLayout(new GridLayout(3,3));
                     myPanelChest = new JPanel();
-                    myPanelChest.setLayout(new GridLayout(3,3));
+                    int c = 1;
+                    //myPanelChest.setLayout(new GridLayout(3,3));
                     myPanelMedikit = new JPanel();
-                    myPanelMedikit.setLayout(new GridLayout(3,3));
-            		for (int i = 0; i < inventory.size(); i++) {
+                    int m = 1;
+                    //myPanelMedikit.setLayout(new GridLayout(3,3));
+                    /*JOptionPane d = new JOptionPane();
+                    int retour = d.showConfirmDialog(getFrame(),
+                                                     "le message",
+                                                     "le titre",
+                                                     optionType);    */        		
+                    for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "knife" || 
             					inventory.get(i).getName() == "sword"|| 
                     			inventory.get(i).getName() == "gun") {
+            				myPanelWeapon.setLayout(new GridLayout(w++,2));
             				myPanelWeapon.add(new JLabel(inventory.get(i).getImage()));
+            				myPanelWeapon.add(new JLabel(inventory.get(i).getName()));
             			}
             			else if(inventory.get(i).getName() == "Machete" ||
             					inventory.get(i).getName() == "Planks" ||
             					inventory.get(i).getName() == "Bunch of keys" ||
             					inventory.get(i).getName() == "Climbing kit") {
+            				myPanelKey.setLayout(new GridLayout(k,3));
             				myPanelKey.add(new JLabel(inventory.get(i).getName()));
             			}
             			else if(inventory.get(i).getName() == "Small Medikit" ||
             					inventory.get(i).getName() == "Magic Lake") {
+            				myPanelMedikit.setLayout(new GridLayout(m,2));
             				myPanelMedikit.add(new JLabel(inventory.get(i).getName()));
             			}
             			else if(inventory.get(i).getName() == "Old Key" ||
             					inventory.get(i).getName() == "A very old Key" ||
             					inventory.get(i).getName() == "A big old Key" ||
             					inventory.get(i).getName() == "Small old Key") {
+            				myPanelChest.setLayout(new GridLayout(c,2));
             				myPanelChest.add(new JLabel(inventory.get(i).getName()));
             			}
             			else if(inventory.get(i).getName() == "Generator Cell" ||
             					inventory.get(i).getName() == "Wheels" ||
             					inventory.get(i).getName() == "Energy Cell" ||
             					inventory.get(i).getName() == "FTL") {
+            				myPanelObject.setLayout(new GridLayout(o,2));
             				myPanelObject.add(new JLabel(inventory.get(i).getName()));
             			}
             			
