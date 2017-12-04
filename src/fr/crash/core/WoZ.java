@@ -146,10 +146,12 @@ public class WoZ
                 if (value.getIsLocked() == false) {
                 		setCurrentZone(value.getExit());
                 		message = "You are in " + currentZone.getZoneName();
-                		if(getCurrentZone().getCurrentNpcFight()!=null) {
+                		if(getCurrentZone().getCurrentNpcFightMonster()!=null) {
                 			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFight());
-                			
+                			fight(player,getCurrentZone().getCurrentNpcFightMonster());    			
+                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null){
+                			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
+                			fight(player,getCurrentZone().getCurrentNpcFightBoss());   
                 		}
                 	} else {
                 		if (currentZone.getZoneName() == "mountainbase") {
