@@ -1,10 +1,11 @@
 package fr.crash.core;
 
+import javax.swing.Icon;
 
 /**
  * This is a class representing chests. Chests can be opened by the player and contain keys.
  * A chest can not be empty. If a player open a chest, he must take the key inside. 
- * If a safe is already open, the player can no longer access it. Some chests are locked 
+ * If a chest is already open, the player can no longer access it. Some chests are locked 
  * and need a key to be unlocked.
  *
  * @author Groupe 1 WoZ
@@ -12,18 +13,17 @@ package fr.crash.core;
  */
 public class Chest extends Item
 {
-    private boolean isOpened;
-    private Item content;
-    //private Player player1;
-    private Key associatedKey;
+    private boolean isOpened; //true if the chest is already opened, false if it is not
+    private Item content; //Content of the chest
+    private Key associatedKey; //Key needed to open the chest
 
     /**
-     * Constructor of objects of class Chest. At its creation the safe has a name, 
+     * Constructor of objects of class Chest. At its creation the chest has a name, 
      * a description, a key to open it and a content. It is automatically closed.
      */
-    public Chest(Item cont, String name, String description, Key assoKey)
+    public Chest(Item cont, String name, String description, Key assoKey, Icon image)
     {
-        super(name,description); 
+        super(name,description,image); //call the constructor of Item
         isOpened = false;
         content = cont;
         associatedKey = assoKey;
@@ -42,15 +42,14 @@ public class Chest extends Item
     /**
      * This method checks in the inventory of the player if he owns
      * the key necessary to open the chest, if it is closed.
-
      */
     public void checkChest(Player player1)
     {
     	if(isOpened == false) { //if the chest is closed, we look for the key
-    		if(searchInventory(player1,associatedKey)) {//if we have the key
+    		if(player1.searchInventory(associatedKey)) {//if we have the key
     			// we open the chest
     			open();
-    			// we retrieve the object inside
+    			// we add the object inside to the player inventory
     			player1.getInventory().add(content);
     		}
     	}

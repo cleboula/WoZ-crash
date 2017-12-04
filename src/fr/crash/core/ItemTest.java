@@ -17,7 +17,7 @@ class ItemTest {
     {
 		InitializeGame objGame = new InitializeGame();
     	player1 = new Player("toto", objGame);
-		key1 = new Key("kkey","testKey");
+		key1 = new Key("kkey","testKey",null);
     	key1.addItem(key1);
     	assertEquals(true, key1.searchInventory(player1, key1));
     }
@@ -27,7 +27,7 @@ class ItemTest {
     {
 		InitializeGame objGame = new InitializeGame();
     	player1 = new Player("toto", objGame);
-		key1 = new Key("kkey","testKey");
+		key1 = new Key("kkey","testKey",null);
     	player1.getInventory().add(key1);
     	assertEquals(true, key1.searchInventory(player1, key1));
     }

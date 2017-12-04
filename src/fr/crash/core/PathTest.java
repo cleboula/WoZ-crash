@@ -28,7 +28,7 @@ class PathTest {
     @Test
     public void initialTest()
     {
-    	assoKey = new Key("testKey", "opening first path");
+    	assoKey = new Key("testKey", "opening first path",null);
         path1 = new Path(zone1, true, assoKey);
         InitializeGame objGame = new InitializeGame();
     	player1 = new Player("toto", objGame);
