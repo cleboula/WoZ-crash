@@ -20,7 +20,8 @@ public class Zone
     private HashMap<String,Path> hmap; // hashmap of the direction and the path possibles depending on the current zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
-    private Npc currentNpc; 
+    private NpcDialog currentNpcDialog; 
+    private NpcFight currentNpcFight;
     private Icon picZone;
  
 
@@ -29,10 +30,10 @@ public class Zone
      */
     public Zone(String name, Icon pic)
     {
-    		picZone = pic;
+    	picZone = pic;
         nameZone = name;
         hmap = new HashMap<String, Path>();
-        currentNpc = null;
+        currentNpcFight = null;
         
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
@@ -40,19 +41,19 @@ public class Zone
         
         if(nameZone=="forestN"||nameZone=="forestW")
         {
-        	currentNpc = new NpcFightMonster(10,2,"Snake","small snake");
+        	currentNpcFight = new NpcFightMonster(10,2,"Snake","small snake");
         }
         else if(nameZone=="caveentrance")
         {
-        	currentNpc = new NpcFightMonster(20,5,"Snake","big snake");
+        	currentNpcFight = new NpcFightMonster(20,5,"Snake","big snake");
         }
         else if(nameZone=="cave")
         {
-        	currentNpc = new NpcFightMonster(50,10,"Wolf","black wolf");
+        	currentNpcFight = new NpcFightMonster(50,10,"Wolf","black wolf");
         }
         else if(nameZone == "bridge")
         {
-        	currentNpc = new NpcFightMonster(25,5,"Shark","shark");
+        	currentNpcFight = new NpcFightMonster(25,5,"Shark","shark");
         }
     }
     /**
@@ -94,13 +95,26 @@ public class Zone
     {
     	listItems.add(item);
     }
+    
+    public NpcDialog getCurrentNpcDialog() {
+		return currentNpcDialog;
+	}
+	public void setCurrentNpcDialog(NpcDialog currentNpcDialog) {
+		this.currentNpcDialog = currentNpcDialog;
+	}
+	/**
+     * This method returns the NPCFight present in the zone 
+     */
+    public NpcFight getCurrentNpcFight() {
+		return currentNpcFight;
+	}
     /**
      * This method implements the NPC present in the zone 
      * @param npc is the NPC that can be found in the zone
      */
-    public void setNPC(Npc npc)
+    public void setNPCFight(NpcFight npc)
     {
-    	currentNpc = npc;
+    	currentNpcFight = npc;
     }
     /**
 	 * @return the picZone
@@ -113,6 +127,13 @@ public class Zone
 	 */
 	public ArrayList<Item> getListItems() {
 		return listItems;
+	}
+	
+	/**
+	 * This method allows to set empty the list of items per zone after the player took them
+	 */
+	public void setListItemsEmpty() {
+		listItems = new ArrayList<Item>();
 	}
 	
 	

@@ -63,5 +63,14 @@ public class Path
         }
         return(isLocked);
     }
+    
+    /**
+     * This method allows to get the key that unblocks a path
+     * @return the key corresponding to the Path
+     */
+    public Key getKey()
+    {
+    	return associatedPathKey;
+    }
 }
 
