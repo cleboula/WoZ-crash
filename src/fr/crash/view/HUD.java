@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.*;
+import java.util.HashMap;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -18,8 +19,11 @@ import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
+import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
+
+import javax.swing.JOptionPane;
 
 /**
  * @author Group 1
@@ -29,10 +33,9 @@ import fr.crash.core.WoZ;
  */
 
 public class HUD implements ActionListener {
-
 	private JFrame myFrame;  
     private JLabel myPlayerName, myHP, myEP, myInvent;
-    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelMedikit;  
+    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
     private JTextArea myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
@@ -41,10 +44,12 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
     private WoZ woz;
-     
-    	//displays the image corresponding to the current zone, the different buttons to interact with the world
+
+    private JOptionPane optionPane;
+    private JOptionPane options;
+    
         public HUD(WoZ woz) {
 
         	this.woz=woz;
@@ -60,38 +65,72 @@ public class HUD implements ActionListener {
             	public void actionPerformed (ActionEvent e){
             		Player player = woz.getPlayer();
             		ArrayList<Item> inventory = player.getInventory();
-            		
+   
             		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame
-                 	myInvent = new JLabel("Voila l'inventaire");
+
+                 	myPanelObject = new JPanel();
+                 	int o = 1;
                  	myPanelWeapon = new JPanel();
-                    myPanelWeapon.setLayout(new GridLayout(2,2));
+                 	int w = 1;
+                    //myPanelWeapon.setLayout(new GridLayout(1,2));
                     myPanelKey = new JPanel();
-                    myPanelKey.setLayout(new GridLayout(3,3));
-                    //myPanelObject = new JPanel();
-                    //myPanelObject.setLayout(new GridLayout(3,3));
+                    int k = 1;
+                    //myPanelKey.setLayout(new GridLayout(3,3));
+                    myPanelChest = new JPanel();
+                    int c = 1;
+                    //myPanelChest.setLayout(new GridLayout(3,3));
                     myPanelMedikit = new JPanel();
-                    myPanelMedikit.setLayout(new GridLayout(3,3));
-            		for (int i = 0; i < inventory.size(); i++) {
+                    int m = 1;
+                    //myPanelMedikit.setLayout(new GridLayout(3,3));
+                    /*JOptionPane d = new JOptionPane();
+                    int retour = d.showConfirmDialog(getFrame(),
+                                                     "le message",
+                                                     "le titre",
+                                                     optionType);    */        		
+                    for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "knife" || 
             					inventory.get(i).getName() == "sword"|| 
                     			inventory.get(i).getName() == "gun") {
+            				myPanelWeapon.setLayout(new GridLayout(w++,2));
             				myPanelWeapon.add(new JLabel(inventory.get(i).getImage()));
+            				myPanelWeapon.add(new JLabel(inventory.get(i).getName()));
             			}
-            			else if(inventory.get(i).getName().substring(0,3) == "key") {
+            			else if(inventory.get(i).getName() == "Machete" ||
+            					inventory.get(i).getName() == "Planks" ||
+            					inventory.get(i).getName() == "Bunch of keys" ||
+            					inventory.get(i).getName() == "Climbing kit") {
+            				myPanelKey.setLayout(new GridLayout(k,3));
             				myPanelKey.add(new JLabel(inventory.get(i).getName()));
             			}
-            			else if(inventory.get(i).getName().substring(0,3) == "med") {
+            			else if(inventory.get(i).getName() == "Small Medikit" ||
+            					inventory.get(i).getName() == "Magic Lake") {
+            				myPanelMedikit.setLayout(new GridLayout(m,2));
             				myPanelMedikit.add(new JLabel(inventory.get(i).getName()));
             			}
-            			inventFrame.add(new JLabel(inventory.get(i).getName()));
+            			else if(inventory.get(i).getName() == "Old Key" ||
+            					inventory.get(i).getName() == "A very old Key" ||
+            					inventory.get(i).getName() == "A big old Key" ||
+            					inventory.get(i).getName() == "Small old Key") {
+            				myPanelChest.setLayout(new GridLayout(c,2));
+            				myPanelChest.add(new JLabel(inventory.get(i).getName()));
+            			}
+            			else if(inventory.get(i).getName() == "Generator Cell" ||
+            					inventory.get(i).getName() == "Wheels" ||
+            					inventory.get(i).getName() == "Energy Cell" ||
+            					inventory.get(i).getName() == "FTL") {
+            				myPanelObject.setLayout(new GridLayout(o,2));
+            				myPanelObject.add(new JLabel(inventory.get(i).getName()));
+            			}
+            			
+            			//inventFrame.add(new JLabel(inventory.get(i).getName()));
             		}
             		if(inventory.size() == 0) {
             			inventFrame.add(new JLabel("L'inventaire est vide !"));
             		}
             		myPanelInventory = new JPanel();
             		myPanelInventory.setLayout(new BorderLayout());
-            		myPanelInventory.add(myInvent, BorderLayout.NORTH);
-            		//myPanelInventory.add(myPanelObject, BorderLayout.CENTER);
+            		myPanelInventory.add(myPanelChest, BorderLayout.NORTH);
+            		myPanelInventory.add(myPanelObject, BorderLayout.CENTER);
             		myPanelInventory.add(myPanelMedikit, BorderLayout.SOUTH);
             		myPanelInventory.add(myPanelKey, BorderLayout.EAST);
             		myPanelInventory.add(myPanelWeapon, BorderLayout.WEST);
@@ -168,11 +207,6 @@ public class HUD implements ActionListener {
             	}
             });*/
 
-            myOpenPathButton = new JButton("Unlock Path");
-            myOpenPathButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
-            myOpenPathButton.setForeground(Color.black);
-            myOpenPathButton.setEnabled(false);//open button is not available
-            myOpenPathButton.addActionListener(this);
             
             //the Attack button
             myAttackButton = new JButton("Attack");
@@ -181,14 +215,22 @@ public class HUD implements ActionListener {
             myAttackButton.setEnabled(false);//attack button is not available
             if(woz.isCurrentfight()==true) {
                 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                myNorthArrow.setEnabled(false); // disable direction button
+                myEastArrow.setEnabled(false);
+                myWestArrow.setEnabled(false);
+                mySouthArrow.setEnabled(false);
+                
             }
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-            		if(woz.getCurrentZone().getCurrentNpcFight()!=null) {
-	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFight());
-	            		if (woz.getCurrentZone().getCurrentNpcFight().getHp()!=0) {
-		            		myText = new JTextArea("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFight());
+            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
+	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
+		            		myText =new JTextArea(woz.fight(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myText.setEditable(false);
+		            		myFrame.setContentPane(newPanel());
+		        			myFrame.repaint();
+		        			myFrame.revalidate();
 	            		}
             		}
             	}
@@ -237,10 +279,9 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(4,1));
+            myPanelLittleRight.setLayout(new GridLayout(3,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
-            myPanelLittleRight.add(myOpenButton);
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -291,6 +332,32 @@ public class HUD implements ActionListener {
         	return p1;
         }
       
+        public void dialogMove(String dir) {
+        	if (dir!="") {
+    				for (HashMap.Entry<String, Path> entry:woz.getCurrentZone().getHMap().entrySet()){
+    	                String key= entry.getKey();
+    	                Path value= entry.getValue(); 
+    	                if(dir.equals(key)) {
+    	                if (value.getIsLocked()==true) {
+    	                	if (value.checkZone(woz.getPlayer())==true) {
+        	                	//creation of the dialog box
+        	                    int n = JOptionPane.showConfirmDialog(null,
+        	                    "Do you want to unlock the path?",
+        	                    "Information",
+        	                    JOptionPane.YES_NO_OPTION);
+        	                    
+        	                    if (n == JOptionPane.YES_OPTION) {
+        	                    	value.haveKey(woz.getPlayer());
+        	    					JOptionPane.showMessageDialog(null,  "The path is unlocked! You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                    
+        	                    } else if (n == JOptionPane.NO_OPTION) {
+        	                    	JOptionPane.showMessageDialog(null,  "The path is locked! You shall not pass.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                    }
+        	                   }
+    	                }
+    				}}
+        	}
+        }
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -298,7 +365,8 @@ public class HUD implements ActionListener {
     		{
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
-    			myText = new JTextArea (woz.move("north"));	
+    			dialogMove("north");
+        		myText = new JTextArea (woz.move("north"));	
     			myText.setEditable(false);
     			myFrame.setContentPane(newPanel());
     			myFrame.repaint();
@@ -308,6 +376,7 @@ public class HUD implements ActionListener {
     			
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
+    			dialogMove("east");
             	myText = new JTextArea (woz.move("east"));
             	myText.setEditable(false);
     		    myFrame.setContentPane(newPanel());
@@ -318,6 +387,7 @@ public class HUD implements ActionListener {
 			
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			dialogMove("south");
 			myText = new JTextArea (woz.move("south"));
 			myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
@@ -328,6 +398,7 @@ public class HUD implements ActionListener {
 		    
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			dialogMove("west");
 		    myText = new JTextArea (woz.move("west"));
 		    myText.setEditable(false);
 		    myFrame.setContentPane(newPanel());
@@ -379,17 +450,7 @@ public class HUD implements ActionListener {
     			}
 			}
 			
-		} /*else if (myOpenPathButton.isEnabled() && e.getSource()==myOpenPathButton) {
-			for (Item itemKey : woz.getPlayer().getInventory()) {
-    			if (itemKey instanceof Key) {
-    				(((Key) itemKey).checkZone(woz.getPlayer()));
-    				if (((Key) itemKey).getIsLocked()==false) {
-    					myText = new JLabel("The path is unlocked! You can pass now.");
-    				}
-    			}
-		//	woz.getCurrentZone().getHMap().checkZone(woz.getPlayer());
-			}
-		}*/
+		} 
 
 }	        
             

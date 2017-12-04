@@ -41,22 +41,48 @@ public class InitializeGame {
 	
 	private Icon swordPic, knifePic, gunPic;
 
-	private NpcDialog shaman,prisoner,citizen1,citizen2,citizen3,citizen4;
+	//private NpcDialog prisoner,citizen1,citizen2,citizen3,citizen4;
 
 	private String selecteddialogline;
 
 public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
-			shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
+			NpcDialog shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
 			//The prisoner Npc
-			prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
+			NpcDialog prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
 			// A bunch of generic citizen npc's
-			citizen1 = new NpcDialog("Waldo","a local life form",job.citizen);
-			citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
-			citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
-			citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
+			NpcDialog citizen1 = new NpcDialog("Waldo","a local life form",job.citizen);
+			NpcDialog citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
+			NpcDialog citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
+			NpcDialog citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
+			
+			//Fighter Non player characters
+			//the boss
+			NpcFightBoss boss= new NpcFightBoss( 3000, 50, "transplantor"," uigfodnhk", 100);
+			//the monsters
+			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
+			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
+			NpcFightMonster snake2=new NpcFightMonster(20,5,"Snake","big snake");
+			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
+			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
 
+			
+			//
+	
+		
+	//the guard
+			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
+
+			
+			
+			//todo a tester
+		
+			
+		      
+	        
+
+			
 		   //images
 		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
 		   gladePic = new ImageIcon(getClass().getResource("/images/glade.jpg"));
@@ -88,33 +114,27 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-
 			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",null);
 			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
 	
 			// creation of the keys
 			//keys to unlock the paths
-
 			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.",null);
 			keyForestW = new Key("Planks", " Great to build a path across gaps.",null);
 			keyHouse = new Key("Old Key", " No idea of what it can open...",null);
 			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.",null);
 			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.",null);
-
 			//keys to open the chests
 			keyChestMarketplace = new Key("A very old Key", " Found in the house.",null);
 			keyChestHouse = new Key("A big old Key", " Wandering on the ground.",null);
 			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.",null);
-
 			//keys to repair the spaceship (SS)
-
 			keySSGenerator = new Key("Generator Cell", " Generator cell of your spaceship.",null);
 			keySSWheel = new Key("Wheels", " Wheels of your spaceship.",null);
 			keySSEnergyCell = new Key("Energy Cell", " Energy cell of your spaceship.",null);
 			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.",null);
 			
 			//creation of the chests
-
 			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace,null);
 			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse,null);
 			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,null);
@@ -161,10 +181,7 @@ public InitializeGame() {
            listZone.add(cave);
            listZone.add(lairofthebeast);
  */          
-           //list of items per zone
-           crashzone.setItems(keyChestMarketplace); // test pour le bouton open
-           crashzone.setItems(chestMarketplace); // test pour le bouton open
-           
+           //list of items per zone           
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
            
@@ -198,12 +215,12 @@ public InitializeGame() {
            crashzone_glade = new Path(glade,false, null);
            glade_forestS = new Path(forestS,false, null);
            forestS_glade = new Path(glade,false, null);
-           glade_forestW = new Path(forestW,true, keyForestS);//path initially blocked
+           glade_forestW = new Path(forestW,false, null);
            forestW_glade = new Path(glade,false, null);
            glade_forestN = new Path(forestN,true, keyForestS);//path initially blocked
            forestN_glade = new Path(glade,false, null);
            bridge_forestW = new Path(forestW,false, null);
-           forestW_bridge = new Path(bridge,false, null);
+           forestW_bridge = new Path(bridge,true, keyForestS);//path initially blocked
            bridge_forestN = new Path(forestN,false, null);
            forestN_bridge = new Path(bridge,false, null);
            bridge_cityentrance = new Path(cityentrance,true, keyForestW);//path initially blocked
@@ -287,8 +304,28 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
               
+         //Placement des Npcs
+       		jailentrance.setCurrentNpcFightGuard(guard);
+       		
+       		
+			lairofthebeast.setCurrentNpcFightBoss(boss);
+			
+			glade.setCurrentNpcDialog(shaman);
+			cityentrance.setCurrentNpcDialog(citizen1);
+			jail.setCurrentNpcDialog(prisoner);
+			marketplace.setCurrentNpcDialog(citizen2);
+			church.setCurrentNpcDialog(citizen3);
+			house.setCurrentNpcDialog(citizen4);
+
+
+			forestN.setCurrentNpcFightMonster(snake1);
+			forestW.setCurrentNpcFightMonster(snake1bis);
+			caveentrance.setCurrentNpcFightMonster(snake2);
+			cave.setCurrentNpcFightMonster(wolf);
+			bridge.setCurrentNpcFightMonster(shark);
 
 	}
+
 
 
 
@@ -325,6 +362,10 @@ public InitializeGame() {
 			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
 
 		} return selecteddialogline;
+		
+		
+		
+		
 	}
 
 
