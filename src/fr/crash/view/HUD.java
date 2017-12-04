@@ -324,6 +324,7 @@ public class HUD implements ActionListener {
 					myTakeButton.setEnabled(true);}
 				else if (j instanceof Chest) {
 					myOpenButton.setEnabled(true);
+					myTakeButton.setEnabled(true);
 				}
 		    }
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
@@ -341,6 +342,7 @@ public class HUD implements ActionListener {
     					myText = new JTextArea("You have a new item! " + ((Chest)i).getContent().getDescription());
     					myText.setEditable(false);
     					myOpenButton.setEnabled(false);
+    					woz.getCurrentZone().setListItemsEmpty();
     				    myFrame.setContentPane(newPanel());
     				    myFrame.repaint();
     				    myFrame.revalidate();

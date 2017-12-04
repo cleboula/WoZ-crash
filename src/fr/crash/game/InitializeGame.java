@@ -99,7 +99,7 @@ public InitializeGame() {
 			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.");
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
+			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
 			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse);
 			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
  
