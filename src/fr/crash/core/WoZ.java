@@ -137,37 +137,56 @@ public class WoZ
     public String move(String dir) {
     	String message = "";
     	if (dir!="") {
+    		message = "You are in " + currentZone.getZoneName();
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
-                                          
+        		                           
                 if(dir.equals(key)) {  
-                	if (value.checkZone(player) == false) {
+                if (value.checkZone(player) == false) {
                 		setCurrentZone(value.getExit());
                 		message = "You are in " + currentZone.getZoneName(); 
                 	} else {
-                		
-                		message = "You cannot go this way ! ";
-                	}
-                }
-    		}
-    	} 
+                		if (currentZone.getZoneName() == "mountainbase") {
+                	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
+                		}
+                			else {
+                        		if (currentZone.getZoneName() == "marketplace") {
+                            	    message = "You cannot go this way ! The door is close.";
+                            	}
+                        			else {
+                        				if (currentZone.getZoneName() == "bridge") {
+                        					message = "You cannot go this way ! You need wood to build the bridge.";
+                        				}
+                            				else {
+                            					if (currentZone.getZoneName() == "jailentrance") {
+                            						message = "You cannot go this way ! Do you really want to go to jail ?";
+                            					}
+                            						else {
+                            							if (currentZone.getZoneName() == "glade") {
+                            							message = "You cannot go this way ! You need a machete to cut branches ";
+                            							}
+                            						}
+                            				}
+                        			}
+                			}
+                		}
+                	}   
+    				}
+    		} 
 		return message;	
     }  
+
     
     public String search() {
-    
-    	String zoneItems = "";
+	String zoneItems = "";
     	String message = "";
     	String newline = System.getProperty("line.separator");
     	if (getCurrentZone().getListItems().isEmpty()) {
     		message = "It seems there is nothing interesting to take in this zone.";
     	}else {
     		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
-    			/*if (i instanceof Chest) { //if an item is a chest
-    				myOpenButton.setEnabled(true); //the open button is available
-    			}*/
-    			zoneItems = zoneItems + i.getName() + ": " + i.getDescription() + newline + " "; 
+    			zoneItems = zoneItems + newline + i.getName() + ": " + i.getDescription(); 
     			message = "In this zone, you can find: " + zoneItems; //to display objects of this zone
     		}
     	}

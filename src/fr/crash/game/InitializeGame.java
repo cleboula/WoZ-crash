@@ -22,7 +22,7 @@ public class InitializeGame {
 	
 	private Medikit medChurch, medLake;
 	
-	private Key keyForestS, keyForestWForestN, keyHouse, keyJail, keyPick, keyChestMarketplace, keyChestHouse, keyChestChurch,
+	private Key keyForestS, keyForestW, keyHouse, keyJail, keyPick, keyChestMarketplace, keyChestHouse, keyChestChurch,
 			keySSGenerator, keySSWheel, keySSEnergyCell, keySSFTL;
 	
 	private Chest chestMarketplace, chestHouse, chestChurch;
@@ -83,25 +83,25 @@ public InitializeGame() {
 	
 			// creation of the keys
 			//keys to unlock the paths
-			keyForestS = new Key("Machete", "This is a machete. Perfect to pull some wood out of the way.");
-			keyForestWForestN = new Key("Planks", "Large wooden planks, great to build a path across gaps.");
-			keyHouse = new Key("Old Key", "This is a key. No idea of what it can open...");
-			keyJail = new Key("Bunch of keys", "A bunch of keys, given by a helpful prisoner in jail.");
-			keyPick = new Key("Climbing kit", "This is a climbing kit. Perfect to cross difficulties on the way.");
+			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.");
+			keyForestW = new Key("Planks", " Great to build a path across gaps.");
+			keyHouse = new Key("Old Key", " No idea of what it can open...");
+			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.");
+			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.");
 			//keys to open the chests
-			keyChestMarketplace = new Key("Old Key", "This is a key, found in the Market place.");
-			keyChestHouse = new Key("Old Key", "This is a key, found in a house.");
-			keyChestChurch = new Key("Old Key", "This is a key, picked up in the Church.");
+			keyChestMarketplace = new Key("A very old Key", " Found in the house.");
+			keyChestHouse = new Key("A big old Key", " Wandering on the ground.");
+			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.");
 			//keys to repair the spaceship (SS)
-			keySSGenerator = new Key("Generator Cell", "This is the generator cell of your spaceship.");
-			keySSWheel = new Key("Wheels", "These are the wheels of your spaceship.");
-			keySSEnergyCell = new Key("Energy Cell", "This is the energy cell of your spaceship.");
-			keySSFTL = new Key("FTL", "This is your 'faster than light' technology, necessary for your spaceship.");
+			keySSGenerator = new Key("Generator Cell", " Generator cell of your spaceship.");
+			keySSWheel = new Key("Wheels", " Wheels of your spaceship.");
+			keySSEnergyCell = new Key("Energy Cell", " Energy cell of your spaceship.");
+			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.");
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "Chest of the Marketplace", "A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
-			chestHouse = new Chest(keySSWheel, "Tidying Chest", "A big tidying chest. Something is shining inside...", keyChestHouse);
-			chestChurch = new Chest(medChurch, "Chest in a Church", "There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
+			chestMarketplace = new Chest(sword, "Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace);
+			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse);
+			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch);
  
 			//create zones
 		   crashzone = new Zone("crashZone", crashZonePic);
@@ -152,19 +152,18 @@ public InitializeGame() {
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
            
-           forestW.setItems(keyForestWForestN);
-           
-           forestN.setItems(keyForestWForestN);
-           
+           forestW.setItems(keyForestW);
+                      
            marketplace.setItems(chestMarketplace);
-           marketplace.setItems(keyChestMarketplace);
+           marketplace.setItems(keyChestChurch);
            marketplace.setItems(keyHouse);
            
            house.setItems(chestHouse);
-           house.setItems(keyChestHouse);
+           house.setItems(keyChestMarketplace);
            
            church.setItems(chestChurch);
-           church.setItems(keyChestChurch);
+           
+           caveentrance.setItems(keyChestHouse);
            
            jailentrance.setItems(gun);
            
@@ -191,7 +190,7 @@ public InitializeGame() {
            forestW_bridge = new Path(bridge,false, null);
            bridge_forestN = new Path(forestN,false, null);
            forestN_bridge = new Path(bridge,false, null);
-           bridge_cityentrance = new Path(cityentrance,true, keyForestWForestN);//path initially blocked
+           bridge_cityentrance = new Path(cityentrance,true, keyForestW);//path initially blocked
            cityentrance_bridge = new Path(bridge,false, null);
            forestN_caveentrance = new Path(caveentrance,false, null);
            caveentrance_forestN = new Path(forestN,false, null);
@@ -205,7 +204,7 @@ public InitializeGame() {
            frozenlake_caveentrance = new Path(caveentrance, false, null);
            cave_lairofthebeast = new Path(lairofthebeast, false, null);
            lairofthebeast_cave = new Path(cave, false, null);
-           jailentrance_jail = new Path(jail, true, null);//path always blocked, the way can be crossed only if the guards put the player in jail
+           jailentrance_jail = new Path(jail, true, keyJail);//path always blocked, the way can be crossed only if the guards put the player in jail
            jail_jailentrance = new Path(jailentrance, true, keyJail);//path initially blocked
            jailentrance_marketplace = new Path(marketplace, false, null);
            marketplace_jailentrance = new Path(jailentrance, false, null);
@@ -334,8 +333,8 @@ public Key getKeyForestS() {
 /**
  * @return the keyForestWForestN
  */
-public Key getKeyForestWForestN() {
-	return keyForestWForestN;
+public Key getKeyForestW() {
+	return keyForestW;
 }
 
 /**
