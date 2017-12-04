@@ -220,10 +220,10 @@ public class HUD implements ActionListener {
             }
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
-            		if(woz.getCurrentZone().getCurrentNpcFight()!=null) {
-	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFight());
-	            		if (woz.getCurrentZone().getCurrentNpcFight().getHp()!=0) {
-		            		myText = new JTextArea("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFight());
+            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
+	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
+	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
+		            		myText = new JTextArea("You have" + woz.getPlayer().getHP()+"health point !"+" Your opponent has " + woz.getCurrentZone().getCurrentNpcFightMonster());
 		            		myText.setEditable(false);
 	            		}
             		}

@@ -21,7 +21,7 @@ public class Zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
     private NpcDialog currentNpcDialog; 
-    private NpcFight currentNpcFight;
+    private NpcFightMonster currentNpcFightMonster;
     private NpcFightBoss currentNpcFightBoss;
     private Icon picZone;
  
@@ -34,7 +34,8 @@ public class Zone
     	picZone = pic;
         nameZone = name;
         hmap = new HashMap<String, Path>();
-        currentNpcFight = null;
+        currentNpcFightMonster = null;
+        currentNpcFightBoss=null;
         
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
@@ -96,16 +97,16 @@ public class Zone
 	/**
      * This method returns the NPCFight present in the zone 
      */
-    public NpcFight getCurrentNpcFight() {
-		return currentNpcFight;
+    public NpcFight getCurrentNpcFightMonster() {
+		return currentNpcFightMonster;
 	}
     /**
      * This method implements the NPC present in the zone 
      * @param npc is the NPC that can be found in the zone
      */
-    public void setNPCFight(NpcFight npc)
+    public void setCurrentNpcFightMonster(NpcFightMonster npc)
     {
-    	currentNpcFight = npc;
+    	currentNpcFightMonster = npc;
     }
     /**
 	 * @return the picZone

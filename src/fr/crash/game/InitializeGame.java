@@ -67,11 +67,11 @@ public InitializeGame() {
 			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
 			
 			//
-			forestN.setNPCFight(snake1);
-			forestW.setNPCFight(snake1bis);
-			caveentrance.setNPCFight(snake2);
-			cave.setNPCFight(wolf);
-			bridge.setNPCFight(shark);
+			forestN.setCurrentNpcFightMonster(snake1);
+			forestW.setCurrentNpcFightMonster(snake1bis);
+			caveentrance.setCurrentNpcFightMonster(snake2);
+			cave.setCurrentNpcFightMonster(wolf);
+			bridge.setCurrentNpcFightMonster(shark);
 		
 			lairofthebeast.setCurrentNpcFightBoss(boss);
 			
