@@ -29,10 +29,6 @@ public class LaunchGame implements ActionListener {
 	    labTitle.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,75));
 	    labTitle.setForeground(Color.white);
 	    
-	    subtitle = new JLabel("Welcome to Hell",JLabel.CENTER);
-	    subtitle.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,55));
-	    subtitle.setForeground(Color.red);
-	    
 	    JLabel labelName = new JLabel("Enter your name :  ");
 	    labelName.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,30));
 	    labelName.setForeground(Color.white);
@@ -62,7 +58,6 @@ public class LaunchGame implements ActionListener {
         JPanel myPanel = new JPanel();
         myPanel.setLayout(new GridLayout(4,1));
         myPanel.add(labTitle);
-        myPanel.add(subtitle);
         myPanel.add(panelName);
         myPanel.add(butStart);
         myPanel.setOpaque(false);

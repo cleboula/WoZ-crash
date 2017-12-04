@@ -323,6 +323,7 @@ public class Launcher implements ActionListener{
 	        mySeventhFrame.revalidate();
 	        
 		} else if (e.getSource() == seventhButton) {
+			mySeventhFrame.dispose();
 			LaunchGame launchgame = new LaunchGame();
 		}
 		
