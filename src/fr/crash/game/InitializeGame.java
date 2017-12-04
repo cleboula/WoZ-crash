@@ -43,6 +43,8 @@ public class InitializeGame {
 
 	private NpcDialog shaman,prisoner,citizen1,citizen2,citizen3,citizen4;
 
+	private String selecteddialogline;
+
 public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
@@ -281,6 +283,48 @@ public InitializeGame() {
               
 
 	}
+
+
+
+	public String DialogTree (Player player,Item keyForestWForestN,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial,String selecteddialogline)
+	{
+		if (npcdial.getJobnpc()== job.prisoner)
+		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+		else if (npcdial.getJobnpc()== job.citizen)
+		{
+
+			if (player.searchInventory(player, keyJail)) {
+				selecteddialogline = "Guards !!!! seize that rogue !!!";
+			}
+			if (!player.searchInventory(player, keyJail)) {
+				selecteddialogline = "We don't take kindly your types in here!";
+			}
+		}
+		else if (npcdial.getJobnpc()== job.shaman) {
+			if (!player.searchInventory(player, keyPick)) {
+				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+			}
+			if (!player.searchInventory(player, keyJail)) {
+				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+			}
+			if (player.searchInventory(player, keyForestWForestN)) {
+				selecteddialogline = "You must go to the city and find the next part of your starship";
+			}
+			if (player.searchInventory(player, keyForestS)) {
+				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+			}
+			if (!player.searchInventory(player, keyForestS)) {
+				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+			}
+			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
+
+		} return selecteddialogline;
+	}
+
+
+
+
+
 
 /**
  * @return the currentZone
