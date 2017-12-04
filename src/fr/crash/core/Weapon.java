@@ -22,18 +22,11 @@ public class Weapon extends Item
      */
     public Weapon(int degats, int energieutilisee, String name, String description, Icon image)
     {
-        super(name,description); 
+        super(name,description,image); 
         damages = degats;
         energybyshot = energieutilisee;
-        picWeapon = image;
+        //picWeapon = image;
     }
-
-    /**
-	 * @return the picWeapon
-	 */
-	public Icon getPicWeapon() {
-		return picWeapon;
-	}
 
 	/**
      * this method allows to hit the enemy,
@@ -59,5 +52,9 @@ public class Weapon extends Item
     public int getEnergybyshot(Weapon weap)
     {
         return(weap.energybyshot);
+    }
+    public String getType()
+    {
+    	return("weapon");
     }
 }

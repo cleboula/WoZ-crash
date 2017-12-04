@@ -1,5 +1,6 @@
 package fr.crash.core;
 
+import javax.swing.Icon;
 
 /**
  * This class represents "Medikit" objects to heal our player by increasing his "HP" 
@@ -16,9 +17,9 @@ public class Medikit extends Item
     /**
      * Constructor of objets of class Medikit
      */
-    public Medikit(int HP, int EP, String name, String description)
+    public Medikit(int HP, int EP, String name, String description, Icon image)
     {
-        super(name,description);         
+        super(name,description, image);         
         hpPlayer = HP;
         epPlayer = EP;
     }
