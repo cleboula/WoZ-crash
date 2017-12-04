@@ -74,24 +74,10 @@ public InitializeGame() {
 	//the guard
 			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
 
-			//Placement des Npcs
-			glade.setCurrentNpcDialog(shaman);
-			cityentrance.setCurrentNpcDialog(citizen1);
-			jail.setCurrentNpcDialog(prisoner);
-			marketplace.setCurrentNpcDialog(citizen2);
-			church.setCurrentNpcDialog(citizen3);
-			house.setCurrentNpcDialog(citizen4);
-
-
-			forestN.setCurrentNpcFightMonster(snake1);
-			forestW.setCurrentNpcFightMonster(snake1bis);
-			caveentrance.setCurrentNpcFightMonster(snake2);
-			cave.setCurrentNpcFightMonster(wolf);
-			bridge.setCurrentNpcFightMonster(shark);
-
-			lairofthebeast.setCurrentNpcFightBoss(boss);
+			
+			
 			//todo a tester
-			jailentrance.setCurrentNpcFightGuard(guard);
+		
 			
 		      
 	        
@@ -321,7 +307,26 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
               
-           
+         //Placement des Npcs
+       		jailentrance.setCurrentNpcFightGuard(guard);
+       		
+       		
+			lairofthebeast.setCurrentNpcFightBoss(boss);
+			
+			glade.setCurrentNpcDialog(shaman);
+			cityentrance.setCurrentNpcDialog(citizen1);
+			jail.setCurrentNpcDialog(prisoner);
+			marketplace.setCurrentNpcDialog(citizen2);
+			church.setCurrentNpcDialog(citizen3);
+			house.setCurrentNpcDialog(citizen4);
+
+
+			forestN.setCurrentNpcFightMonster(snake1);
+			forestW.setCurrentNpcFightMonster(snake1bis);
+			caveentrance.setCurrentNpcFightMonster(snake2);
+			cave.setCurrentNpcFightMonster(wolf);
+			bridge.setCurrentNpcFightMonster(shark);
+
 	}
 
 
@@ -360,6 +365,10 @@ public InitializeGame() {
 			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
 
 		} return selecteddialogline;
+		
+		
+		
+		
 	}
 
 
