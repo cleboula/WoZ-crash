@@ -12,7 +12,7 @@ package fr.crash.core;
 public class Path
 {
     private Zone nextZone; //zone where the path goes
-    private boolean isLocked; //boolean to know if the path is blocked or not
+    private boolean isLocked, haveKey; //boolean to know if the path is blocked or not
 //    private Player player1; //this is the player who is moving through the path
     private Key associatedPathKey; //key associated to the path
     
@@ -24,6 +24,7 @@ public class Path
     	nextZone = zone;
         isLocked = isPathLocked;
         associatedPathKey = assoKey;
+        haveKey = false;
 
     }
 
@@ -57,11 +58,18 @@ public class Path
         if(getIsLocked()){
             //check if key is in inventory;
         	if(associatedPathKey.searchInventory(player1, associatedPathKey)){
-        		isLocked = false;
+        		haveKey = true;
         	// the character can move
         	}
         }
-        return(isLocked);
+        return(haveKey);
+    }
+    
+    public boolean haveKey(Player player1) {
+    	if (checkZone(player1)==true) {
+        	isLocked = false;
+    	}
+    	return (isLocked);
     }
     
     /**
