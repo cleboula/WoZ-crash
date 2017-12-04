@@ -20,7 +20,7 @@ public class Zone
     private HashMap<String,Path> hmap; // hashmap of the direction and the path possibles depending on the current zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
-    private Npc currentNpc; 
+    //private Npc currentNpc; 
     private NpcFight currentNpc; 
     private Icon picZone;
  
@@ -105,7 +105,7 @@ public class Zone
      * This method implements the NPC present in the zone 
      * @param npc is the NPC that can be found in the zone
      */
-    public void setNPC(Npc npc)
+    public void setNPC(NpcFight npc)
     {
     	currentNpc = npc;
     }

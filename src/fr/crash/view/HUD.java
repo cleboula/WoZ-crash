@@ -35,7 +35,7 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
     private WoZ woz;
     
    
@@ -131,21 +131,15 @@ public class HUD implements ActionListener {
             myOpenButton = new JButton("Open");
             myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myOpenButton.setForeground(Color.black);
-            myOpenButton.setEnabled(false);//open button is not available
+           // myOpenButton.setEnabled(false);//open button is not available
             myOpenButton.addActionListener(this);
 
-            myOpenButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
-            			if (i instanceof Chest) {//in an item is a chest
-            				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if it is ok
-            				if (((Chest) i).getIsOpened() == true) {
-            					myText = new JLabel("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
-            }
-            			}
-					}
-            	}
-            });
+            myOpenPathButton = new JButton("Unlock Path");
+            myOpenPathButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myOpenPathButton.setForeground(Color.black);
+            myOpenPathButton.setEnabled(false);//open button is not available
+            myOpenPathButton.addActionListener(this);
+            
             //the Attack button
             myAttackButton = new JButton("Attack");
             myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
@@ -310,12 +304,22 @@ public class HUD implements ActionListener {
     				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
     				if (((Chest) i).getIsOpened() == true) {
     					myText = new JLabel("You have a new item! " + ((Chest)i).getContent().getDescription()); 
-    					woz.getPlayer().getInventory().add(((Chest) i).getContent());
     					woz.getPlayer().getInventory().remove((Chest) i);
     				}
     			}
 			}
-		}
+			
+		} /*else if (myOpenPathButton.isEnabled() && e.getSource()==myOpenPathButton) {
+			for (Item itemKey : woz.getPlayer().getInventory()) {
+    			if (itemKey instanceof Key) {
+    				(((Key) itemKey).checkZone(woz.getPlayer()));
+    				if (((Key) itemKey).getIsLocked()==false) {
+    					myText = new JLabel("The path is unlocked! You can pass now.");
+    				}
+    			}
+		//	woz.getCurrentZone().getHMap().checkZone(woz.getPlayer());
+			}
+		}*/
 
 }	        
 }

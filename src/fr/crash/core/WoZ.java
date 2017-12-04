@@ -148,12 +148,17 @@ public class WoZ
                 	} else {
                 		
                 		message = "You cannot go this way ! ";
+                		if (value.getKey().searchInventory(player, value.getKey())) {
+                			message = "You should check your inventory, you may have something to unlock this path";
+                		}
                 	}
                 }
     		}
     	} 
 		return message;	
     }  
+    
+
     
     public String search() {
     
