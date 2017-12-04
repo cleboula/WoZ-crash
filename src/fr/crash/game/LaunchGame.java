@@ -13,7 +13,7 @@ public class LaunchGame implements ActionListener {
 	//when we want to play first frame where we enter the name
 	//Game
 
-	private JLabel labTitle;
+	private JLabel labTitle,subtitle;
 	private JButton butStart;
 	private JFrame myFrame;
 	private String playerName;
@@ -28,6 +28,10 @@ public class LaunchGame implements ActionListener {
 	    labTitle = new JLabel("World Of Zuul",JLabel.CENTER);
 	    labTitle.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,75));
 	    labTitle.setForeground(Color.white);
+	    
+	    subtitle = new JLabel("Welcome to Hell",JLabel.CENTER);
+	    subtitle.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,55));
+	    subtitle.setForeground(Color.red);
 	    
 	    JLabel labelName = new JLabel("Enter your name :  ");
 	    labelName.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,30));
@@ -56,8 +60,9 @@ public class LaunchGame implements ActionListener {
         butStart.addActionListener(this);
         
         JPanel myPanel = new JPanel();
-        myPanel.setLayout(new GridLayout(3,1));
+        myPanel.setLayout(new GridLayout(4,1));
         myPanel.add(labTitle);
+        myPanel.add(subtitle);
         myPanel.add(panelName);
         myPanel.add(butStart);
         myPanel.setOpaque(false);
