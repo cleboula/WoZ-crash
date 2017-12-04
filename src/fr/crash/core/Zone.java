@@ -23,6 +23,7 @@ public class Zone
     private NpcDialog currentNpcDialog; 
     private NpcFightMonster currentNpcFightMonster;
     private NpcFightBoss currentNpcFightBoss;
+    private NpcFightGuard currentNpcFightGuard;
     private Icon picZone;
  
 
@@ -34,8 +35,12 @@ public class Zone
     	picZone = pic;
         nameZone = name;
         hmap = new HashMap<String, Path>();
+
         currentNpcFightMonster = null;
         currentNpcFightBoss=null;
+
+        currentNpcDialog = null;
+
         
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
@@ -81,8 +86,15 @@ public class Zone
     {
     	listItems.add(item);
     }
-    
-    public NpcFightBoss getCurrentNpcFightBoss() {
+
+
+    public NpcFightGuard getCurrentNpcFightGuard() {
+		return currentNpcFightGuard;
+	}
+	public void setCurrentNpcFightGuard(NpcFightGuard currentNpcFightGuard) {
+		this.currentNpcFightGuard = currentNpcFightGuard;
+	}
+	public NpcFightBoss getCurrentNpcFightBoss() {
 		return currentNpcFightBoss;
 	}
 	public void setCurrentNpcFightBoss(NpcFightBoss currentNpcFightBoss) {
