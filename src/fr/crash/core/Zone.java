@@ -38,7 +38,7 @@ public class Zone
 
         currentNpcFightMonster = null;
         currentNpcFightBoss=null;
-
+        currentNpcFightGuard=null;
         currentNpcDialog = null;
 
         
@@ -97,8 +97,8 @@ public class Zone
 	public NpcFightBoss getCurrentNpcFightBoss() {
 		return currentNpcFightBoss;
 	}
-	public void setCurrentNpcFightBoss(NpcFightBoss currentNpcFightBoss) {
-		this.currentNpcFightBoss = currentNpcFightBoss;
+	public void setCurrentNpcFightBoss(NpcFightBoss currentNpcFightBoss1) {
+		this.currentNpcFightBoss = currentNpcFightBoss1;
 	}
 	public NpcDialog getCurrentNpcDialog() {
 		return currentNpcDialog;
