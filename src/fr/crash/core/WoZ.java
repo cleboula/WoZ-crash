@@ -144,7 +144,12 @@ public class WoZ
                 if(dir.equals(key)) {  
                 	if (value.checkZone(player) == false) {
                 		setCurrentZone(value.getExit());
-                		message = "You are in " + currentZone.getZoneName(); 
+                		message = "You are in " + currentZone.getZoneName();
+                		if(getCurrentZone().getCurrentNpcFight()!=null) {
+                			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
+                			fight(player,getCurrentZone().getCurrentNpcFight());
+                			
+                		}
                 	} else {
                 		
                 		message = "You cannot go this way ! ";
