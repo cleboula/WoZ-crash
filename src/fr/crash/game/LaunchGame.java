@@ -63,7 +63,7 @@ public class LaunchGame implements ActionListener {
         myPanel.setOpaque(false);
         
 
-        Container c = new JLabel(new ImageIcon(getClass().getResource("/images/espace.png")));
+        Container c = new JLabel(new ImageIcon(getClass().getResource("/images/fondGris.png")));
         c.setLayout(new BoxLayout(c, BoxLayout.Y_AXIS));
         c.add(myPanel);
         c.setPreferredSize(new Dimension(800,800));
