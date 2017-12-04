@@ -39,7 +39,7 @@ public class HUD implements ActionListener {
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
-    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
+    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myOpenPathButton;
     private WoZ woz;
     
    
@@ -140,7 +140,7 @@ public class HUD implements ActionListener {
             myOpenButton.setEnabled(false);//open button is not available
             myOpenButton.addActionListener(this);
 
-            myOpenButton.addActionListener(new ActionListener (){
+			/*myOpenButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
             			if (i instanceof Chest) {//in an item is a chest
@@ -152,7 +152,14 @@ public class HUD implements ActionListener {
             			}
 				}
             	}
-            });
+            });*/
+
+            myOpenPathButton = new JButton("Unlock Path");
+            myOpenPathButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            myOpenPathButton.setForeground(Color.black);
+            myOpenPathButton.setEnabled(false);//open button is not available
+            myOpenPathButton.addActionListener(this);
+            
             //the Attack button
             myAttackButton = new JButton("Attack");
             myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
@@ -346,12 +353,22 @@ public class HUD implements ActionListener {
     				    myFrame.setContentPane(newPanel());
     				    myFrame.repaint();
     				    myFrame.revalidate();
-    					woz.getPlayer().getInventory().add(((Chest) i).getContent());
     					woz.getPlayer().getInventory().remove((Chest) i);
     				}
     			}
 			}
-		}
+			
+		} /*else if (myOpenPathButton.isEnabled() && e.getSource()==myOpenPathButton) {
+			for (Item itemKey : woz.getPlayer().getInventory()) {
+    			if (itemKey instanceof Key) {
+    				(((Key) itemKey).checkZone(woz.getPlayer()));
+    				if (((Key) itemKey).getIsLocked()==false) {
+    					myText = new JLabel("The path is unlocked! You can pass now.");
+    				}
+    			}
+		//	woz.getCurrentZone().getHMap().checkZone(woz.getPlayer());
+			}
+		}*/
 
 }	        
 }
