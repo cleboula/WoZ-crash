@@ -41,39 +41,51 @@ public class InitializeGame {
 	
 	private Icon swordPic, knifePic, gunPic;
 
-	private NpcDialog shaman,prisoner,citizen1,citizen2,citizen3,citizen4;
+	//private NpcDialog prisoner,citizen1,citizen2,citizen3,citizen4;
 
 	private String selecteddialogline;
 
 public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
-			shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
+			NpcDialog shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
 			//The prisoner Npc
-			prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
+			NpcDialog prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
 			// A bunch of generic citizen npc's
-			citizen1 = new NpcDialog("Waldo","a local life form",job.citizen);
-			citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
-			citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
-			citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
+			NpcDialog citizen1 = new NpcDialog("Waldo","a local life form",job.citizen);
+			NpcDialog citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
+			NpcDialog citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
+			NpcDialog citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
 			
-			//instanciation de npc dans les zone
-		
+			//Fighter Non player characters
+			//the boss
 			NpcFightBoss boss= new NpcFightBoss( 3000, 50, "transplantor"," uigfodnhk", 100);
+			//the monsters
 			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake2=new NpcFightMonster(20,5,"Snake","big snake");
 			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
 			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
-			
-			//
+			//the guard
+			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
+
+			//Placement des Npcs
+			glade.setCurrentNpcDialog(shaman);
+			cityentrance.setCurrentNpcDialog(citizen1);
+			jail.setCurrentNpcDialog(prisoner);
+			marketplace.setCurrentNpcDialog(citizen2);
+			church.setCurrentNpcDialog(citizen3);
+			house.setCurrentNpcDialog(citizen4);
+
+
 			forestN.setNPCFight(snake1);
 			forestW.setNPCFight(snake1bis);
 			caveentrance.setNPCFight(snake2);
 			cave.setNPCFight(wolf);
 			bridge.setNPCFight(shark);
-		
 			lairofthebeast.setCurrentNpcFightBoss(boss);
+			//todo a tester
+			jailentrance.setNPCFight(guard);
 			
 		      
 	        

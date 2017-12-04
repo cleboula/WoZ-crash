@@ -35,6 +35,7 @@ public class Zone
         nameZone = name;
         hmap = new HashMap<String, Path>();
         currentNpcFight = null;
+        currentNpcDialog = null;
         
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
@@ -80,7 +81,8 @@ public class Zone
     {
     	listItems.add(item);
     }
-    
+
+
     public NpcFightBoss getCurrentNpcFightBoss() {
 		return currentNpcFightBoss;
 	}
