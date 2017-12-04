@@ -56,7 +56,29 @@ public InitializeGame() {
 			citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
 			citizen3 = new NpcDialog("Fifou","he seems to be crazyly normal for an alien ... wait ... you are the alien here",job.citizen);
 			citizen4 = new NpcDialog("Genericname","just another citizen",job.citizen);
+			
+			//instanciation de npc dans les zone
+		
+			NpcFightBoss boss= new NpcFightBoss( 3000, 50, "transplantor"," uigfodnhk", 100);
+			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
+			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
+			NpcFightMonster snake2=new NpcFightMonster(20,5,"Snake","big snake");
+			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
+			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
+			
+			//
+			forestN.setNPCFight(snake1);
+			forestW.setNPCFight(snake1bis);
+			caveentrance.setNPCFight(snake2);
+			cave.setNPCFight(wolf);
+			bridge.setNPCFight(shark);
+		
+			lairofthebeast.setCurrentNpcFightBoss(boss);
+			
+		      
+	        
 
+			
 		   //images
 		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
 		   gladePic = new ImageIcon(getClass().getResource("/images/glade.jpg"));
@@ -281,8 +303,9 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
               
-
+           
 	}
+
 
 
 

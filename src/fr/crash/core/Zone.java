@@ -22,6 +22,7 @@ public class Zone
     private ArrayList<Item> listItems; // list of items present in the zone
     private NpcDialog currentNpcDialog; 
     private NpcFight currentNpcFight;
+    private NpcFightBoss currentNpcFightBoss;
     private Icon picZone;
  
 
@@ -38,23 +39,7 @@ public class Zone
         /*hmap is the object Hashmap which is a list with 
         2 entries of the differents rooms.*/
         listItems = new ArrayList<Item>();
-        
-        if(nameZone=="forestN"||nameZone=="forestW")
-        {
-        	currentNpcFight = new NpcFightMonster(10,2,"Snake","small snake");
-        }
-        else if(nameZone=="caveentrance")
-        {
-        	currentNpcFight = new NpcFightMonster(20,5,"Snake","big snake");
-        }
-        else if(nameZone=="cave")
-        {
-        	currentNpcFight = new NpcFightMonster(50,10,"Wolf","black wolf");
-        }
-        else if(nameZone == "bridge")
-        {
-        	currentNpcFight = new NpcFightMonster(25,5,"Shark","shark");
-        }
+  
     }
     /**
      * This method gives all of the names of the zones in which the player can go into, 
@@ -96,7 +81,13 @@ public class Zone
     	listItems.add(item);
     }
     
-    public NpcDialog getCurrentNpcDialog() {
+    public NpcFightBoss getCurrentNpcFightBoss() {
+		return currentNpcFightBoss;
+	}
+	public void setCurrentNpcFightBoss(NpcFightBoss currentNpcFightBoss) {
+		this.currentNpcFightBoss = currentNpcFightBoss;
+	}
+	public NpcDialog getCurrentNpcDialog() {
 		return currentNpcDialog;
 	}
 	public void setCurrentNpcDialog(NpcDialog currentNpcDialog) {

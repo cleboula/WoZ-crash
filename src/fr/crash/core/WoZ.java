@@ -148,8 +148,10 @@ public class WoZ
                 		message = "You are in " + currentZone.getZoneName();
                 		if(getCurrentZone().getCurrentNpcFight()!=null) {
                 			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFight());
-                			
+                			fight(player,getCurrentZone().getCurrentNpcFight());    			
+                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null){
+                			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
+                			fight(player,getCurrentZone().getCurrentNpcFightBoss());   
                 		}
                 	} else {
                 		if (currentZone.getZoneName() == "mountainbase") {
