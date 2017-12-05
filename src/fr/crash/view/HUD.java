@@ -280,11 +280,8 @@ public class HUD implements ActionListener {
             myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
-<<<<<<< HEAD
             myPanelLittleRight.add(myOpenButton);
-=======
             myPanelLittleRight.add(talk);
->>>>>>> branch 'master' of https://github.com/cleboula/WoZ-crash.git
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -371,27 +368,27 @@ public class HUD implements ActionListener {
     		else if (npcdial.getJobnpc()== job.citizen)
     		{
 
-    			if (player.searchInventory(player, keyJail)) {
+    			if (player.searchInventory(keyJail)) {
     				selecteddialogline = "Guards !!!! seize that rogue !!!";
     			}
-    			else if (!player.searchInventory(player, keyJail)) {
+    			else if (!player.searchInventory(keyJail)) {
     				selecteddialogline = "We don't take kindly your types in here!";
     			}
     		}
     		else if (npcdial.getJobnpc()== job.shaman) {
-    			if (!player.searchInventory(player, keyPick)) {
+    			if (!player.searchInventory(keyPick)) {
     				selecteddialogline = "If you find all the ship parts it's time for you to leave";
     			}
-    			else if (!player.searchInventory(player, keyJail)) {
+    			else if (!player.searchInventory(keyJail)) {
     				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
     			}
-    			else if (player.searchInventory(player, keyForestW)) {
+    			else if (player.searchInventory(keyForestW)) {
     				selecteddialogline = "You must go to the city and find the next part of your starship";
     			}
-    			else if (player.searchInventory(player, keyForestS)) {
+    			else if (player.searchInventory(keyForestS)) {
     				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
     			}
-    			else if (!player.searchInventory(player, keyForestS)) {
+    			else if (!player.searchInventory(keyForestS)) {
     				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
     			}
     			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
@@ -489,25 +486,7 @@ public class HUD implements ActionListener {
 			
 		} else if (e.getSource()==myOpenButton) {
 			for (Item i : woz.getCurrentZone().getListItems()) {
-<<<<<<< HEAD
-    			if (i instanceof Chest) {//if an item is a chest
-    				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
-    				/*((Chest) i).open();
-    				if (((Chest) i).getIsOpened() == true) {
-    					myText = new JTextArea("You have a new item! " + ((Chest)i).getContent().getDescription());
-    					//add in the inventory
-    					Item addItem = ((Chest)i).getContent();
-    					woz.getPlayer().getInventory().add(addItem);
-    					myText.setEditable(false);
-    					myOpenButton.setEnabled(false);
-    					woz.getCurrentZone().setListItemsEmpty();
-    				    myFrame.setContentPane(newPanel());
-    				    myFrame.repaint();
-    				    myFrame.revalidate();
-    					woz.getPlayer().getInventory().remove((Chest) i);
-    				}*/
-    			}
-=======
+
     				if (i instanceof Chest) {//if an item is a chest
     					((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
     					if (((Chest) i).getIsOpened() == true) {
@@ -521,7 +500,6 @@ public class HUD implements ActionListener {
     						woz.getPlayer().getInventory().remove((Chest) i);
     					}
     				}
->>>>>>> branch 'master' of https://github.com/cleboula/WoZ-crash.git
 			}
 			
 		} if (talk.isEnabled() && e.getSource()==talk) {
