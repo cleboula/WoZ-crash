@@ -54,18 +54,20 @@ public class WoZ
      * @param player : the main player
      * @param npc : the enemy involved in the fight
      */
-   public void fight(Player player1,NpcFight npc1){
+   public String fight(Player player1,NpcFight npc1){
+	   String messageatk ="";
 	   currentfight=true;	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
-		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages(player1.getCurrentWeapon()));//set the npc hp
-		   
+		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
+		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
 	   }else if(npc1.getHp()==0){ 
 		   currentfight=false;
-		    
+		   messageatk ="You won the fight, you can move out this zone";
 	   }else if(player1.getHP()==0){
 		   //game over  
 	   }
+	   return messageatk;
 	}
    
    	public void switchWeapon(Player player1){
@@ -146,15 +148,17 @@ public class WoZ
                 		message = "You are in " + currentZone.getZoneName();
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null) {
                 			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFightMonster());    			
+                			fight(player,getCurrentZone().getCurrentNpcFightMonster()); 
+                			
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null){
                 			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFightBoss());   
+                			fight(player,getCurrentZone().getCurrentNpcFightBoss()); 
+                			
                 		}
                 	} else {
                 		if (currentZone.getZoneName() == "mountainbase") {
                 	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
-                		}
+                 		}
                 			else {
                         		if (currentZone.getZoneName() == "marketplace") {
                             	    message = "You cannot go this way ! The door is close.";

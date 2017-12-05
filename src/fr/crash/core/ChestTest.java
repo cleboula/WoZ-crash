@@ -76,6 +76,6 @@ class ChestTest {
     	chest3.checkChest(player1);
     	//jouter un addItem pour lui fournir la clef
         assertEquals(true, chest3.getIsOpened());
-        assertEquals(true, chest3.searchInventory(player1,content));
+        assertEquals(true, player1.searchInventory(content));
     }
 }

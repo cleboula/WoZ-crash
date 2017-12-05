@@ -332,7 +332,7 @@ public InitializeGame() {
 		else if (npcdial.getJobnpc()== job.citizen)
 		{
 
-			if (player.searchInventory(player, keyJail)) {
+			if (player.searchInventory(keyJail)) {
 				selecteddialogline = "Guards !!!! seize that rogue !!!";
 			}
 			else if (!player.searchInventory(player, keyJail)) {
@@ -341,7 +341,7 @@ public InitializeGame() {
 		}
 		else if (npcdial.getJobnpc()== job.shaman) {
 			selecteddialogline = "test";
-			if (!player.searchInventory(player, keyPick)) {
+			if (!player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
 			else if (!player.searchInventory(player, keyJail)) {

@@ -133,12 +133,12 @@ public class Zone
 		return listItems;
 	}
 	
+	
 	/**
 	 * This method allows to set empty the list of items per zone after the player took them
 	 */
 	public void setListItemsEmpty() {
 		listItems = new ArrayList<Item>();
 	}
-	
 	
 }
