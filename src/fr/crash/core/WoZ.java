@@ -180,15 +180,26 @@ public class WoZ
      */
     public String search() {
     	String zoneItems = "";
+    	String zoneNPC = "";
     	String message = "";
     	String newline = System.getProperty("line.separator");
-    	if (getCurrentZone().getListItems().isEmpty()) { //if there is no item is the current zone
+    	if (getCurrentZone().getListItems().isEmpty() && (getCurrentZone().getCurrentNpcDialog()==null && getCurrentZone().getCurrentNpcFightMonster()==null && getCurrentZone().getCurrentNpcFightBoss()==null && getCurrentZone().getCurrentNpcFightGuard()==null)) {//if there is no item is the current zone
     		message = "It seems there is nothing interesting to take in this zone.";
     	}else { //if there are items
     		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
     			zoneItems = zoneItems + newline + i.getName() + ": " + i.getDescription(); 
-    			message = "In this zone, you can find: " + zoneItems; //to display objects of this zone
     		}
+    		if (getCurrentZone().getCurrentNpcDialog()!=null) {
+    			zoneNPC = getCurrentZone().getCurrentNpcDialog().getName() + ": " + getCurrentZone().getCurrentNpcDialog().getDescription();
+    		} else if (getCurrentZone().getCurrentNpcFightMonster()!=null) {
+    			zoneNPC = getCurrentZone().getCurrentNpcFightMonster().getName() + ": " + getCurrentZone().getCurrentNpcFightMonster().getDescription();
+    		} else if (getCurrentZone().getCurrentNpcFightBoss()!=null) {
+    			zoneNPC = getCurrentZone().getCurrentNpcFightBoss().getName() + ": " + getCurrentZone().getCurrentNpcFightBoss().getDescription();
+    		} else if (getCurrentZone().getCurrentNpcFightGuard()!=null) {
+    			zoneNPC = getCurrentZone().getCurrentNpcFightGuard().getName() + ": " + getCurrentZone().getCurrentNpcFightGuard().getDescription();
+    		} 
+			message = "In this zone, you can find: " + zoneItems + zoneNPC; //to display objects of this zone
+
     	}
     	return message;
     }

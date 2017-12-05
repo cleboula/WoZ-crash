@@ -43,7 +43,7 @@ public class InitializeGame {
 
 	//private NpcDialog prisoner,citizen1,citizen2,citizen3,citizen4;
 
-	private String selecteddialogline;
+	//private String selecteddialogline;
 
 public InitializeGame() {
 	       //Non Player Characters
@@ -74,13 +74,7 @@ public InitializeGame() {
 	//the guard
 			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
 
-			
-			
-			//todo a tester
-		
-			
-		      
-	        
+        
 
 			
 		   //images
@@ -329,8 +323,10 @@ public InitializeGame() {
 
 
 
-	public String DialogTree (Player player,Item keyForestWForestN,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial,String selecteddialogline)
+	/*public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
 	{
+		String selecteddialogline = "";
+		if (npcdial!=null){
 		if (npcdial.getJobnpc()== job.prisoner)
 		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
 		else if (npcdial.getJobnpc()== job.citizen)
@@ -339,37 +335,34 @@ public InitializeGame() {
 			if (player.searchInventory(keyJail)) {
 				selecteddialogline = "Guards !!!! seize that rogue !!!";
 			}
-			if (!player.searchInventory(keyJail)) {
+			else if (!player.searchInventory(player, keyJail)) {
 				selecteddialogline = "We don't take kindly your types in here!";
 			}
 		}
 		else if (npcdial.getJobnpc()== job.shaman) {
+			selecteddialogline = "test";
 			if (!player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
-			if (!player.searchInventory(keyJail)) {
+			else if (!player.searchInventory(player, keyJail)) {
 				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
 			}
-			if (player.searchInventory(keyForestWForestN)) {
+			else if (player.searchInventory(player, keyForestW)) {
 				selecteddialogline = "You must go to the city and find the next part of your starship";
 			}
-			if (player.searchInventory(keyForestS)) {
+			else if (player.searchInventory(player, keyForestS)) {
 				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
 			}
-			if (!player.searchInventory(keyForestS)) {
+			else if (!player.searchInventory(player, keyForestS)) {
 				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
 			}
-			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
+			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
 
+		}
 		} return selecteddialogline;
 		
-		
-		
-		
-	}
-
-
-
+			
+	}*/
 
 
 
@@ -430,7 +423,7 @@ public Key getKeyForestS() {
 }
 
 /**
- * @return the keyForestWForestN
+ * @return the keyForestW
  */
 public Key getKeyForestW() {
 	return keyForestW;
