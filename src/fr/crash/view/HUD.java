@@ -308,9 +308,10 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(3,1));
+            myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
+            myPanelLittleRight.add(myOpenButton);
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -466,8 +467,12 @@ public class HUD implements ActionListener {
 			for (Item i : woz.getCurrentZone().getListItems()) {
     			if (i instanceof Chest) {//if an item is a chest
     				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
+    				/*((Chest) i).open();
     				if (((Chest) i).getIsOpened() == true) {
     					myText = new JTextArea("You have a new item! " + ((Chest)i).getContent().getDescription());
+    					//add in the inventory
+    					Item addItem = ((Chest)i).getContent();
+    					woz.getPlayer().getInventory().add(addItem);
     					myText.setEditable(false);
     					myOpenButton.setEnabled(false);
     					woz.getCurrentZone().setListItemsEmpty();
@@ -475,7 +480,7 @@ public class HUD implements ActionListener {
     				    myFrame.repaint();
     				    myFrame.revalidate();
     					woz.getPlayer().getInventory().remove((Chest) i);
-    				}
+    				}*/
     			}
 			}
 			
