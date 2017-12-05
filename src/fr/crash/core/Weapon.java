@@ -56,16 +56,6 @@ public class Weapon extends Item
     {
         return(energybyshot);
     }
-    
-    /**
-     * 
-     * @return
-     */
-    //TODO
-    public String getType()
-    {
-    	return("weapon");
-    }
 
 	/**
 	 * Getter of the weapon picture
