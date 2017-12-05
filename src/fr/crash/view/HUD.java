@@ -19,9 +19,12 @@ import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
+import fr.crash.core.NpcDialog;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
+import fr.crash.core.job;
+import fr.crash.game.InitializeGame;
 
 
 /**
@@ -45,15 +48,15 @@ public class HUD implements ActionListener {
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
+    private JButton talk;
     private WoZ woz;
-    private JOptionPane optionPane;
-    private JOptionPane options;
+    private InitializeGame objGame;
     
    
     	//displays the image corresponding to the current zone
         public HUD(WoZ woz) {
 
-        		this.woz=woz;
+        	this.woz=woz;
          	myFrame = new JFrame("Crash");//give the name to the frame
          	myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //kill the application when we close the window
             
@@ -194,20 +197,14 @@ public class HUD implements ActionListener {
             myOpenButton.setEnabled(false);//open button is not available
             myOpenButton.addActionListener(this);
 
-			/*myOpenButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
-            			if (i instanceof Chest) {//in an item is a chest
-            				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if it is ok
-            				if (((Chest) i).getIsOpened() == true) {
-            					myText = new JTextArea("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
-            					myText.setEditable(false);
-            				}
-            			}
-				}
-            	}
-            });*/
-
+            // the talk button
+            talk = new JButton("Talk to a character");
+            talk.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            talk.setForeground(Color.black);
+            talk.addActionListener(this);
+            talk.setEnabled(false);
+            
+            
             
             //the Attack button
             myAttackButton = new JButton("Attack");
@@ -272,9 +269,10 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(3,1));
+            myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
+            myPanelLittleRight.add(talk);
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -352,6 +350,46 @@ public class HUD implements ActionListener {
         	}
         }
         
+        public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
+    	{
+    		String selecteddialogline = "";
+    		if (npcdial!=null){
+    		if (npcdial.getJobnpc()== job.prisoner)
+    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+    		else if (npcdial.getJobnpc()== job.citizen)
+    		{
+
+    			if (player.searchInventory(player, keyJail)) {
+    				selecteddialogline = "Guards !!!! seize that rogue !!!";
+    			}
+    			else if (!player.searchInventory(player, keyJail)) {
+    				selecteddialogline = "We don't take kindly your types in here!";
+    			}
+    		}
+    		else if (npcdial.getJobnpc()== job.shaman) {
+    			if (!player.searchInventory(player, keyPick)) {
+    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+    			}
+    			else if (!player.searchInventory(player, keyJail)) {
+    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+    			}
+    			else if (player.searchInventory(player, keyForestW)) {
+    				selecteddialogline = "You must go to the city and find the next part of your starship";
+    			}
+    			else if (player.searchInventory(player, keyForestS)) {
+    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+    			}
+    			else if (!player.searchInventory(player, keyForestS)) {
+    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+    			}
+    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
+
+    		}else {selecteddialogline = "Error: this character does not speak.";}
+    		} return selecteddialogline;
+    		
+    			
+    	}
+        
     	@Override
     	public void actionPerformed(ActionEvent e) {
     		if (e.getSource() == myNorthArrow)
@@ -413,12 +451,16 @@ public class HUD implements ActionListener {
 		    myFrame.revalidate();
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				if (j instanceof Weapon || j instanceof Key || j instanceof Medikit) {
-					myTakeButton.setEnabled(true);}
-				else if (j instanceof Chest) {
+					myTakeButton.setEnabled(true);
+				} else if (j instanceof Chest) {
 					myOpenButton.setEnabled(true);
 					myTakeButton.setEnabled(true);
 				}
 		    }
+			if (woz.getCurrentZone().getCurrentNpcDialog()!=null || woz.getCurrentZone().getCurrentNpcFightMonster()!=null || woz.getCurrentZone().getCurrentNpcFightBoss()!=null || woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+				talk.setEnabled(true);
+			}
+			
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
@@ -443,7 +485,17 @@ public class HUD implements ActionListener {
     			}
 			}
 			
-		} 
+		} if (talk.isEnabled() && e.getSource()==talk) {
+			String test = dialogTree(woz.getPlayer(), objGame.getKeyForestW(), objGame.getKeyPick(), objGame.getKeyJail(), objGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+        	myText = new JTextArea(test);
+			//myText = new JTextArea("test 2");
+        	myText.setEditable(false);
+        	talk.setEnabled(false);
+        	myFrame.setContentPane(newPanel());
+        	myFrame.repaint();
+        	myFrame.revalidate();
+		}
+        	
 
 }	        
             

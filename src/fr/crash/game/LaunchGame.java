@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import fr.crash.core.WoZ;
-import fr.crash.core.Player;
+import fr.crash.view.HUD;
 
 public class LaunchGame implements ActionListener {
 	//when we want to play first frame where we enter the name
@@ -86,7 +86,10 @@ public class LaunchGame implements ActionListener {
 		{
 			playerName = fieldName.getText();
 			WoZ woz = new WoZ(playerName);
-			new Game(woz);
+			//InitializeGame objGame = new InitializeGame();
+			//new Game(playerName, woz);
+			@SuppressWarnings("unused")
+			HUD hud = new HUD(woz); //call the interface
 			myFrame.dispose();
 				
 		} else if (e.getSource() == fieldName){
