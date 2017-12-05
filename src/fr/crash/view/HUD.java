@@ -340,7 +340,7 @@ public class HUD implements ActionListener {
     	                Path value= entry.getValue(); 
     	                if(dir.equals(key)) {
     	                if (value.getIsLocked()==true) {
-    	                	if (value.checkZone(woz.getPlayer())==true) {
+    	                	if (value.haveKey(woz.getPlayer())==true) {
         	                	//creation of the dialog box
         	                    int n = JOptionPane.showConfirmDialog(null,
         	                    "Do you want to unlock the path?",
@@ -348,7 +348,7 @@ public class HUD implements ActionListener {
         	                    JOptionPane.YES_NO_OPTION);
         	                    
         	                    if (n == JOptionPane.YES_OPTION) {
-        	                    	value.haveKey(woz.getPlayer());
+        	                    	value.checkZone(woz.getPlayer());
         	    					JOptionPane.showMessageDialog(null,  "The path is unlocked! You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
         	                    
         	                    } else if (n == JOptionPane.NO_OPTION) {

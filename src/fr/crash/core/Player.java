@@ -134,7 +134,7 @@ public class Player
     * @param player
     * @param ite
     */
-    //TODO
+    //TODO do that method concern medikit or all item ? pas de player en param 
     public ArrayList<Item> searchItem(Player player,Item item)
     {
      	for (int i = 0; i < player.getInventory().size(); i++) {
@@ -157,15 +157,14 @@ public class Player
 	/**
 	 * This method allows to set empty the list of items per zone after the player took them
 	 */
+    //TODO why is it there and not in zone ?
 	public void setnewlistEmpty() {
 		newlist = new ArrayList<Item>();
-	}
-	
+	}	
     
     /**
      * This method is used to search if a specific item is present in the inventory of 
      * the player
-     * @param player
      * @param item
      * @return true if the item is present in the inventory of the player
      */

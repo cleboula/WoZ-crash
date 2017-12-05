@@ -22,39 +22,65 @@ public class Weapon extends Item
      */
     public Weapon(int degats, int energieutilisee, String name, String description, Icon image)
     {
-        super(name,description,image); 
+        super(name,description,image); //call the constructor of Item
         damages = degats;
         energybyshot = energieutilisee;
-        //picWeapon = image;
+        picWeapon = image;
     }
 
 	/**
      * this method allows to hit the enemy,
-     * he loose hp an the player loose energy (energybyshot)
+     * the enemy lose hp while the player lose energy (energybyshot)
      */
+    //TODO the enemy does not lose hp here
     public void shot(Player player)
     {
-        int epPlayer = player.getEP();
+        int epPlayer = player.getEP(); 
         player.setEp(epPlayer - energybyshot); 
+        
     }
     
     /**
-     * this method prints the number of hp caused by the weapon
+     * Getter of damages
+     * @return damages
      */
-    public int getDamages(Weapon weap)
+    public int getDamages()
     {
-        return(weap.damages);
+        return(damages);
     }
 
     /**
-     * this method prints the number of ep caused by the weapon
+     * Getter of energy by shot
+     * @return the energy points needed for one shot
      */
-    public int getEnergybyshot(Weapon weap)
+    public int getEnergybyshot()
     {
-        return(weap.energybyshot);
+        return(energybyshot);
     }
+    
+    /**
+     * 
+     * @return
+     */
+    //TODO
     public String getType()
     {
     	return("weapon");
     }
+
+	/**
+	 * Getter of the weapon picture
+	 * @return the picWeapon
+	 */
+	public Icon getPicWeapon() {
+		return picWeapon;
+	}
+
+	/**
+	 * Setter of the wepon picture
+	 * @param picWeapon the picWeapon to set
+	 */
+	public void setPicWeapon(Icon picWeapon) {
+		this.picWeapon = picWeapon;
+	}
 }

@@ -1,7 +1,7 @@
 package fr.crash.core;
   
 /**
-* This class represents the paths between the zones. 
+ * This class represents the paths between the zones. 
  * A path can be locked or not. 
  * Each path gives access to a different zone of the current zone. 
  * Locked paths need a key to open and allow the player to pass. 
@@ -13,7 +13,6 @@ public class Path
 {
     private Zone nextZone; //zone where the path goes
     private boolean isLocked, haveKey; //boolean to know if the path is blocked or not
-//    private Player player1; //this is the player who is moving through the path
     private Key associatedPathKey; //key associated to the path
     
     /**
@@ -24,7 +23,7 @@ public class Path
     	nextZone = zone;
         isLocked = isPathLocked;
         associatedPathKey = assoKey;
-        haveKey = false;
+        haveKey = false; //boolean that indicates if the player has the key with him
 
     }
 
@@ -33,7 +32,7 @@ public class Path
      * depending on the current zone
      * @return     zone where the path goes
      */
-    public Zone getExit ()
+    protected Zone getExit ()
     {
         return (nextZone);
     }
@@ -51,9 +50,9 @@ public class Path
      * This method checks if the path is locked. 
      * If yes, it checks into the inventory of the player 
      * if he owns the right key to open it or not.
-     * @return	boolean of the new state of the path, still locked (true) or not (false)
+     * @return	boolean true if the player has the key false if it does not
     */
-    public boolean checkZone(Player player1)
+    public boolean haveKey(Player player1)
     {
         if(getIsLocked()){
             //check if key is in inventory;
@@ -65,8 +64,14 @@ public class Path
         return(haveKey);
     }
     
-    public boolean haveKey(Player player1) {
-    	if (checkZone(player1)==true) {
+    /**
+     * This method allows to know if the player has the right key or not
+     * If yes, the path is no longer blocked
+     * @param player1
+     * @return boolean true if the path is not locked false if it is
+     */
+    public boolean checkZone(Player player1) {
+    	if (haveKey(player1)==true) {
         	isLocked = false;
     	}
     	return (isLocked);
@@ -76,7 +81,7 @@ public class Path
      * This method allows to get the key that unblocks a path
      * @return the key corresponding to the Path
      */
-    public Key getKey()
+    protected Key getKey()
     {
     	return associatedPathKey;
     }
