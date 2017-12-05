@@ -162,7 +162,7 @@ public class Zone
 	
 	
 	/**
-	 * This method allows to set empty the list of items per zone after the player took them
+	 * This method allows to set empty the list of items of the zone after the player took them
 	 */
 	public void setListItemsEmpty() {
 		listItems = new ArrayList<Item>();

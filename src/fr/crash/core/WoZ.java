@@ -1,5 +1,6 @@
 package fr.crash.core;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import fr.crash.core.Path;
@@ -18,18 +19,22 @@ public class WoZ
 	private Player player; 
     private Zone currentZone; //the zone where the player is
 	private boolean currentfight; //if the player is in the middle of a fight (true) if not (false)
-    
-    /**
+    private InitializeGame objGame;
+    private ArrayList<Item> newlist; //the list of items of the zone to displays when the player search
+
+
+	/**
      * Constructor of the world
      * All elements of the world is created
      * It manages the
      */
      public WoZ(String playerName)
     {
-    	 InitializeGame objGame = new InitializeGame(); //creates all element of the world
+    	 objGame = new InitializeGame(); //creates all element of the world
     	 currentZone = objGame.getCurrentZone();//because it is private
     	 player = new Player(playerName,objGame); //create the player
-       	 currentfight=false;	 
+       	 currentfight=false;
+ 		 newlist = new ArrayList<Item> (); // creation of a list of item in the current zone	 
     }
      
     /**
@@ -37,6 +42,27 @@ public class WoZ
 	 */
 	public Player getPlayer() {
 		return player;
+	}
+	
+	/**
+	 * @return the objGame
+	 */
+	public InitializeGame getObjGame() {
+		return objGame;
+	}
+	
+	/**
+	 * @return the newlist
+	 */
+	public ArrayList<Item> getNewlist() {
+		return newlist;
+	}
+	
+    /**
+	 * This method allows to set empty the list of items per zone after the player took them
+	 */
+	public void setnewlistEmpty() {
+		newlist = new ArrayList<Item>();
 	}
 	
 	/**
@@ -199,7 +225,6 @@ public class WoZ
     			zoneNPC = getCurrentZone().getCurrentNpcFightGuard().getName() + ": " + getCurrentZone().getCurrentNpcFightGuard().getDescription();
     		} 
 			message = "In this zone, you can find: " + zoneItems + zoneNPC; //to display objects of this zone
-
     	}
     	return message;
     }

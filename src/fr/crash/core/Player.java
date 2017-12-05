@@ -15,7 +15,6 @@ public class Player
     private int ep; //energy points of our player (not negative)
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
-    private ArrayList<Item> newlist;
     private ArrayList<Item> listM; // list of medikit in the inventory
     private ArrayList<Weapon>listweapon; //list of weapon in the inventory
     private Weapon currentWeapon; //the current weapon
@@ -29,7 +28,6 @@ public class Player
         ep = 100; //default value for energy points
         
         inventory = new ArrayList<Item> (); //creation of an empty inventory
-		newlist = new ArrayList<Item> (); // creation of a list of item in the current zone
         listweapon = new ArrayList<Weapon>(); //creation of a weapon list
         
         namePlayer = name.trim(); //trim() removes any leading and trailing whitespace
@@ -78,14 +76,6 @@ public class Player
 		return (inventory);
 	}
 
-	/**
-
-	 * @return the list of item in the currentzone
-	 */
-	public ArrayList<Item> getnewlist() {
-		return (newlist);
-	}
-	
 	/**
 
 	 * Setter of the player health points
@@ -178,53 +168,5 @@ public class Player
     {
         getInventory().add(item);
     }
-
-    
-    /**
-	 * This method allows to set empty the list of items per zone after the player took them
-	 */
-    //TODO meme method que dans zone
-	public void setnewlistEmpty() {
-		newlist = new ArrayList<Item>();
-	}
-
-
-
-	/*public String dialogTree (Player player,Item keyForestWForestN,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
-	{
-		String selecteddialogline = "";
-		if (npcdial.getJobnpc()== job.prisoner)
-		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
-		else if (npcdial.getJobnpc()== job.citizen)
-		{
-
-			if (player.searchInventory(player, keyJail)) {
-				selecteddialogline = "Guards !!!! seize that rogue !!!";
-			}
-			if (!player.searchInventory(player, keyJail)) {
-				selecteddialogline = "We don't take kindly your types in here!";
-			}
-		}
-		else if (npcdial.getJobnpc()== job.shaman) {
-			if (!player.searchInventory(player, keyPick)) {
-				selecteddialogline = "If you find all the ship parts it's time for you to leave";
-			}
-			if (!player.searchInventory(player, keyJail)) {
-				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
-			}
-			if (player.searchInventory(player, keyForestWForestN)) {
-				selecteddialogline = "You must go to the city and find the next part of your starship";
-			}
-			if (player.searchInventory(player, keyForestS)) {
-				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
-			}
-			if (!player.searchInventory(player, keyForestS)) {
-				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
-			}
-			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
-
-		} return selecteddialogline;
-			
-	}*/
 
 }
