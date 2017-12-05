@@ -34,4 +34,12 @@ public class Inventory implements ActionListener{
     private WoZ woz;
 
     public Inventory(WoZ woz) {
+    
+    }
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 }

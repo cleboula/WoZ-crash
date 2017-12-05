@@ -7,8 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import fr.crash.core.WoZ;
-import fr.crash.core.Player;
+import fr.crash.view.HUD;
 
+/**
+ * This class displays the title "World of Zuul", a field name that is disabled when we press "enter",
+ * a "start game" button that is enabled when we press "enter"
+ * @author Groupe1
+ *
+ */
 public class LaunchGame implements ActionListener {
 	//when we want to play first frame where we enter the name
 	//Game
@@ -84,14 +90,20 @@ public class LaunchGame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == butStart)
 		{
-			playerName = fieldName.getText();
-			WoZ woz = new WoZ(playerName);
-			new Game(woz);
-			myFrame.dispose();
+			playerName = fieldName.getText();//the playerName takes the string enter in the text field
+			WoZ woz = new WoZ(playerName);//create the World
+			//InitializeGame objGame = new InitializeGame();
+			//new Game(playerName, woz);
+			@SuppressWarnings("unused")
+			HUD hud = new HUD(woz); //call the interface
+			myFrame.dispose();//close the window
 				
 		} else if (e.getSource() == fieldName){
-			butStart.setEnabled(true);
-			fieldName.setEditable(false);
+			//when we validate the name, disables the field name, enables the start button
+			if (fieldName.getText().length()!=0) { //verify that the textfield is not empty
+				butStart.setEnabled(true);
+				fieldName.setEditable(false);
+			}
 		}
 	}
 		

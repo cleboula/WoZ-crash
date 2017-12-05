@@ -12,39 +12,41 @@ import javax.swing.Icon;
  */
 public class Medikit extends Item
 {
-    private int hpPlayer;
-    private int epPlayer;
+    private int hpPlayer; //health points to give to the player
+    private int epPlayer; //energy points to give to the player
     /**
      * Constructor of objets of class Medikit
      */
     public Medikit(int HP, int EP, String name, String description, Icon image)
     {
-        super(name,description, image);         
+        super(name,description, image); //call the Item constructor         
         hpPlayer = HP;
         epPlayer = EP;
     }
+  //TODO
     /**
      * This method allows to know how many HP the medikit can give to the player.
      * @param med
-     * @return
+     * @return health points to give back to the player
      */
-    public int getHP(Medikit med)
+    protected int getHP(Medikit med)
     {
         return(med.hpPlayer);
     }
     /**
      * This method allows to know how many EP the medikit can give to the player.
      * @param med
-     * @return
+     * @return energy points to give back to the player
      */
-    public int getEP(Medikit med)
+    protected int getEP(Medikit med)
     {
         return(med.epPlayer);
     }
     /**
      * This method is used to allow the Player to use a medikit and have HP and EP back.
+     * @param player
      */
-    public void cure(Player player)
+    protected void cure(Player player)
     {
     	int newHp;
     	int newEp;
