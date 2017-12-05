@@ -438,7 +438,7 @@ public class HUD implements ActionListener {
      		}
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
-			woz.getPlayer().setnewlistEmpty();
+			//woz.getPlayer().setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 		} else if (e.getSource()==myOpenButton) {

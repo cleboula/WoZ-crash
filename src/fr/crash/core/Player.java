@@ -153,14 +153,6 @@ public class Player
     {
     	currentWeapon = weap;
     }    
-	
-	/**
-	 * This method allows to set empty the list of items per zone after the player took them
-	 */
-    //TODO why is it there and not in zone ?
-	public void setnewlistEmpty() {
-		newlist = new ArrayList<Item>();
-	}	
     
     /**
      * This method is used to search if a specific item is present in the inventory of 
@@ -186,4 +178,12 @@ public class Player
     {
         getInventory().add(item);
     }
+    
+    /**
+	 * This method allows to set empty the list of items per zone after the player took them
+	 */
+    //TODO meme method que dans zone
+	public void setnewlistEmpty() {
+		newlist = new ArrayList<Item>();
+	}
 }

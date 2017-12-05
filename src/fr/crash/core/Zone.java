@@ -20,6 +20,7 @@ public class Zone
     private HashMap<String,Path> hmap; // hashmap of the direction and the path possibles depending on the current zone
     private String nameZone; // name of the current zone
     private ArrayList<Item> listItems; // list of items present in the zone
+    //NPC present in this zone
     private NpcDialog currentNpcDialog; 
     private NpcFightMonster currentNpcFightMonster;
     private NpcFightBoss currentNpcFightBoss;
@@ -34,6 +35,8 @@ public class Zone
     {
     	picZone = pic;
         nameZone = name;
+        
+        //hmap is the object Hashmap which is a list with 2 entries of the different rooms.
         hmap = new HashMap<String, Path>();
 
         currentNpcFightMonster = null;
@@ -41,17 +44,14 @@ public class Zone
         currentNpcFightGuard=null;
         currentNpcDialog = null;
 
-        
-        /*hmap is the object Hashmap which is a list with 
-        2 entries of the differents rooms.*/
         listItems = new ArrayList<Item>();
   
     }
     /**
-     * This method gives all of the names of the zones in which the player can go into, 
-     * depending on his actual zone.
+     * This method return the hashmap corresponding to the paths around the zone
+     * @return hmap
      */
-    public HashMap<String, Path> getHMap()   //Create a view of the hashmap elements to return them
+    public HashMap<String, Path> getHMap() 
     {
     	return(hmap);
     }
@@ -87,39 +87,66 @@ public class Zone
     	listItems.add(item);
     }
 
-
+    /**
+     * Getter of the guard present in the zone
+     * @return npc fight guard
+     */
     public NpcFightGuard getCurrentNpcFightGuard() {
 		return currentNpcFightGuard;
 	}
+    /**
+     * Setter of the guard present in the zone
+     * @param npc fight guard
+     */
 	public void setCurrentNpcFightGuard(NpcFightGuard currentNpcFightGuard) {
 		this.currentNpcFightGuard = currentNpcFightGuard;
 	}
+	/**
+     * Getter of the boss present in the zone
+     * @return npc fight boss
+     */
 	public NpcFightBoss getCurrentNpcFightBoss() {
 		return currentNpcFightBoss;
 	}
+	
+	/**
+     * Setter of the boss present in the zone
+     * @param npc fight boss
+     */
 	public void setCurrentNpcFightBoss(NpcFightBoss currentNpcFightBoss1) {
 		this.currentNpcFightBoss = currentNpcFightBoss1;
 	}
+	/**
+     * Getter of the npc dialog present in the zone
+     * @return npc dialog
+     */
 	public NpcDialog getCurrentNpcDialog() {
 		return currentNpcDialog;
 	}
+	
+	/**
+     * Setter of the npc dialog present in the zone
+     * @param npc dialog
+     */
 	public void setCurrentNpcDialog(NpcDialog currentNpcDialog) {
 		this.currentNpcDialog = currentNpcDialog;
 	}
 	/**
-     * This method returns the NPCFight present in the zone 
+     * Getter of the npc fight monster present in the zone
+     * @return npc fight monster
      */
     public NpcFight getCurrentNpcFightMonster() {
 		return currentNpcFightMonster;
 	}
     /**
-     * This method implements the NPC present in the zone 
-     * @param npc is the NPC that can be found in the zone
+     * Setter of the npc fight monster present in the zone
+     * @param npc fight monster
      */
     public void setCurrentNpcFightMonster(NpcFightMonster npc)
     {
     	currentNpcFightMonster = npc;
     }
+    
     /**
 	 * @return the picZone
 	 */
@@ -127,7 +154,7 @@ public class Zone
 		return picZone;
 	}
 	/**
-	 * @return the listItems
+	 * @return the list of items present in the zone
 	 */
 	public ArrayList<Item> getListItems() {
 		return listItems;
