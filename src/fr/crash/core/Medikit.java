@@ -23,24 +23,24 @@ public class Medikit extends Item
         hpPlayer = HP;
         epPlayer = EP;
     }
-  //TODO
+  
     /**
      * This method allows to know how many HP the medikit can give to the player.
      * @param med
      * @return health points to give back to the player
      */
-    protected int getHP(Medikit med)
+    protected int getHP()
     {
-        return(med.hpPlayer);
+        return(hpPlayer);
     }
     /**
      * This method allows to know how many EP the medikit can give to the player.
      * @param med
      * @return energy points to give back to the player
      */
-    protected int getEP(Medikit med)
+    protected int getEP()
     {
-        return(med.epPlayer);
+        return(epPlayer);
     }
     /**
      * This method is used to allow the Player to use a medikit and have HP and EP back.

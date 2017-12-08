@@ -14,7 +14,6 @@ public class Weapon extends Item
 {
     private int damages; //points of hp lost by the enemy
     private int energybyshot; //points of energy lost by the player
-    //these parameters can't be negative
     private Icon picWeapon;
 
     /**
@@ -24,7 +23,7 @@ public class Weapon extends Item
     {
         super(name,description,image); //call the constructor of Item
         damages = degats;
-        energybyshot = energieutilisee;
+        energybyshot = energieutilisee; //energy of the player used by the weapon 
         picWeapon = image;
     }
 
@@ -57,16 +56,6 @@ public class Weapon extends Item
     {
         return(energybyshot);
     }
-    
-    /**
-     * 
-     * @return
-     */
-    //TODO
-    public String getType()
-    {
-    	return("weapon");
-    }
 
 	/**
 	 * Getter of the weapon picture
@@ -77,7 +66,7 @@ public class Weapon extends Item
 	}
 
 	/**
-	 * Setter of the wepon picture
+	 * Setter of the weapon picture
 	 * @param picWeapon the picWeapon to set
 	 */
 	public void setPicWeapon(Icon picWeapon) {

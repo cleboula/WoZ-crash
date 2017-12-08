@@ -19,7 +19,6 @@ import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
-import fr.crash.core.NpcDialog;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
@@ -52,7 +51,7 @@ public class HUD implements ActionListener {
     private ArrayList<Item> newlist;
     private WoZ woz;
 
-    private InitializeGame objHUDGame;
+    //private InitializeGame objHUDGame;
     
         public HUD(WoZ woz) {
 
@@ -358,7 +357,7 @@ public class HUD implements ActionListener {
         	}
         }
         
-        public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
+        /*public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
     	{
     		String selecteddialogline = "";
     		if (npcdial!=null){
@@ -396,7 +395,7 @@ public class HUD implements ActionListener {
     		} return selecteddialogline;
     		
     			
-    	}
+    	}*/
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -444,13 +443,7 @@ public class HUD implements ActionListener {
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
-/*<<<<<<< HEAD
-		} else if (e.getSource() == myInventory){
-		    
-		    myText = new JLabel (woz.move("west"));
-		    
-		}
-=======*/
+
 		    
 		} else if (e.getSource()== mySearchButton) {
 			myText = new JTextArea(woz.search());
@@ -473,15 +466,15 @@ public class HUD implements ActionListener {
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
-				woz.getPlayer().getnewlist().add(j);
+				woz.getNewlist().add(j);
 			}
 			String content2 = "";
-			for (Item item : woz.getPlayer().getnewlist()) {
+			for (Item item : woz.getNewlist()) {
      			content2 = content2 + item.getName() + "\n";
      		}
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
-			woz.getPlayer().setnewlistEmpty();
+			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 		} else if (e.getSource()==myOpenButton) {
@@ -502,9 +495,8 @@ public class HUD implements ActionListener {
 			}
 			
 		} if (talk.isEnabled() && e.getSource()==talk) {
-			String test = dialogTree(woz.getPlayer(), objHUDGame.getKeyForestW(), objHUDGame.getKeyPick(), objHUDGame.getKeyJail(), objHUDGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+			String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
         	myText = new JTextArea(test);
-			//myText = new JTextArea("test 2");
         	myText.setEditable(false);
         	talk.setEnabled(false);
         	myFrame.setContentPane(newPanel());
