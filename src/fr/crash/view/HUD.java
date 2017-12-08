@@ -363,37 +363,37 @@ public class HUD implements ActionListener {
     	{
     		String selecteddialogline = "";
     		if (npcdial!=null){
-    		if (npcdial.getJobnpc()== job.prisoner)
-    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
-    		else if (npcdial.getJobnpc()== job.citizen)
-    		{
-
-    			if (player.searchInventory(keyJail)) {
-    				selecteddialogline = "Guards !!!! seize that rogue !!!";
-    			}
-    			else if (!player.searchInventory(keyJail)) {
-    				selecteddialogline = "We don't take kindly your types in here!";
-    			}
-    		}
-    		else if (npcdial.getJobnpc()== job.shaman) {
-    			if (!player.searchInventory(keyPick)) {
-    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
-    			}
-    			else if (!player.searchInventory(keyJail)) {
-    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
-    			}
-    			else if (player.searchInventory(keyForestW)) {
-    				selecteddialogline = "You must go to the city and find the next part of your starship";
-    			}
-    			else if (player.searchInventory(keyForestS)) {
-    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
-    			}
-    			else if (!player.searchInventory(keyForestS)) {
-    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
-    			}
-    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
-
-    		}else {selecteddialogline = "Error: this character does not speak.";}
+	    		if (npcdial.getJobnpc()== job.prisoner)
+	    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+	    		else if (npcdial.getJobnpc()== job.citizen)
+	    		{
+	
+	    			if (player.searchInventory(keyJail)) {
+	    				selecteddialogline = "Guards !!!! seize that rogue !!!";
+	    			}
+	    			else if (!player.searchInventory(keyJail)) {
+	    				selecteddialogline = "We don't take kindly your types in here!";
+	    			}
+	    		}
+	    		else if (npcdial.getJobnpc()== job.shaman) {
+	    			if (!player.searchInventory(keyPick)) {
+	    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+	    			}
+	    			else if (!player.searchInventory(keyJail)) {
+	    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+	    			}
+	    			else if (player.searchInventory(keyForestW)) {
+	    				selecteddialogline = "You must go to the city and find the next part of your starship";
+	    			}
+	    			else if (player.searchInventory(keyForestS)) {
+	    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+	    			}
+	    			else if (!player.searchInventory(keyForestS)) {
+	    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+	    			}
+	    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
+	
+	    		}else {selecteddialogline = "Error: this character does not speak.";}
     		} return selecteddialogline;
     		
     			
@@ -502,8 +502,9 @@ public class HUD implements ActionListener {
     				}
 			}
 			
-		} if (talk.isEnabled() && e.getSource()==talk) {
-			String test = dialogTree(woz.getPlayer(), objGame.getKeyForestW(), objGame.getKeyPick(), objGame.getKeyJail(), objGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+		} else if (e.getSource()==talk) {
+			//String test = "ligne de test pour les dialogues";
+			test = dialogTree(woz.getPlayer(), objGame.getKeyForestW(), objGame.getKeyPick(), objGame.getKeyJail(), objGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
         	myText = new JTextArea(test);
 			//myText = new JTextArea("test 2");
         	myText.setEditable(false);
