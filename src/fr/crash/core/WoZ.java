@@ -22,8 +22,9 @@ public class WoZ
 
 {
 	private Player player;
-    private Zone currentZone;
-	private boolean currentfight;
+    private Zone currentZone, zone1, zone2, zone3, zone4;
+	private boolean currentfight, havekey1234;
+
     
     /**
      * Constructeur d'objets de classe WoZ
@@ -33,8 +34,12 @@ public class WoZ
     {
     	 InitializeGame objGame = new InitializeGame();
     	 currentZone = objGame.getCurrentZone();//car private
+    	 zone1 = objGame.getHouse();
+    	 zone2 = objGame.getForestS();
+    	 zone3 = objGame.getLairofthebeast();
+    	 zone4 = objGame.getPick();
     	 player = new Player(playerName,objGame);
-       	 currentfight=false;
+     currentfight=false;
     	 
     }
      
@@ -126,6 +131,7 @@ public class WoZ
     public void setCurrentZone(Zone glade) {
         this.currentZone = glade;
     }
+    	
     
     /*
      * This method returns the current zone
@@ -134,8 +140,33 @@ public class WoZ
     public Zone getCurrentZone() {
 		return currentZone;
 	}
+
+    public Zone getHouseZone() {
+		return zone1;
+	}
     
+    public Zone getForestSZone() {
+		return zone2;
+	}
     
+    public Zone getLairofthebeastZone() {
+		return zone3;
+	}
+    
+    public Zone getPickZone() {
+		return zone4;
+	}
+    /*
+     * This method checks if the player has all keys (4) required to win the game.
+     */
+     public boolean haveAllKey(){ 
+    	 	if(getForestSZone().getListItems().isEmpty() && getHouseZone().getListItems().isEmpty() && getPickZone().getListItems().isEmpty() && getLairofthebeastZone().getListItems().isEmpty()) {
+  			havekey1234 = true;
+        }
+     return(havekey1234);
+     }
+    
+     
     public String move(String dir) {
     	String message = "";
     	if (dir!="") {
@@ -143,11 +174,14 @@ public class WoZ
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
-        		                           
                 if(dir.equals(key)) {  
                 if (value.getIsLocked() == false) {
+                		if(currentZone.getZoneName() == "mountainbase") {
+                			// climb_riddle
+                		}
                 		setCurrentZone(value.getExit());
                 		message = "You are in " + currentZone.getZoneName();
+
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null) {
                 			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
                 			fight(player,getCurrentZone().getCurrentNpcFightMonster()); 
@@ -206,6 +240,7 @@ public class WoZ
     	return message;
     }
     
+    
     /*This method checks if the npc does not have life anymore.
      * @param npc : the enemy involved in the fight
      */
@@ -217,7 +252,5 @@ public class WoZ
 //    		return(false);
 //    	}
 //    }
-
-
 
 }

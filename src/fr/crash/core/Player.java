@@ -179,6 +179,7 @@ public class Player
         return(false);
     }
     
+    
     /**
      * This method add an item to the inventory
      * @param item to add to the inventory (key or medikit or weapon)

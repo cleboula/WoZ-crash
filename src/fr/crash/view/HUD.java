@@ -3,8 +3,12 @@
  */
 package fr.crash.view;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -15,6 +19,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import fr.crash.core.Player;
+import fr.crash.main;
 import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
@@ -22,8 +27,6 @@ import fr.crash.core.Medikit;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
-
-import javax.swing.JOptionPane;
 
 /**
  * @author Group 1
@@ -34,7 +37,7 @@ import javax.swing.JOptionPane;
 
 public class HUD implements ActionListener {
 	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myInvent;
+    private JLabel myPlayerName, myHP, myEP, myInvent, myWeapon;
     private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
     private JTextArea myText;
     private JPanel myPanel;//the global panel
@@ -43,10 +46,14 @@ public class HUD implements ActionListener {
     private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
     private JPanel myPanelLittleRight;//search button + open button
     private JLabel myEmptyLabel;//empty panel to the arrows panel
-    private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow;
+    private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow, again;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
     private ArrayList<Item> newlist;
     private WoZ woz;
+	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
+	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
+
+
 
     private JOptionPane optionPane;
     private JOptionPane options;
@@ -76,7 +83,7 @@ public class HUD implements ActionListener {
                     //myPanelWeapon.setLayout(new GridLayout(1,2));
                     myPanelKey = new JPanel();
                     int k = 1;
-                    //myPanelKey.setLayout(new GridLayout(3,3));
+                    myPanelKey.setLayout(new GridLayout(3,3));
                     myPanelChest = new JPanel();
                     int c = 1;
                     //myPanelChest.setLayout(new GridLayout(3,3));
@@ -123,7 +130,7 @@ public class HUD implements ActionListener {
             				myPanelObject.add(new JLabel(inventory.get(i).getName()));
             			}
             			
-            			//inventFrame.add(new JLabel(inventory.get(i).getName()));
+            			inventFrame.add(new JLabel(inventory.get(i).getName()));
             		}
             		if(inventory.size() == 0) {
             			inventFrame.add(new JLabel("L'inventaire est vide !"));
@@ -258,7 +265,7 @@ public class HUD implements ActionListener {
             myText.setForeground(Color.black);
 
             //image of the current weapon
-            JLabel myWeapon = new JLabel(woz.getPlayer().getCurrentWeapon().getImage());
+            myWeapon = new JLabel(woz.getPlayer().getCurrentWeapon().getImage());
             myWeapon.setPreferredSize(new Dimension(40,40));
           //image of the current zone
             JLabel labelZone = new JLabel(woz.getCurrentZone().getPicZone());
@@ -322,8 +329,44 @@ public class HUD implements ActionListener {
         }
         
         private JPanel newPanel() {
+        		if (woz.isAlivePlayer(woz.getPlayer()) == false) {
+            	JLabel lastLabel = new JLabel(getGameOverPic());
+            	again = new JButton("Play Again");
+            	again.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,50));
+            	again.setForeground(Color.black);
+            	again.addActionListener(this);
+            	JPanel lastPanel = new JPanel();
+            	lastPanel.add(lastLabel);
+            	lastPanel.add(again);
+           	return lastPanel;
+           	
+        		}else {
+            	if(woz.getCurrentZone().getZoneName() == "crashZone" && woz.haveAllKey() == true) {
+            		JLabel lastLabel = new JLabel(getWinPic());
+                	again = new JButton("Play Again");
+                	again.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,50));
+                	again.setForeground(Color.black);
+                	again.addActionListener(this);
+                	JPanel winPanel = new JPanel();
+                	winPanel.add(lastLabel);
+                	winPanel.add(again);
+               	return winPanel;
+        			
+        		}else {
+            	
             JLabel l1 = new JLabel(woz.getCurrentZone().getPicZone());
             l1.setPreferredSize(new Dimension(700,450));
+            	myPanelUp.remove(myPlayerName);
+    			myPanelUp.remove(myEP);     
+    			myPanelUp.remove(myHP);
+    			myPanelUp.remove(myWeapon);
+    			myPanelUp.remove(myInventory);
+		   	myPanelUp.setLayout(new GridLayout(1,5));
+		   	myPanelUp.add(myPlayerName);
+		   	myPanelUp.add(myHP);
+		   	myPanelUp.add(myEP);
+		   	myPanelUp.add(myWeapon);
+		   	myPanelUp.add(myInventory);
             JPanel p1 = new JPanel();
             p1.setLayout(new BorderLayout());
             p1.add(l1, BorderLayout.CENTER);
@@ -331,6 +374,8 @@ public class HUD implements ActionListener {
             p1.add(myText, BorderLayout.SOUTH);
             p1.add(myPanelRight, BorderLayout.EAST);
         	return p1;
+            }
+          }
         }
       
         public void dialogMove(String dir) {
@@ -340,41 +385,119 @@ public class HUD implements ActionListener {
     	                Path value= entry.getValue(); 
     	                if(dir.equals(key)) {
     	                if (value.getIsLocked()==true) {
-    	                	if (value.checkZone(woz.getPlayer())==true) {
+    	                if (value.checkZone(woz.getPlayer())==true) {
         	                	//creation of the dialog box
-        	                    int n = JOptionPane.showConfirmDialog(null,
-        	                    "Do you want to unlock the path?",
-        	                    "Information",
-        	                    JOptionPane.YES_NO_OPTION);
+        	                    if(woz.getCurrentZone().getZoneName() == "mountainbase") {
+        	                    		int n = JOptionPane.showConfirmDialog(null,
+    	                				"Do you want to unlock the path?",
+    	                				"Information",
+    	                				JOptionPane.YES_NO_OPTION);
         	                    
-        	                    if (n == JOptionPane.YES_OPTION) {
-        	                    	value.haveKey(woz.getPlayer());
-        	    					JOptionPane.showMessageDialog(null,  "The path is unlocked! You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        	                    
-        	                    } else if (n == JOptionPane.NO_OPTION) {
-        	                    	JOptionPane.showMessageDialog(null,  "The path is locked! You shall not pass.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                					if (n == JOptionPane.YES_OPTION) {
+    	                						value.haveKey(woz.getPlayer());
+    	                						JOptionPane.showMessageDialog(null, "   The path is unlocked!\nTry to climb the mountain!", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                					}
+    	                					else if (n == JOptionPane.NO_OPTION) {
+    	                					    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                					}
         	                    }
-        	                   }
+        	                    else {
+        	                    		int n = JOptionPane.showConfirmDialog(null,
+        	                			"Do you want to unlock the path?",
+        	                			"Information",
+        	                			JOptionPane.YES_NO_OPTION);
+            	                    
+        	                					if (n == JOptionPane.YES_OPTION) {
+        	                						value.haveKey(woz.getPlayer());
+        	                						JOptionPane.showMessageDialog(null,  "The path is unlocked! \n  You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                					}
+        	                					else if (n == JOptionPane.NO_OPTION) {
+        	                					    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                					}
+        	                    }
     	                }
-    				}}
-        	}
+    	                }
+    	                }
+    				}		
         }
+        }
+        
+        public  boolean climb_riddle() {
+            String[] direction = {"Go right", "Go straight", "Go left"};
+            boolean correct = false;
+            int vie = woz.getPlayer().getHP(); 
+            int rang=0, rang2=0, rang3=0, rang4=0;
+             rang = JOptionPane.showOptionDialog(null, "Find the right path ?", "Step 1", JOptionPane.YES_NO_CANCEL_OPTION,
+            		JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
+            
+            if (rang == JOptionPane.YES_OPTION) {
+             rang2 = JOptionPane.showOptionDialog(null, "A good start!\nFind the right path ?", "Step 2", JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
+            
+            		if (rang2 == JOptionPane.CANCEL_OPTION) {
+            		 rang3 = JOptionPane.showOptionDialog(null, "You're on the way!\nFind the right path ?", "Step 3", JOptionPane.YES_NO_CANCEL_OPTION,
+            	        JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
+            		
+                		if (rang3 == JOptionPane.CANCEL_OPTION) {
+                	     rang4 = JOptionPane.showOptionDialog(null, "You're high! don't fall now!\nFind the right path ?", "Step 4", JOptionPane.YES_NO_CANCEL_OPTION,
+                	            JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
+                	    
+                				if (rang4 == JOptionPane.NO_OPTION) {
+                					JOptionPane.showMessageDialog(null, "You reach the top !", null, JOptionPane.INFORMATION_MESSAGE);
+                    			}else if (rang4 != JOptionPane.NO_OPTION){
+                    				JOptionPane.showMessageDialog(null, "You fell from high !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);                    			}	
+                		
+                		}else if(rang3 != JOptionPane.CANCEL_OPTION) {
+                        JOptionPane.showMessageDialog(null, "You fell !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
+                				woz.getPlayer().setHp(vie-15);
+                		}
+            		}else if(rang2 != JOptionPane.CANCEL_OPTION) {
+            			JOptionPane.showMessageDialog(null, "You fell !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
+            				woz.getPlayer().setHp(vie-10);
+            		}
+            	}else if(rang != JOptionPane.YES_OPTION){
+        			JOptionPane.showMessageDialog(null, "This way is slippery !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
+            	}
+            
+            if(rang == JOptionPane.YES_OPTION && rang2 == JOptionPane.CANCEL_OPTION && rang3 == JOptionPane.CANCEL_OPTION && rang4 == JOptionPane.NO_OPTION) {
+            	correct = true;
+            }else {
+            	correct = false;
+            		if(rang == JOptionPane.YES_OPTION && rang2 == JOptionPane.CANCEL_OPTION && rang3 == JOptionPane.CANCEL_OPTION && rang4 != JOptionPane.NO_OPTION) {
+            			woz.getPlayer().setHp(vie-20);
+            		}
+            }
+            		myHP.setText("My HP : " + woz.getPlayer().getHP());
+    			   	myHP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+    			   	myHP.setForeground(Color.black);
+            return correct;
+        }
+        
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
     		if (e.getSource() == myNorthArrow)
     		{
-    			myTakeButton.setEnabled(false);
+			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
     			dialogMove("north");
-        		myText = new JTextArea (woz.move("north"));	
-    			myText.setEditable(false);
-    			myFrame.setContentPane(newPanel());
-    			myFrame.repaint();
-    			myFrame.revalidate();
+    			if (woz.getCurrentZone().getZoneName() == "mountainbase") {
+    				if (climb_riddle() == true) {
+                		myText = new JTextArea (woz.move("north"));	
+            			myText.setEditable(false);
+            			myFrame.setContentPane(newPanel());
+            			myFrame.repaint();
+            			myFrame.revalidate();
+    				}
+    			}else 
+            		myText = new JTextArea (woz.move("north"));	
+        			myText.setEditable(false);
+        			myFrame.setContentPane(newPanel());
+        			myFrame.repaint();
+        			myFrame.revalidate();
+   
 	
     		} else if (e.getSource() == myEastArrow){
-    			
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
     			dialogMove("east");
@@ -385,7 +508,6 @@ public class HUD implements ActionListener {
     		    myFrame.revalidate();
     		
 		} else if (e.getSource() == mySouthArrow){
-			
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
 			dialogMove("south");
@@ -396,7 +518,6 @@ public class HUD implements ActionListener {
 		    myFrame.revalidate();
  	    	
 		} else if (e.getSource() == myWestArrow){
-		    
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
 			dialogMove("west");
@@ -458,7 +579,17 @@ public class HUD implements ActionListener {
     				}
 			}
 			
-		} 
+		}  else if (e.getSource()==again) {
+			main.main(null);
+			myFrame.dispose();
+		}
 
-    	}	            
+    	}    	
+    	public Icon getGameOverPic() {
+    		return gameoverPic;
+    	}
+
+    	public Icon getWinPic() {
+    		return winPic;
+    	}
 }
