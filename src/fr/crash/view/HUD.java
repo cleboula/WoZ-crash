@@ -19,7 +19,6 @@ import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
-import fr.crash.core.NpcDialog;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
@@ -52,7 +51,7 @@ public class HUD implements ActionListener {
     private ArrayList<Item> newlist;
     private WoZ woz;
 
-    private InitializeGame objGame;
+    //private InitializeGame objHUDGame;
     
         public HUD(WoZ woz) {
 
@@ -359,10 +358,11 @@ public class HUD implements ActionListener {
         	}
         }
         
-        public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
+        /*public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
     	{
     		String selecteddialogline = "";
     		if (npcdial!=null){
+<<<<<<< HEAD
 	    		if (npcdial.getJobnpc()== job.prisoner)
 	    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
 	    		else if (npcdial.getJobnpc()== job.citizen)
@@ -394,13 +394,47 @@ public class HUD implements ActionListener {
 	    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
 	
 	    		}else {selecteddialogline = "Error: this character does not speak.";}
+=======
+    		if (npcdial.getJobnpc()== job.prisoner)
+    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+    		else if (npcdial.getJobnpc()== job.citizen)
+    		{
+
+    			if (player.searchInventory(keyJail)) {
+    				selecteddialogline = "Guards !!!! seize that rogue !!!";
+    			}
+    			else if (!player.searchInventory(keyJail)) {
+    				selecteddialogline = "We don't take kindly your types in here!";
+    			}
+    		}
+    		else if (npcdial.getJobnpc()== job.shaman) {
+    			if (!player.searchInventory(keyPick)) {
+    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+    			}
+    			else if (!player.searchInventory(keyJail)) {
+    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+    			}
+    			else if (player.searchInventory(keyForestW)) {
+    				selecteddialogline = "You must go to the city and find the next part of your starship";
+    			}
+    			else if (player.searchInventory(keyForestS)) {
+    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+    			}
+    			else if (!player.searchInventory(keyForestS)) {
+    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+    			}
+    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
+
+    		}else {selecteddialogline = "Error: this character does not speak.";}
+>>>>>>> branch 'master' of https://github.com/cleboula/WoZ-crash.git
     		} return selecteddialogline;
     		
     			
-    	}
+    	}*/
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
+    		InitializeGame objHUDGame = new InitializeGame();
     		if (e.getSource() == myNorthArrow)
     		{
     			myTakeButton.setEnabled(false);
@@ -444,13 +478,7 @@ public class HUD implements ActionListener {
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
-/*<<<<<<< HEAD
-		} else if (e.getSource() == myInventory){
-		    
-		    myText = new JLabel (woz.move("west"));
-		    
-		}
-=======*/
+
 		    
 		} else if (e.getSource()== mySearchButton) {
 			myText = new JTextArea(woz.search());
@@ -466,22 +494,22 @@ public class HUD implements ActionListener {
 					myTakeButton.setEnabled(true);
 				}
 		    }
-			if (woz.getCurrentZone().getCurrentNpcDialog()!=null || woz.getCurrentZone().getCurrentNpcFightMonster()!=null || woz.getCurrentZone().getCurrentNpcFightBoss()!=null || woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+			if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {
 				talk.setEnabled(true);
 			}
 			
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
-				woz.getPlayer().getnewlist().add(j);
+				woz.getNewlist().add(j);
 			}
 			String content2 = "";
-			for (Item item : woz.getPlayer().getnewlist()) {
+			for (Item item : woz.getNewlist()) {
      			content2 = content2 + item.getName() + "\n";
      		}
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
-			woz.getPlayer().setnewlistEmpty();
+			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 		} else if (e.getSource()==myOpenButton) {
@@ -502,11 +530,9 @@ public class HUD implements ActionListener {
     				}
 			}
 			
-		} else if (e.getSource()==talk) {
-			//String test = "ligne de test pour les dialogues";
-			test = dialogTree(woz.getPlayer(), objGame.getKeyForestW(), objGame.getKeyPick(), objGame.getKeyJail(), objGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+		} if (talk.isEnabled() && e.getSource()==talk) {
+			String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
         	myText = new JTextArea(test);
-			//myText = new JTextArea("test 2");
         	myText.setEditable(false);
         	talk.setEnabled(false);
         	myFrame.setContentPane(newPanel());
