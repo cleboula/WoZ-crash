@@ -52,7 +52,7 @@ public class HUD implements ActionListener {
     private ArrayList<Item> newlist;
     private WoZ woz;
 
-    private InitializeGame objGame;
+    private InitializeGame objHUDGame;
     
         public HUD(WoZ woz) {
 
@@ -367,27 +367,27 @@ public class HUD implements ActionListener {
     		else if (npcdial.getJobnpc()== job.citizen)
     		{
 
-    			if (player.searchInventory(player, keyJail)) {
+    			if (player.searchInventory(keyJail)) {
     				selecteddialogline = "Guards !!!! seize that rogue !!!";
     			}
-    			else if (!player.searchInventory(player, keyJail)) {
+    			else if (!player.searchInventory(keyJail)) {
     				selecteddialogline = "We don't take kindly your types in here!";
     			}
     		}
     		else if (npcdial.getJobnpc()== job.shaman) {
-    			if (!player.searchInventory(player, keyPick)) {
+    			if (!player.searchInventory(keyPick)) {
     				selecteddialogline = "If you find all the ship parts it's time for you to leave";
     			}
-    			else if (!player.searchInventory(player, keyJail)) {
+    			else if (!player.searchInventory(keyJail)) {
     				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
     			}
-    			else if (player.searchInventory(player, keyForestW)) {
+    			else if (player.searchInventory(keyForestW)) {
     				selecteddialogline = "You must go to the city and find the next part of your starship";
     			}
-    			else if (player.searchInventory(player, keyForestS)) {
+    			else if (player.searchInventory(keyForestS)) {
     				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
     			}
-    			else if (!player.searchInventory(player, keyForestS)) {
+    			else if (!player.searchInventory(keyForestS)) {
     				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
     			}
     			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
@@ -400,6 +400,7 @@ public class HUD implements ActionListener {
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
+    		InitializeGame objHUDGame = new InitializeGame();
     		if (e.getSource() == myNorthArrow)
     		{
     			myTakeButton.setEnabled(false);
@@ -465,7 +466,7 @@ public class HUD implements ActionListener {
 					myTakeButton.setEnabled(true);
 				}
 		    }
-			if (woz.getCurrentZone().getCurrentNpcDialog()!=null || woz.getCurrentZone().getCurrentNpcFightMonster()!=null || woz.getCurrentZone().getCurrentNpcFightBoss()!=null || woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+			if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {
 				talk.setEnabled(true);
 			}
 			
@@ -501,7 +502,7 @@ public class HUD implements ActionListener {
 			}
 			
 		} if (talk.isEnabled() && e.getSource()==talk) {
-			String test = dialogTree(woz.getPlayer(), objGame.getKeyForestW(), objGame.getKeyPick(), objGame.getKeyJail(), objGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+			String test = dialogTree(woz.getPlayer(), objHUDGame.getKeyForestW(), objHUDGame.getKeyPick(), objHUDGame.getKeyJail(), objHUDGame.getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
         	myText = new JTextArea(test);
 			//myText = new JTextArea("test 2");
         	myText.setEditable(false);
