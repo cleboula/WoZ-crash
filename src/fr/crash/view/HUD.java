@@ -228,9 +228,9 @@ public class HUD implements ActionListener {
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
-	            		woz.fight(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
+	            		woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
-		            		myText =new JTextArea(woz.fight(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
+		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
