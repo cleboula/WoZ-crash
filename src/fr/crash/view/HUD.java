@@ -27,6 +27,8 @@ import fr.crash.core.Medikit;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
+import fr.crash.core.job;
+import fr.crash.game.InitializeGame;
 
 /**
  * @author Group 1
@@ -48,6 +50,7 @@ public class HUD implements ActionListener {
     private JLabel myEmptyLabel;//empty panel to the arrows panel
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow, again;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton;
+    private JButton talk;
     private ArrayList<Item> newlist;
     private WoZ woz;
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
@@ -55,8 +58,7 @@ public class HUD implements ActionListener {
 
 
 
-    private JOptionPane optionPane;
-    private JOptionPane options;
+    //private InitializeGame objHUDGame;
     
         public HUD(WoZ woz) {
 
@@ -201,20 +203,14 @@ public class HUD implements ActionListener {
             myOpenButton.setEnabled(false);//open button is not available
             myOpenButton.addActionListener(this);
 
-			/*myOpenButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		for (Item i : woz.getCurrentZone().getListItems()) {//the list of items of the current zone
-            			if (i instanceof Chest) {//in an item is a chest
-            				((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if it is ok
-            				if (((Chest) i).getIsOpened() == true) {
-            					myText = new JTextArea("You have a new item ! A wonderful " + ((Chest)i).getContent().getDescription());            	
-            					myText.setEditable(false);
-            				}
-            			}
-				}
-            	}
-            });*/
-
+            // the talk button
+            talk = new JButton("Talk to a character");
+            talk.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+            talk.setForeground(Color.black);
+            talk.addActionListener(this);
+            talk.setEnabled(false);
+            
+            
             
             //the Attack button
             myAttackButton = new JButton("Attack");
@@ -287,9 +283,10 @@ public class HUD implements ActionListener {
             myPanelArrows.add(myEmptyLabel = new JLabel());
             
             myPanelLittleRight = new JPanel();
-            myPanelLittleRight.setLayout(new GridLayout(3,1));
+            myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
+            myPanelLittleRight.add(talk);
             myPanelLittleRight.add(myAttackButton);
             
             myPanelRight = new JPanel();
@@ -385,7 +382,8 @@ public class HUD implements ActionListener {
     	                Path value= entry.getValue(); 
     	                if(dir.equals(key)) {
     	                if (value.getIsLocked()==true) {
-    	                if (value.checkZone(woz.getPlayer())==true) {
+    	                	if (value.haveKey(woz.getPlayer())==true) {
+
         	                	//creation of the dialog box
         	                    if(woz.getCurrentZone().getZoneName() == "mountainbase") {
         	                    		int n = JOptionPane.showConfirmDialog(null,
@@ -394,21 +392,21 @@ public class HUD implements ActionListener {
     	                				JOptionPane.YES_NO_OPTION);
         	                    
     	                					if (n == JOptionPane.YES_OPTION) {
-    	                						value.haveKey(woz.getPlayer());
+    	                						value.checkZone(woz.getPlayer());
     	                						JOptionPane.showMessageDialog(null, "   The path is unlocked!\nTry to climb the mountain!", "Information", JOptionPane.INFORMATION_MESSAGE);
     	                					}
     	                					else if (n == JOptionPane.NO_OPTION) {
     	                					    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
     	                					}
-        	                    }
-        	                    else {
+
+        	                    }else {
         	                    		int n = JOptionPane.showConfirmDialog(null,
         	                			"Do you want to unlock the path?",
         	                			"Information",
         	                			JOptionPane.YES_NO_OPTION);
             	                    
         	                					if (n == JOptionPane.YES_OPTION) {
-        	                						value.haveKey(woz.getPlayer());
+        	                						value.checkZone(woz.getPlayer());
         	                						JOptionPane.showMessageDialog(null,  "The path is unlocked! \n  You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
         	                					}
         	                					else if (n == JOptionPane.NO_OPTION) {
@@ -474,8 +472,49 @@ public class HUD implements ActionListener {
         }
         
         
+        /*public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
+    	{
+    		String selecteddialogline = "";
+    		if (npcdial!=null){
+    		if (npcdial.getJobnpc()== job.prisoner)
+    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+    		else if (npcdial.getJobnpc()== job.citizen)
+    		{
+
+    			if (player.searchInventory(keyJail)) {
+    				selecteddialogline = "Guards !!!! seize that rogue !!!";
+    			}
+    			else if (!player.searchInventory(keyJail)) {
+    				selecteddialogline = "We don't take kindly your types in here!";
+    			}
+    		}
+    		else if (npcdial.getJobnpc()== job.shaman) {
+    			if (!player.searchInventory(keyPick)) {
+    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
+    			}
+    			else if (!player.searchInventory(keyJail)) {
+    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
+    			}
+    			else if (player.searchInventory(keyForestW)) {
+    				selecteddialogline = "You must go to the city and find the next part of your starship";
+    			}
+    			else if (player.searchInventory(keyForestS)) {
+    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
+    			}
+    			else if (!player.searchInventory(keyForestS)) {
+    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
+    			}
+    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
+
+    		}else {selecteddialogline = "Error: this character does not speak.";}
+    		} return selecteddialogline;
+    		
+    			
+    	}*/
+        
     	@Override
     	public void actionPerformed(ActionEvent e) {
+    		InitializeGame objHUDGame = new InitializeGame();
     		if (e.getSource() == myNorthArrow)
     		{
 			myTakeButton.setEnabled(false);
@@ -526,13 +565,7 @@ public class HUD implements ActionListener {
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
-/*<<<<<<< HEAD
-		} else if (e.getSource() == myInventory){
-		    
-		    myText = new JLabel (woz.move("west"));
-		    
-		}
-=======*/
+
 		    
 		} else if (e.getSource()== mySearchButton) {
 			myText = new JTextArea(woz.search());
@@ -542,24 +575,28 @@ public class HUD implements ActionListener {
 		    myFrame.revalidate();
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				if (j instanceof Weapon || j instanceof Key || j instanceof Medikit) {
-					myTakeButton.setEnabled(true);}
-				else if (j instanceof Chest) {
+					myTakeButton.setEnabled(true);
+				} else if (j instanceof Chest) {
 					myOpenButton.setEnabled(true);
 					myTakeButton.setEnabled(true);
 				}
 		    }
+			if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {
+				talk.setEnabled(true);
+			}
+			
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
-				woz.getPlayer().getnewlist().add(j);
+				woz.getNewlist().add(j);
 			}
 			String content2 = "";
-			for (Item item : woz.getPlayer().getnewlist()) {
+			for (Item item : woz.getNewlist()) {
      			content2 = content2 + item.getName() + "\n";
      		}
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
-			woz.getPlayer().setnewlistEmpty();
+			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 		} else if (e.getSource()==myOpenButton) {
@@ -579,11 +616,20 @@ public class HUD implements ActionListener {
     				}
 			}
 			
-		}  else if (e.getSource()==again) {
+		} if (talk.isEnabled() && e.getSource()==talk) {
+			String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+        	myText = new JTextArea(test);
+        	myText.setEditable(false);
+        	talk.setEnabled(false);
+        	myFrame.setContentPane(newPanel());
+        	myFrame.repaint();
+        	myFrame.revalidate();
+		}
+        	
+		else if (e.getSource()==again) {
 			main.main(null);
 			myFrame.dispose();
 		}
-
     	}    	
     	public Icon getGameOverPic() {
     		return gameoverPic;

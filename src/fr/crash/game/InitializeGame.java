@@ -41,16 +41,13 @@ public class InitializeGame {
 	
 	private Icon swordPic, knifePic, gunPic;
 
-	//private NpcDialog prisoner,citizen1,citizen2,citizen3,citizen4;
-
-	private String selecteddialogline;
 
 public InitializeGame() {
 	       //Non Player Characters
 			//Hakunin, the shaman, will lead the player in his quest for freedom
-			NpcDialog shaman = new NpcDialog("Hakunin","Before you stands some kind of Shaman. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
+			NpcDialog shaman = new NpcDialog("Hakunin","Some kind of Shaman is standing in front of you. He appraises you with his crazy eyes from somewhere in the world only he inhabits.", job.shaman);
 			//The prisoner Npc
-			NpcDialog prisoner = new NpcDialog("Gilgamesh","Before you stands a weird kind of humanoid, wearing rags, he looks tired and he is at Death Door",job.prisoner);
+			NpcDialog prisoner = new NpcDialog("Gilgamesh","A weird kind of humanoid is in front of you, wearing rags, he looks tired and is dying",job.prisoner);
 			// A bunch of generic citizen npc's
 			NpcDialog citizen1 = new NpcDialog("Waldo","a local life form",job.citizen);
 			NpcDialog citizen2 = new NpcDialog("Opipou","Typical girl next door, except you doesn't live here,it's not a girl an it's right in front of you",job.citizen);
@@ -66,21 +63,10 @@ public InitializeGame() {
 			NpcFightMonster snake2=new NpcFightMonster(20,5,"Snake","big snake");
 			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
 			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
-
-			
-			//
-	
-		
-	//the guard
+			//the guard
 			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
 
-			
-			
-			//todo a tester
-		
-			
-		      
-	        
+        
 
 			
 		   //images
@@ -158,28 +144,7 @@ public InitializeGame() {
            cave = new Zone("cave", cavePic);
            lairofthebeast = new Zone("lairofthebeast", lairofthebeastPic);
            currentZone = crashzone;
- 
-       
-/*           //implementation of the list of zones
-           listZone.add(glade);
-           listZone.add(crashzone);
-           listZone.add(forestS);
-           listZone.add(forestW);
-           listZone.add(forestN);
-           listZone.add(bridge);
-           listZone.add(cityentrance);
-           listZone.add(marketplace);
-           listZone.add(house);
-           listZone.add(church);
-           listZone.add(jailentrance);
-           listZone.add(jail);
-           listZone.add(caveentrance);
-           listZone.add(frozenlake);
-           listZone.add(mountainbase);
-           listZone.add(pick);
-           listZone.add(cave);
-           listZone.add(lairofthebeast);
- */          
+         
            //list of items per zone           
            forestS.setItems(keyForestS);
            forestS.setItems(keySSGenerator);
@@ -303,10 +268,9 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
               
-         //Placement des Npcs
+         //Placement of Npcs
        		jailentrance.setCurrentNpcFightGuard(guard);
-       		
-       		
+
 			lairofthebeast.setCurrentNpcFightBoss(boss);
 			
 			glade.setCurrentNpcDialog(shaman);
@@ -328,8 +292,10 @@ public InitializeGame() {
 
 
 
-	public String DialogTree (Player player,Item keyForestWForestN,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial,String selecteddialogline)
+	public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
 	{
+		String selecteddialogline = "";
+		if (npcdial!=null){
 		if (npcdial.getJobnpc()== job.prisoner)
 		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
 		else if (npcdial.getJobnpc()== job.citizen)
@@ -338,37 +304,34 @@ public InitializeGame() {
 			if (player.searchInventory(keyJail)) {
 				selecteddialogline = "Guards !!!! seize that rogue !!!";
 			}
-			if (!player.searchInventory(keyJail)) {
+			else if (!player.searchInventory(keyJail)) {
 				selecteddialogline = "We don't take kindly your types in here!";
 			}
 		}
 		else if (npcdial.getJobnpc()== job.shaman) {
+			selecteddialogline = "test";
 			if (!player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
-			if (!player.searchInventory(keyJail)) {
+			else if (!player.searchInventory(keyJail)) {
 				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
 			}
-			if (player.searchInventory(keyForestWForestN)) {
+			else if (player.searchInventory(keyForestW)) {
 				selecteddialogline = "You must go to the city and find the next part of your starship";
 			}
-			if (player.searchInventory(keyForestS)) {
+			else if (player.searchInventory(keyForestS)) {
 				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
 			}
-			if (!player.searchInventory(keyForestS)) {
+			else if (!player.searchInventory(keyForestS)) {
 				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
 			}
-			else selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";
+			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
 
+			}
 		} return selecteddialogline;
 		
-		
-		
-		
+			
 	}
-
-
-
 
 
 
@@ -429,7 +392,7 @@ public Key getKeyForestS() {
 }
 
 /**
- * @return the keyForestWForestN
+ * @return the keyForestW
  */
 public Key getKeyForestW() {
 	return keyForestW;

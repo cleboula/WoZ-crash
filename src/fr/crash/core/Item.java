@@ -6,7 +6,7 @@ import javax.swing.Icon;
  * This class represents all the objects in the game. All these objects can be used by
  * the player. Each object has different characteristics. (Medikit, Weapon, Chest, Key)
  *
- * @author Groupe 1 WoZ
+ * @author Group 1 WoZ
  * @version 09/11/2017
  */
 public abstract class Item

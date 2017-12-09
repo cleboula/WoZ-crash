@@ -7,7 +7,7 @@ import javax.swing.Icon;
  * Some keys allow the opening of chest and others allow the passage of certain paths. A key 
  * is necessarily linked to a path or a chest. Once the key is used it disappears. The key 
  * must be present in the player's inventory to be used.
- * Key are associated in the Path or Chest constructors.
+ * Key are associated to a path or a chest in Path or Chest constructors.
  *
  * @author Group 1
  * @version 09/11/2017
