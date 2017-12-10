@@ -400,7 +400,15 @@ public class HUD implements ActionListener {
             		myPanelInventory.add(myPanelWeapon, BorderLayout.WEST);
                  	inventFrame.add(myPanelInventory);
                  	inventFrame.setResizable(false);
-                 	inventFrame.setLocationRelativeTo(null);
+                 	inventFrame.setLocationRelativeTo(myFrame);
+                 	/** Lecture de la taille de l'écran */ 
+                 	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize(); 
+                 	inventFrame.pack(); 
+                 	/* la fenêtre prend sa taille... */ 
+                 	inventFrame.setLocation( 
+                 	        (screenSize.width-inventFrame.getWidth())/2, 
+                 	        (screenSize.height-inventFrame.getHeight())/2 
+                 	        );
                  	inventFrame.pack();
                  	inventFrame.setVisible(true);
             	}
