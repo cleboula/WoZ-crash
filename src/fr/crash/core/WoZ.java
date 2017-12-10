@@ -81,17 +81,18 @@ public class WoZ
 	   System.out.println(player1.getPlayerName() + "2");
 	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
-	   messageatk="fight a commencé";
+	   
 	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
 		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
-	   }else if(npc1.getHp()==0){ 
-		   setCurrentfight(false);
-		   messageatk ="You won the fight, you can move out this zone";
-	   }else if(player1.getHP()==0){
-		   //game over  
+		   if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+			   setCurrentfight(false);
+			   messageatk ="You won the fight, you can move out this zone";
+		   }else if(player1.getHP()==0 || player1.getHP()<=0){
+			   //game over  
+		   }
 	   }
 	   return messageatk;
 	}
@@ -110,12 +111,12 @@ public class WoZ
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
 		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
-	
-	   }else if(npc1.getHp()==0){ 
-		   setCurrentfight(false);
-		   messageatk ="You won the fight, you can move out this zone";
-	   }else if(player1.getHP()==0){
-		   //game over  
+		   if(npc1.getHp()==0){ 
+			   setCurrentfight(false);
+			   messageatk ="You won the fight, you can move out this zone";
+		   }else if(player1.getHP()==0){
+			   //game over  
+		   }
 	   }
 	   return messageatk;
 	}
@@ -230,14 +231,14 @@ public class WoZ
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone
                 			System.out.println (currentfight); //TODO
-                			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			System.out.println (player.getPlayerName());
-                			System.out.println (getCurrentZone().getCurrentNpcFightMonster().getName());
-                			message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
+                			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
+                		
+                			//message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
 
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null ){ //if there is the boss in the zone
-                			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
-                			fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
+                			setCurrentfight(true);//if there is a fight monster in the zone
+                			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
+                			//fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
                 			
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone

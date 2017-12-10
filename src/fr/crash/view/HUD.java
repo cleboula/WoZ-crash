@@ -220,15 +220,39 @@ public class HUD implements ActionListener {
             
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
+            	
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
 	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
+		            		myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
+		            		myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
+		            		if(woz.isCurrentfight()==false) {
+		                        myAttackButton.setEnabled(false);
+		                        myNorthArrow.setEnabled(true); 
+		                        myEastArrow.setEnabled(true);
+		                        myWestArrow.setEnabled(true);
+		                        mySouthArrow.setEnabled(true);
+		                        mySearchButton.setEnabled(true);
+		                    }
 	            		}
+
+            		}
+	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {
+	            			if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
+		            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
+		            		myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
+		            		myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
+		            		myText.setEditable(false);
+		            		myFrame.setContentPane(newPanel());
+		        			myFrame.repaint();
+		        			myFrame.revalidate();
+		        			}
+	            		
             		}
             	}
             });
