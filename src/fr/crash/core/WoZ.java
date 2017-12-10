@@ -17,8 +17,8 @@ import fr.crash.game.InitializeGame;
 public class WoZ
 {
 	private Player player; 
-    private Zone currentZone; //the zone where the player is
-	private boolean currentfight; //if the player is in the middle of a fight (true) if not (false)
+    private Zone currentZone, zone1, zone2, zone3, zone4; //the zone where the player is
+	private boolean currentfight, havekey1234; //if the player is in the middle of a fight (true) if not (false)
     private InitializeGame objGame;
     private ArrayList<Item> newlist; //the list of items of the zone to displays when the player search
 
@@ -29,12 +29,16 @@ public class WoZ
      * It manages the
      */
      public WoZ(String playerName)
-    {
+    {    	 
     	 objGame = new InitializeGame(); //creates all element of the world
     	 currentZone = objGame.getCurrentZone();//because it is private
     	 player = new Player(playerName,objGame); //create the player
-       	 currentfight=false;
- 		 newlist = new ArrayList<Item> (); // creation of a list of item in the current zone	 
+    	 zone1 = objGame.getHouse();
+    	 zone2 = objGame.getForestS();
+    	 zone3 = objGame.getLairofthebeast();
+    	 zone4 = objGame.getPick();
+     currentfight=false;
+	 newlist = new ArrayList<Item> (); // creation of a list of item in the current zone	 
     }
      
     /**
@@ -73,21 +77,54 @@ public class WoZ
      * @param npc : the enemy involved in the fight
      * @return messageatk : the message displays during the fight
      */
-   public String fight(Player player1,NpcFight npc1){
+   public String fightMonster(Player player1,NpcFightMonster npc1){
+	   System.out.println(player1.getPlayerName() + "2");
+	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
-	   currentfight=true;	   
+	   
+	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
 		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
-	   }else if(npc1.getHp()==0){ 
-		   currentfight=false;
-		   messageatk ="You won the fight, you can move out this zone";
-	   }else if(player1.getHP()==0){
-		   //game over  
+		   System.out.println(player1.getHP());
+		   System.out.println(npc1.getHp());
+		   System.out.println(isCurrentfight());
+		   if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+			   setCurrentfight(false);
+			   System.out.println(isCurrentfight());
+			   messageatk ="You won the fight, you can move out this zone";
+		   }else if(player1.getHP()==0 || player1.getHP()<=0){
+			   //game over  
+		   }
 	   }
 	   return messageatk;
 	}
+	/**
+    * This method simulates a fight between our main player and an enemy
+    * If the npc is dead, the fight is over and the player wins
+    * If the player dies, the game is over
+    * @param player : the main player
+    * @param npc : the enemy involved in the fight
+    * @return messageatk : the message displays during the fight
+    */
+  public String fightBoss(Player player1,NpcFightBoss npc1){
+	   String messageatk ="";
+	   setCurrentfight(true);	   
+	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
+		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
+		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
+		   if(npc1.getHp()==0){ 
+			   setCurrentfight(false);
+			   messageatk ="You won the fight, you can move out this zone";
+		   }else if(player1.getHP()==0){
+			   //game over  
+		   }
+	   }
+	   return messageatk;
+	}
+   
 
    /**
     * This method allows the player to switch weapon 
@@ -125,13 +162,18 @@ public class WoZ
 		return currentfight;
 	}
     
-    /**
+    public void setCurrentfight(boolean currentfight) {
+		this.currentfight = currentfight;
+	}
+
+	/**
      * This method defines a new current zone
      * @param zone the new current zone
      */
     public void setCurrentZone(Zone zone) {
         this.currentZone = zone;
     }
+    	
     
     /**
      * This method returns the current zone
@@ -140,8 +182,33 @@ public class WoZ
     public Zone getCurrentZone() {
 		return currentZone;
 	}
+
+    public Zone getHouseZone() {
+		return zone1;
+	}
     
-    /**
+    public Zone getForestSZone() {
+		return zone2;
+	}
+    
+    public Zone getLairofthebeastZone() {
+		return zone3;
+	}
+    
+    public Zone getPickZone() {
+		return zone4;
+	}
+    /*
+     * This method checks if the player has all keys (4) required to win the game.
+     */
+     public boolean haveAllKey(){ 
+    	 	if(getForestSZone().getListItems().isEmpty() && getHouseZone().getListItems().isEmpty() && getPickZone().getListItems().isEmpty() && getLairofthebeastZone().getListItems().isEmpty()) {
+  			havekey1234 = true;
+        }
+     return(havekey1234);
+     }
+    
+     /**
      * This method allow the player to move
      * He is blocked when the path is locked until he gets the right item
      * He can move when the path is not locked
@@ -156,18 +223,26 @@ public class WoZ
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
-        		                           
                 if(dir.equals(key)) {  
                 	if (value.getIsLocked() == false) { //if the path is not locked
+                			if(currentZone.getZoneName() == "mountainbase") {
+                				// climb_riddle
+                				//TODO
+                			}
                 		setCurrentZone(value.getExit()); //the player is in a new current zone
                 		message = "You are in " + currentZone.getZoneName();
-                		if(getCurrentZone().getCurrentNpcFightMonster()!=null) { //if there is a fight monster in the zone
-                			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFightMonster()); 
-                			
-                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null){ //if there is the boss in the zone
-                			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
-                			fight(player,getCurrentZone().getCurrentNpcFightBoss()); 
+
+                		if(getCurrentZone().getCurrentNpcFightMonster()!=null ) { 
+                			setCurrentfight(true);//if there is a fight monster in the zone
+                			System.out.println (currentfight); //TODO
+                			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
+                		
+                			//message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
+
+                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null ){ //if there is the boss in the zone
+                			setCurrentfight(true);//if there is a fight monster in the zone
+                			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
+                			//fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
                 			
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
@@ -190,10 +265,10 @@ public class WoZ
                             	}
                         	}
                 		}
-                	}
+                }
                 }   
+    			}
     		}
-    	} 
 	return message;	
     }  
 
@@ -229,3 +304,4 @@ public class WoZ
     	return message;
     }
 }
+

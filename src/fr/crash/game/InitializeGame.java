@@ -89,7 +89,6 @@ public InitializeGame() {
 		   marketplacePic = new ImageIcon(getClass().getResource("/images/marketplace.jpg"));
 		   caveentrancePic = new ImageIcon(getClass().getResource("/images/caveentrance.png"));
 		   
-		   
 		   swordPic = new ImageIcon(getClass().getResource("/images/sword.png"));
 		   knifePic = new ImageIcon(getClass().getResource("/images/knife.png"));
 		   gunPic = new ImageIcon(getClass().getResource("/images/gun.png"));
@@ -180,12 +179,12 @@ public InitializeGame() {
            crashzone_glade = new Path(glade,false, null);
            glade_forestS = new Path(forestS,false, null);
            forestS_glade = new Path(glade,false, null);
-           glade_forestW = new Path(forestW,false, null);
+           glade_forestW = new Path(forestW,true, keyForestS);//path initially blocked
            forestW_glade = new Path(glade,false, null);
            glade_forestN = new Path(forestN,true, keyForestS);//path initially blocked
            forestN_glade = new Path(glade,false, null);
            bridge_forestW = new Path(forestW,false, null);
-           forestW_bridge = new Path(bridge,true, keyForestS);//path initially blocked
+           forestW_bridge = new Path(bridge,false, null);
            bridge_forestN = new Path(forestN,false, null);
            forestN_bridge = new Path(bridge,false, null);
            bridge_cityentrance = new Path(cityentrance,true, keyForestW);//path initially blocked
@@ -874,6 +873,4 @@ public Path getHouse_marketplace() {
 public Icon getCrashZonePic() {
 	return crashZonePic;
 }
-
-
 }

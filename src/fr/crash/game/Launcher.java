@@ -153,7 +153,7 @@ public class Launcher implements ActionListener{
 		} else if (e.getSource() == fifthButton) {
 			
 			myFrame.dispose();//close the precedent window
-			sixthLabel = new JLabel("<html>You are waking up in a forest. You are looking around you. Your spaceship is broken apart. You are discouraged… but at least you are not hurt.</html>");
+			sixthLabel = new JLabel("<html>You are waking up in a forest. You are looking around you. Your spaceship is broken apart. You are discouragedï¿½ but at least you are not hurt.</html>");
 			sixthLabel.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,30));
 			sixthLabel.setForeground(Color.white);
 		    sixthButton = newButton();

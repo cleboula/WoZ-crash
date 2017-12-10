@@ -135,7 +135,7 @@ public class Zone
      * Getter of the npc fight monster present in the zone
      * @return npc fight monster
      */
-    public NpcFight getCurrentNpcFightMonster() {
+    public NpcFightMonster getCurrentNpcFightMonster() {
 		return currentNpcFightMonster;
 	}
     /**
