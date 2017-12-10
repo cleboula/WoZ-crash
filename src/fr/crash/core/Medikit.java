@@ -29,7 +29,7 @@ public class Medikit extends Item
      * @param med
      * @return health points to give back to the player
      */
-    protected int getHP()
+    public int getHP()
     {
         return(hpPlayer);
     }
@@ -38,7 +38,7 @@ public class Medikit extends Item
      * @param med
      * @return energy points to give back to the player
      */
-    protected int getEP()
+    public int getEP()
     {
         return(epPlayer);
     }
@@ -46,7 +46,7 @@ public class Medikit extends Item
      * This method is used to allow the Player to use a medikit and have HP and EP back.
      * @param player
      */
-    protected void cure(Player player)
+    public void cure(Player player)
     {
     	int newHp;
     	int newEp;
