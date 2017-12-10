@@ -217,18 +217,11 @@ public class HUD implements ActionListener {
             myAttackButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myAttackButton.setForeground(Color.black);
             myAttackButton.setEnabled(false);//attack button is not available
-            if(woz.isCurrentfight()==true) {
-                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
-                myNorthArrow.setEnabled(false); // disable direction button
-                myEastArrow.setEnabled(false);
-                myWestArrow.setEnabled(false);
-                mySouthArrow.setEnabled(false);
-                
-            }
+            
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
-	            		woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster());
+	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myText.setEditable(false);
@@ -470,54 +463,14 @@ public class HUD implements ActionListener {
     			   	myHP.setForeground(Color.black);
             return correct;
         }
-        
-        
-        /*public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
-    	{
-    		String selecteddialogline = "";
-    		if (npcdial!=null){
-    		if (npcdial.getJobnpc()== job.prisoner)
-    		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
-    		else if (npcdial.getJobnpc()== job.citizen)
-    		{
 
-    			if (player.searchInventory(keyJail)) {
-    				selecteddialogline = "Guards !!!! seize that rogue !!!";
-    			}
-    			else if (!player.searchInventory(keyJail)) {
-    				selecteddialogline = "We don't take kindly your types in here!";
-    			}
-    		}
-    		else if (npcdial.getJobnpc()== job.shaman) {
-    			if (!player.searchInventory(keyPick)) {
-    				selecteddialogline = "If you find all the ship parts it's time for you to leave";
-    			}
-    			else if (!player.searchInventory(keyJail)) {
-    				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
-    			}
-    			else if (player.searchInventory(keyForestW)) {
-    				selecteddialogline = "You must go to the city and find the next part of your starship";
-    			}
-    			else if (player.searchInventory(keyForestS)) {
-    				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
-    			}
-    			else if (!player.searchInventory(keyForestS)) {
-    				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
-    			}
-    			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
-
-    		}else {selecteddialogline = "Error: this character does not speak.";}
-    		} return selecteddialogline;
-    		
-    			
-    	}*/
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
     		InitializeGame objHUDGame = new InitializeGame();
     		if (e.getSource() == myNorthArrow)
     		{
-			myTakeButton.setEnabled(false);
+    			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
     			dialogMove("north");
     			if (woz.getCurrentZone().getZoneName() == "mountainbase") {
@@ -531,6 +484,14 @@ public class HUD implements ActionListener {
     			}else 
             		myText = new JTextArea (woz.move("north"));	
         			myText.setEditable(false);
+        			if(woz.isCurrentfight()==true) {
+                        myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                        myNorthArrow.setEnabled(false); // disable direction button
+                        myEastArrow.setEnabled(false);
+                        myWestArrow.setEnabled(false);
+                        mySouthArrow.setEnabled(false);
+                        mySearchButton.setEnabled(false);
+                    }
         			myFrame.setContentPane(newPanel());
         			myFrame.repaint();
         			myFrame.revalidate();
@@ -542,6 +503,14 @@ public class HUD implements ActionListener {
     			dialogMove("east");
             	myText = new JTextArea (woz.move("east"));
             	myText.setEditable(false);
+            	if(woz.isCurrentfight()==true) {
+                    myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                    myNorthArrow.setEnabled(false); // disable direction button
+                    myEastArrow.setEnabled(false);
+                    myWestArrow.setEnabled(false);
+                    mySouthArrow.setEnabled(false);
+                    mySearchButton.setEnabled(false);
+                }
     		    myFrame.setContentPane(newPanel());
     		    myFrame.repaint();
     		    myFrame.revalidate();
@@ -552,6 +521,14 @@ public class HUD implements ActionListener {
 			dialogMove("south");
 			myText = new JTextArea (woz.move("south"));
 			myText.setEditable(false);
+			if(woz.isCurrentfight()==true) {
+                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                myNorthArrow.setEnabled(false); // disable direction button
+                myEastArrow.setEnabled(false);
+                myWestArrow.setEnabled(false);
+                mySouthArrow.setEnabled(false);
+                mySearchButton.setEnabled(false);
+            }
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();
@@ -562,6 +539,15 @@ public class HUD implements ActionListener {
 			dialogMove("west");
 		    myText = new JTextArea (woz.move("west"));
 		    myText.setEditable(false);
+		    if(woz.isCurrentfight()==true) {
+                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+                myNorthArrow.setEnabled(false); // disable direction button
+                myEastArrow.setEnabled(false);
+                myWestArrow.setEnabled(false);
+                mySouthArrow.setEnabled(false);
+                mySearchButton.setEnabled(false);
+                
+            }
 		    myFrame.setContentPane(newPanel());
 		    myFrame.repaint();
 		    myFrame.revalidate();

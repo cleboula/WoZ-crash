@@ -78,9 +78,11 @@ public class WoZ
      * @return messageatk : the message displays during the fight
      */
    public String fightMonster(Player player1,NpcFightMonster npc1){
+	   System.out.println(player1.getPlayerName() + "2");
+	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
 	   messageatk="fight a commencé";
-	   setCurrentfight(true);	 	   
+	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
@@ -220,22 +222,22 @@ public class WoZ
                 	if (value.getIsLocked() == false) { //if the path is not locked
                 			if(currentZone.getZoneName() == "mountainbase") {
                 				// climb_riddle
+                				//TODO
                 			}
                 		setCurrentZone(value.getExit()); //the player is in a new current zone
                 		message = "You are in " + currentZone.getZoneName();
 
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone
-                		
+                			System.out.println (currentfight); //TODO
                 			message= "You are in " + currentZone.getZoneName()+", a monster jumped on you ! Be ready to fight";
-                			//fightMonster(player,getCurrentZone().getCurrentNpcFightMonster()); 
-                		
+                			System.out.println (player.getPlayerName());
+                			System.out.println (getCurrentZone().getCurrentNpcFightMonster().getName());
+                			message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
 
-                    		
-                			
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null ){ //if there is the boss in the zone
                 			message= "You are in " + currentZone.getZoneName()+", Trump is ready to fight you ! Be ready to fight";
-                			fightBoss(player,getCurrentZone().getCurrentNpcFightBoss()); 
+                			fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
                 			
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
