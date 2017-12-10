@@ -86,11 +86,13 @@ public class WoZ
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
-		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
+		   messageatk ="You have "+player1.getHP()+" health point left. Your opponent is bleeding, "+npc1.getHp()+" health point left !";
 		   System.out.println(player1.getHP());
 		   System.out.println(npc1.getHp());
 		   System.out.println(isCurrentfight());
-		   if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+		   
+		   //if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+		   if(npc1.getHp()<=0){ 
 			   setCurrentfight(false);
 			   System.out.println(isCurrentfight());
 			   messageatk ="You won the fight, you can move out this zone";
@@ -250,7 +252,7 @@ public class WoZ
                 	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
                  		}else{
                         	if (currentZone.getZoneName() == "marketplace") {
-                        		message = "You cannot go this way ! The door is close.";
+                        		message = "You cannot go this way ! The door is closed.";
                             }else{
                         		if (currentZone.getZoneName() == "bridge") {
                         			message = "You cannot go this way ! You need wood to build the bridge.";
