@@ -74,7 +74,7 @@ public class WoZ
      * If the npc is dead, the fight is over and the player wins
      * If the player dies, the game is over
      * @param player : the main player
-     * @param npc : the enemy involved in the fight
+     * @param NpcFightMonster : the enemy involved in the fight
      * @return messageatk : the message displays during the fight
      */
    public String fightMonster(Player player1,NpcFightMonster npc1){
@@ -84,13 +84,22 @@ public class WoZ
 	   
 	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
+		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+		   player1.setEp(player1.getEP()-player1.getCurrentWeapon().getEnergybyshot());//set the player ep
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
-		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
-		   System.out.println(player1.getHP());
-		   System.out.println(npc1.getHp());
-		   System.out.println(isCurrentfight());
-		   if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+		   messageatk ="You have "+player1.getHP()+" health point left. Your opponent is bleeding, "+npc1.getHp()+" health point left !";
+		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
+			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+			   messageatk="you do not have enough EP to attack";
+		   }else { //gameover 
+			 
+		   }
+		   
+	
+		   
+		   //if(npc1.getHp()==0 || npc1.getHp()<=0){ 
+		   if(npc1.getHp()<=0){ 
 			   setCurrentfight(false);
 			   System.out.println(isCurrentfight());
 			   messageatk ="You won the fight, you can move out this zone";
@@ -105,16 +114,23 @@ public class WoZ
     * If the npc is dead, the fight is over and the player wins
     * If the player dies, the game is over
     * @param player : the main player
-    * @param npc : the enemy involved in the fight
+    * @param NpcFightBoss : the enemy involved in the fight
     * @return messageatk : the message displays during the fight
     */
   public String fightBoss(Player player1,NpcFightBoss npc1){
 	   String messageatk ="";
-	   setCurrentfight(true);	   
+	   //setCurrentfight(true);	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
+		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
 		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
+		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
+			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+			   messageatk="you do not have enough EP to attack";
+		   }else { //gameover 
+			 
+		   }
 		   if(npc1.getHp()==0){ 
 			   setCurrentfight(false);
 			   messageatk ="You won the fight, you can move out this zone";
@@ -124,7 +140,34 @@ public class WoZ
 	   }
 	   return messageatk;
 	}
-   
+	/**
+   * This method simulates a fight between our main player and an enemy
+   * If the npc is dead, the fight is over and the player wins
+   * If the player dies, the game is over
+   * @param player : the main player
+   * @param NpcFightBoss : the enemy involved in the fight
+   * @return messageatk : the message displays during the fight
+   */
+ public String fightGuard(Player player1,NpcFightGuard npc1){
+	   String messageatk ="";
+	   //setCurrentfight(true);	   
+	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
+		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
+		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
+		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
+		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
+			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
+			   messageatk="you do not have enough EP to attack";
+		   }else { //gameover 
+			 
+		   }
+		   if(player1.getHP()==0){
+			   //game over  
+		   }
+	   }
+	   return messageatk;
+	}
 
    /**
     * This method allows the player to switch weapon 
@@ -250,7 +293,7 @@ public class WoZ
                 	    message = "You cannot go this way ! This mountain is frozen, you need a grapple.";
                  		}else{
                         	if (currentZone.getZoneName() == "marketplace") {
-                        		message = "You cannot go this way ! The door is close.";
+                        		message = "You cannot go this way ! The door is closed.";
                             }else{
                         		if (currentZone.getZoneName() == "bridge") {
                         			message = "You cannot go this way ! You need wood to build the bridge.";

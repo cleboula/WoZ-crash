@@ -62,11 +62,9 @@ public InitializeGame() {
 			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake2=new NpcFightMonster(20,5,"Snake","big snake");
 			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
-			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
+			NpcFightMonster shark=new NpcFightMonster(30,5,"Shark","shark");
 			//the guard
-			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);
-
-        
+			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);     
 
 			
 		   //images

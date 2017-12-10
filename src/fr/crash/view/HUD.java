@@ -57,6 +57,7 @@ public class HUD implements ActionListener {
     private WoZ woz;
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
 	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
+	//private Icon fightMonsterpic = new ImageIcon(getClass().getResource("/images/gladiatorvslion.jgp"));
 
 
 
@@ -481,6 +482,8 @@ public class HUD implements ActionListener {
             	public void actionPerformed (ActionEvent e){
             	
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
+            			
+            			//JLabel labelZone = new JLabel(fightMonsterpic);
 	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
@@ -510,7 +513,19 @@ public class HUD implements ActionListener {
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
-		        			}
+		        			
+		        	}else if(woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+            			if(woz.getCurrentZone().getCurrentNpcFightGuard().getHp()!=0) {
+	            		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+	            		myHP.setText("My HP : " + woz.getPlayer().getHP());
+	            		myEP.setText("My EP : " + woz.getPlayer().getEP());
+	            		myText.setEditable(false);
+	            		myFrame.setContentPane(newPanel());
+	        			myFrame.repaint();
+	        			myFrame.revalidate();
+	        			}
+		        	}
+	            			
 	            		
             		}
             	}
