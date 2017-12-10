@@ -472,6 +472,7 @@ public class HUD implements ActionListener {
     		{
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
+    			talk.setEnabled(false);
     			dialogMove("north");
     			if (woz.getCurrentZone().getZoneName() == "mountainbase") {
     				if (climb_riddle() == true) {
@@ -500,6 +501,7 @@ public class HUD implements ActionListener {
     		} else if (e.getSource() == myEastArrow){
     			myTakeButton.setEnabled(false);
     			myOpenButton.setEnabled(false);
+    			talk.setEnabled(false);
     			dialogMove("east");
             	myText = new JTextArea (woz.move("east"));
             	myText.setEditable(false);
@@ -518,6 +520,7 @@ public class HUD implements ActionListener {
 		} else if (e.getSource() == mySouthArrow){
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			talk.setEnabled(false);
 			dialogMove("south");
 			myText = new JTextArea (woz.move("south"));
 			myText.setEditable(false);
@@ -536,6 +539,7 @@ public class HUD implements ActionListener {
 		} else if (e.getSource() == myWestArrow){
 			myTakeButton.setEnabled(false);
 			myOpenButton.setEnabled(false);
+			talk.setEnabled(false);
 			dialogMove("west");
 		    myText = new JTextArea (woz.move("west"));
 		    myText.setEditable(false);
