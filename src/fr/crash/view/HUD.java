@@ -225,8 +225,8 @@ public class HUD implements ActionListener {
 	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
 	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
-		            		myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
-		            		myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
+		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
+		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
@@ -245,8 +245,8 @@ public class HUD implements ActionListener {
 	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {
 	            			if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
 		            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
-		            		myHP = new JLabel("My HP : " + woz.getPlayer().getHP());
-		            		myEP = new JLabel("My EP : " + woz.getPlayer().getEP());
+		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
+		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
