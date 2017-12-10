@@ -85,7 +85,7 @@ public class WoZ
 	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
-		   player1.setEp(player1.getCurrentWeapon().getEnergybyshot());//set the player ep
+		   player1.setEp(player1.getEP()-player1.getCurrentWeapon().getEnergybyshot());//set the player ep
 		   
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());
 		   //set the npc hp
