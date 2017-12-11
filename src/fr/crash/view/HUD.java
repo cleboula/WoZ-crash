@@ -205,7 +205,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestMarketplace());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestMarketplace()) {
             				myButton.setEnabled(true);
             			}
             		}
@@ -215,7 +215,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestHouse());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestHouse()) {
             				myButton.setEnabled(true);
             			}
             		}
@@ -225,7 +225,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestChurch());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestChurch()) {
             				myButton.setEnabled(true);
             			}
             		}
