@@ -8,23 +8,30 @@ package fr.crash.core;
 
 public class NpcFightGuard extends NpcFight {
 	private Zone zonejail;
-	// the targeted zone for the transportation of the player
 	private int hpmax;
-	// the maximum hp the guard can have when unmodified
 	private WoZ woz1;
-	// The world
-	
-	//Guard Fighter constructor
+
+	/**
+	 * Constructor of NpcDialog
+	 * @param hp1 the Npc health points
+	 * @param atk1 the Npc attack score
+	 * @param name the Npc name
+	 * @param description the Npc description
+	 * @param zone1 the zone targeted by the npc
+	 */
 	public NpcFightGuard(int hp1,int atk1,String name,String description,Zone zone1){
 		
 		super(hp1,atk1,name,description);
 		zonejail=zone1;
 		hpmax=hp1;
 	}
-	
-	//Attack pattern :
-	// If the Guard has less than 99% hp he teleport the player to jail and is dead, if not he attack
-	public int attackPattern(){ 
+
+	/**
+	 * This method is used to define the pattern of fight for the guard
+	 * If the Guard has less than 99% hp he teleport the player to jail and is dead, if not he attack
+	 * @return     the atk of the guard for this turn
+	 */
+	public int attackPattern(){
 		if ( super.getHp() < hpmax*99/100 ){
 		chain();
 		super.setHp(0);
@@ -32,9 +39,11 @@ public class NpcFightGuard extends NpcFight {
 	
 	return(super.getAtk());
 	}
-	
-	
-	
+
+
+	/**
+	 * This method teleport the player to the jail
+	 */
 	//teleport the player to the zone JAIL
 	public void chain(){
 		woz1.setCurrentZone(zonejail);

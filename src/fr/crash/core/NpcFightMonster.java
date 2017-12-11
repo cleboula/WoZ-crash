@@ -8,14 +8,24 @@ package fr.crash.core;
 
 public class NpcFightMonster extends NpcFight {
 
-	//Monster constructor
+	/**
+	 * Constructor of NpcDialog
+	 * @param hp1 the Npc health points
+	 * @param atk1 the Npc attack score
+	 * @param name the Npc name
+	 * @param description the Npc description
+	 */
 	public NpcFightMonster(int hp1,int atk1,String name,String description){
 		
 		super(hp1,atk1,name,description);
 	}
-	
-	
-	//Attack pattern : simple attack every turns
+
+
+	/**
+	 * This method is used to define the pattern of fight for the monster
+	 * Attack pattern : simple attack every turns
+	 * @return     the atk of the monster for this turn
+	 */
 	public int attackPattern(){ 
 		
 	

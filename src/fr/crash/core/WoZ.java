@@ -78,8 +78,6 @@ public class WoZ
      * @return messageatk : the message displays during the fight
      */
    public String fightMonster(Player player1,NpcFightMonster npc1){
-	   System.out.println(player1.getPlayerName() + "2");
-	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
 	   
 	   
@@ -95,8 +93,6 @@ public class WoZ
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
 		   }
 		   
 	
@@ -104,7 +100,6 @@ public class WoZ
 		   //if(npc1.getHp()==0 || npc1.getHp()<=0){ 
 		   if(npc1.getHp()<1){ 
 			   setCurrentfight(false);
-			   System.out.println(isCurrentfight());
 			   messageatk ="You won the fight, you can move out this zone";
 			
 		   }else if(player1.getHP()<=0){
@@ -134,8 +129,6 @@ public class WoZ
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
 		   }
 		   if(npc1.getHp()==0){ 
 			   setCurrentfight(false);
@@ -177,23 +170,7 @@ public class WoZ
 	   }
 	   
 	   return messageatk;
-	   
 	}
-
-   /**
-    * This method allows the player to switch weapon 
-    * @param player1
-    */
-   //TODO pourquoi la mettre ici et pas dans player ?
-   	public void switchWeapon(Player player1){
-   		Item item1;
-   		for(int i=0; i<player1.getListweapon().size(); i++) { 			
-   		    item1=player1.getListweapon().get(i);
-	   		    if ( player1.getCurrentWeapon()!=null){
-	   			player1.setCurrentWeapon(((Weapon)item1));	
-	   		    }
-   		}   		
-   	}
 
    /**
     * This method checks if the player does not have life anymore.
@@ -280,23 +257,18 @@ public class WoZ
                 if(dir.equals(key)) {  
                 	if (value.getIsLocked() == false) { //if the path is not locked
                 			if(currentZone.getZoneName() == "mountainbase") {
-                				// climb_riddle
-                				//TODO
+                				
                 			}
                 		setCurrentZone(value.getExit()); //the player is in a new current zone
                 		message = "You are in " + currentZone.getZoneName();
 
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null && getCurrentZone().getCurrentNpcFightMonster().getHp()>=1 ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone
-                			System.out.println (currentfight); //TODO
                 			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
                 		
-                			//message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
-
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null && getCurrentZone().getCurrentNpcFightMonster().getHp()>=1 ){ //if there is the boss in the zone
                 			setCurrentfight(true);//if there is a fight monster in the zone
                 			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
-                			//fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
                 			
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
