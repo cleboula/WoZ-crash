@@ -308,7 +308,7 @@ public InitializeGame() {
 		}
 		else if (npcdial.getJobnpc()== job.shaman) {
 			selecteddialogline = "test";
-			if (!player.searchInventory(keyPick)) {
+			if (player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
 			else if (!player.searchInventory(keyJail)) {
