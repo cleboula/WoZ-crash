@@ -1,12 +1,9 @@
 package fr.crash.game;
 
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import fr.crash.core.*;
-import fr.crash.view.HUD;
+
+import javax.swing.*;
+import java.util.ArrayList;
 
 public class InitializeGame {
 	//construction of our world
@@ -295,7 +292,7 @@ public InitializeGame() {
 		String selecteddialogline = "";
 		if (npcdial!=null){
 		if (npcdial.getJobnpc()== job.prisoner)
-		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+		{ selecteddialogline = "I hide a key in the wall ... but i'm too weak to escape" ;}
 		else if (npcdial.getJobnpc()== job.citizen)
 		{
 
@@ -311,7 +308,7 @@ public InitializeGame() {
 			if (player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
-			else if (!player.searchInventory(keyJail)) {
+			else if (player.searchInventory(keyJail)) {
 				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
 			}
 			else if (player.searchInventory(keyForestW)) {

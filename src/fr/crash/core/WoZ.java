@@ -1,11 +1,9 @@
 package fr.crash.core;
 
+import fr.crash.game.InitializeGame;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import fr.crash.core.Path;
-import fr.crash.core.Zone;
-import fr.crash.game.InitializeGame;
 
 /**
  * This class represents our world
@@ -73,8 +71,8 @@ public class WoZ
      * This method simulates a fight between our main player and an enemy
      * If the npc is dead, the fight is over and the player wins
      * If the player dies, the game is over
-     * @param player : the main player
-     * @param NpcFightMonster : the enemy involved in the fight
+     * @param player1 : the main player
+     * @param npc1 : the enemy involved in the fight
      * @return messageatk : the message displays during the fight
      */
    public String fightMonster(Player player1,NpcFightMonster npc1){
@@ -113,8 +111,8 @@ public class WoZ
     * This method simulates a fight between our main player and an enemy
     * If the npc is dead, the fight is over and the player wins
     * If the player dies, the game is over
-    * @param player : the main player
-    * @param NpcFightBoss : the enemy involved in the fight
+    * @param player1 : the main player
+    * @param npc1 : the enemy involved in the fight
     * @return messageatk : the message displays during the fight
     */
   public String fightBoss(Player player1,NpcFightBoss npc1){
@@ -145,8 +143,8 @@ public class WoZ
    * This method simulates a fight between our main player and an enemy
    * If the npc is dead, the fight is over and the player wins
    * If the player dies, the game is over
-   * @param player : the main player
-   * @param NpcFightBoss : the enemy involved in the fight
+   * @param player1 : the main player
+   * @param npc1 : the enemy involved in the fight
    * @return messageatk : the message displays during the fight
    */
  public String fightGuard(Player player1,NpcFightGuard npc1){
@@ -314,7 +312,7 @@ public class WoZ
     		message = "It seems there is nothing interesting to take in this zone.";
     	}else { //if there are items
     		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
-    			zoneItems = zoneItems + newline + i.getName() + ": " + i.getDescription(); 
+    			zoneItems = zoneItems + newline + i.getName() + ": " + i.getDescription();
     		}
     		if (getCurrentZone().getCurrentNpcDialog()!=null) {
     			zoneNPC = getCurrentZone().getCurrentNpcDialog().getName() + ": " + getCurrentZone().getCurrentNpcDialog().getDescription();
@@ -325,7 +323,7 @@ public class WoZ
     		} else if (getCurrentZone().getCurrentNpcFightGuard()!=null) {
     			zoneNPC = getCurrentZone().getCurrentNpcFightGuard().getName() + ": " + getCurrentZone().getCurrentNpcFightGuard().getDescription();
     		} 
-			message = "In this zone, you can find: " + zoneItems + zoneNPC; //to display objects of this zone
+			message = "In this zone, you can find: " + zoneItems + newline + zoneNPC; //to display objects of this zone
     	}
     	return message;
     }
