@@ -105,11 +105,12 @@ public class WoZ
 			   setCurrentfight(false);
 			   System.out.println(isCurrentfight());
 			   messageatk ="You won the fight, you can move out this zone";
+			   npc1.setHp(pvmax);
 		   }else if(player1.getHP()==0 || player1.getHP()<=0){
 			   //game over  
 		   }
 	   }
-	   npc1.setHp(pvmax);
+	   
 	   return messageatk;
 	}
 	/**
@@ -139,6 +140,7 @@ public class WoZ
 		   if(npc1.getHp()==0){ 
 			   setCurrentfight(false);
 			   messageatk ="You won the fight, you can move out this zone";
+			   npc1.setHp(pvmax);
 		   }else if(player1.getHP()==0){
 			   //game over  
 		   }
@@ -174,7 +176,7 @@ public class WoZ
 			   //game over  
 		   }
 	   }
-	   npc1.setHp(pvmax);
+	   
 	   return messageatk;
 	   
 	}
