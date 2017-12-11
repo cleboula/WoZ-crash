@@ -15,7 +15,6 @@ public class Player
     private int ep; //energy points of our player (not negative)
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
-    private ArrayList<Item> listM; // list of medikit in the inventory
     private ArrayList<Weapon>listweapon; //list of weapon in the inventory
     private Weapon currentWeapon; //the current weapon
 
@@ -119,21 +118,7 @@ public class Player
         return namePlayer;
     }
 
-    /** 
-    * Search all medikits in the inventory and return the list of medikits
-    * @param player
-    * @param ite
-    */
-    //TODO do that method concern medikit or all item ? pas de player en param 
-    public ArrayList<Item> searchItem(Player player,Item item)
-    {
-     	for (int i = 0; i < player.getInventory().size(); i++) {
-       		if (item == player.getInventory().get(i)) {
-       			listM.add(player.getInventory().get(i));
-       		}
-       	}
-        return(listM);
-    }
+
 
 	/**
 	 * Setter of the current weapon
