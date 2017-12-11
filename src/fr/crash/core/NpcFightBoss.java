@@ -10,15 +10,18 @@ import java.util.Random;
 public class NpcFightBoss extends NpcFight {
 
 	private int ep;
-	// energy point for the Boss
 	private int hpmax;
-	//Max hp the Boss can have when unmodified
 	private int atkmax;
-	//Max atk the Boss can have when unmodified
 	private int epmax;
-	//Max ep the Boss can have when unmodified
-	
-	//Boss constructor
+
+	/**
+	 * Constructor of NpcDialog
+	 * @param hp1 the Npc health points
+	 * @param atk1 the Npc attack score
+	 * @param name the Npc name
+	 * @param description the Npc description
+	 * @param ep1 the Npc energy points
+	 */
 	public NpcFightBoss(int hp1,int atk1,String name,String description,int ep1){
 		super(hp1,atk1,name,description);
 		ep=ep1;
@@ -28,21 +31,32 @@ public class NpcFightBoss extends NpcFight {
 		
 		
 	}
-	// Ep getter
+	/**
+	 * This method is used to get the ep of the Npc.
+	 * @return     the ep of the Npc
+	 */
 	public int getEp() {
 		return ep;
 	}
-	// Ep setter
+
+	/**
+	 * Setter of the current ep
+	 * @param ep the new hp points
+	 */
 	public void setEp(int ep) {
 		this.ep = ep;
 	}
-	
-	//Method that return the Boss's attack score for one turn and that make change in Hp and Ep in special cases
-	// If the Hp are less than 25 % 6 random event can happen
-	// If the Hp are less than 50 % atk is * 2
-	// If the Hp are less than 75 % atk is normal
-	// If the Hp are moore atk is divided by 2
-	public int attackPattern(){ 
+
+	/**
+	 * This method is used to define the pattern of fight for the Boss
+	 *Method that return the Boss's attack score for one turn and that make change in Hp and Ep in special cases
+	 * If the Hp are less than 25 % 6 random event can happen
+	 * If the Hp are less than 50 % atk is * 2
+	 * If the Hp are less than 75 % atk is normal
+	 * If the Hp are moore atk is divided by 2
+	 * @return     the atk of the Boss for this turn
+	 */
+	public int attackPattern(){
 		
 		
 		
