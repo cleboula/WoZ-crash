@@ -89,7 +89,7 @@ public class WoZ
 		   player1.setEp(player1.getEP()-player1.getCurrentWeapon().getEnergybyshot());//set the player ep
 		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
 		   messageatk ="You have "+player1.getHP()+" health point left. Your opponent is bleeding, "+npc1.getHp()+" health point left !";
-		   System.out.println(npc1.getHp());
+		   
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
