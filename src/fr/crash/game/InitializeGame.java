@@ -50,7 +50,7 @@ public InitializeGame() {
 			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
 			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
 			//the guard
-			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",house);     
+			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);     
 
 			
 		   //images
@@ -86,7 +86,7 @@ public InitializeGame() {
 			
 			//creation of the medikits
 			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",null);
-			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
+			medLake = new Medikit(30,30,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
 	
 			// creation of the keys
 			//keys to unlock the paths
@@ -494,6 +494,12 @@ public Zone getForestS() {
 
 public Zone getHouse() {
 	return house;
+}
+
+
+
+public Zone getJail() {
+	return jail;
 }
 
 }

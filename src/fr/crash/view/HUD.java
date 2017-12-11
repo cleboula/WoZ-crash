@@ -206,7 +206,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestMarketplace());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestMarketplace()) {
             				myButton.setEnabled(true);
             			}
             		}
@@ -216,7 +216,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestHouse());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestHouse()) {
             				myButton.setEnabled(true);
             			}
             		}
@@ -226,7 +226,7 @@ public class HUD implements ActionListener {
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestChurch());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
-            			if(inventory.get(i).getName() == "Old Chest") {
+            			if(inventory.get(i) == woz.getObjGame().getChestChurch()) {
             				myButton.setEnabled(true);
             			}
             		}
@@ -523,7 +523,7 @@ public class HUD implements ActionListener {
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
-		        			if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
+		        			if(woz.isCurrentfight()==false) {
 		                        myAttackButton.setEnabled(false);
 		                        myNorthArrow.setEnabled(true); 
 		                        myEastArrow.setEnabled(true);
@@ -535,23 +535,25 @@ public class HUD implements ActionListener {
 		        	}else if(woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
 		        		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
             			if(woz.getCurrentZone().getCurrentNpcFightGuard().getHp()!=0) {
-            				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
-            				myHP.setText("My HP : " + woz.getPlayer().getHP());
-            				myEP.setText("My EP : " + woz.getPlayer().getEP());
-            				myText.setEditable(false);
-            				myFrame.setContentPane(newPanel());
-            				myFrame.repaint();
-            				myFrame.revalidate();
-            				if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
-            					myAttackButton.setEnabled(false);
-            					myNorthArrow.setEnabled(true); 
-            					myEastArrow.setEnabled(true);
-            					myWestArrow.setEnabled(true);
-            					mySouthArrow.setEnabled(true);
-            					mySearchButton.setEnabled(true);
-            				}
-	        			}	
-		        	}	
+	            		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+	            		myHP.setText("My HP : " + woz.getPlayer().getHP());
+	            		myEP.setText("My EP : " + woz.getPlayer().getEP());
+	            		myText.setEditable(false);
+	            		myFrame.setContentPane(newPanel());
+	        			myFrame.repaint();
+	        			myFrame.revalidate();
+	        			if(woz.isCurrentfight()==false) {
+	                        myAttackButton.setEnabled(false);
+	                        myNorthArrow.setEnabled(true); 
+	                        myEastArrow.setEnabled(true);
+	                        myWestArrow.setEnabled(true);
+	                        mySouthArrow.setEnabled(true);
+	                        mySearchButton.setEnabled(true);
+	                    }
+	        			}
+		        	}
+	            			
+	            		
             		}
             	}
             });
@@ -919,15 +921,49 @@ public class HUD implements ActionListener {
     				 woz.getNewlist().add(j);//add items to the new list
     			 }
 			
-    			 String content2 = "";
-    			 for (Item item : woz.getNewlist()) { //the new list allow the display of taken items
-    				 content2 = content2 + item.getName() + "\n";
-    			 }
-    			 JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
-    			 woz.getCurrentZone().setListItemsEmpty();//the zone items list is now empty
-    			 woz.setnewlistEmpty();//the list that allow the items text display
-    			 myTakeButton.setEnabled(false);
+		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
+			for (Item j : woz.getCurrentZone().getListItems()) {
+				woz.getPlayer().getInventory().add(j);
+				woz.getNewlist().add(j);
+			}
+			String content2 = "";
+			for (Item item : woz.getNewlist()) {
+     			content2 = content2 + item.getName() + "\n";
+     		}
 			
+			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
+			woz.getCurrentZone().setListItemsEmpty();
+			woz.setnewlistEmpty();
+			myTakeButton.setEnabled(false);
+			
+			
+				
+			
+			
+			if (woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+				
+				woz.setCurrentfight(true);
+				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+				myHP.setText("My HP : " + woz.getPlayer().getHP());
+				myEP.setText("My EP : " + woz.getPlayer().getEP());
+				myText.setEditable(false);
+				myFrame.setContentPane(newPanel());
+				myFrame.repaint();
+				myFrame.revalidate();	
+			
+				if(woz.isCurrentfight()==true) {
+					myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+					myNorthArrow.setEnabled(false); // disable direction button
+					myEastArrow.setEnabled(false);
+					myWestArrow.setEnabled(false);
+					mySouthArrow.setEnabled(false);
+					mySearchButton.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "A guard caught you robing things \n You have got trapped into jail","Information",JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+			
+				
+			}
     		//when we want to talk to a character
     		 } else if (talk.isEnabled() && e.getSource()==talk) {
     			 //go find the right dialog
