@@ -4,9 +4,6 @@
 package fr.crash.view;
 
 import java.awt.Color;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -18,8 +15,12 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import fr.crash.core.Player;
+import fr.crash.core.Weapon;
 import fr.crash.main;
+import fr.crash.core.Chest;
 import fr.crash.core.Item;
+import fr.crash.core.Key;
+import fr.crash.core.Medikit;
 import fr.crash.core.Path;
 import fr.crash.core.WoZ;
 import fr.crash.game.InitializeGame;
@@ -55,6 +56,132 @@ public class HUD implements ActionListener {
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
 	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
 
+	/**
+	 * This method allows to create buttons for the different medikit in the inventory
+	 * @param woz
+	 * @param myPanel
+	 * @param weapon
+	 */
+	private JButton inventory(WoZ woz, JPanel myPanel, Medikit medikit) {
+		myButton = new JButton(medikit.getName());
+		myButton.addActionListener(new ActionListener (){
+	    	public void actionPerformed (ActionEvent e){
+	    		//creation of the dialog box
+	            int n = JOptionPane.showConfirmDialog(null, medikit.getDescription() +
+	            "\n Do you want to use "+ medikit.getName() + "?", "Information", JOptionPane.YES_NO_OPTION);                    		
+	            if (n == JOptionPane.YES_OPTION) {
+	            	medikit.cure(woz.getPlayer());
+					//the medikit is used and removed from the inventory
+					myButton.setEnabled(false);
+					woz.getPlayer().getInventory().remove(medikit);
+					JOptionPane.showMessageDialog(null,  "You have recovered " + medikit.getHP() + " hp and " + 
+							medikit.getEP() + " ep.", 
+							"Information", JOptionPane.INFORMATION_MESSAGE);
+					myHP.setText("My HP : " + woz.getPlayer().getHP());
+	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
+	        		myFrame.setContentPane(newPanel());
+	    			myFrame.repaint();
+	    			myFrame.revalidate();
+	            }
+	    	}
+	    });	
+		return(myButton);
+	}
+	/**
+	 * This method allows to create buttons for the different weapon in the inventory
+	 * @param woz
+	 * @param myPanel
+	 * @param weapon
+	 */
+	private JButton inventory(WoZ woz, JPanel myPanel, Weapon weapon) {
+    	// button for the gun
+		myButton = new JButton(weapon.getImage());
+		myButton.addActionListener(new ActionListener (){
+        	public void actionPerformed (ActionEvent e){
+        		if(woz.getPlayer().getCurrentWeapon()!=weapon) {
+            		//creation of the dialog box to equip a new weapon
+                    int n = JOptionPane.showConfirmDialog(null,weapon.getDescription() +
+                    "Do you want to equip it?",
+                    "Information",
+                    JOptionPane.YES_NO_OPTION); 
+                    if (n == JOptionPane.YES_OPTION) {
+    					woz.getPlayer().setCurrentWeapon(weapon);
+    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    } else if (n == JOptionPane.NO_OPTION) {
+                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+                    }
+            	} else {
+            		//creation of the dialog box to show an information message 
+            		JOptionPane.showMessageDialog(null, weapon.getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+            	} 
+        		myWeapon.setIcon(woz.getPlayer().getCurrentWeapon().getImage());
+        		myFrame.setContentPane(newPanel());
+    			myFrame.repaint();
+    			myFrame.revalidate();
+        	}
+        	
+        });
+		return(myButton);
+    }
+	/**
+	 * This method allows to create buttons for the different chest in the inventory
+	 * @param woz
+	 * @param myPanel
+	 * @param chest
+	 */
+    private JButton inventory(WoZ woz, JPanel myPanel, Chest chest) {
+    	//creation of buttons for the chest
+    	myButton = new JButton(chest.getName());
+		myButton.addActionListener(new ActionListener (){
+        	public void actionPerformed (ActionEvent e){
+        		//creation of the dialog box to open the chest
+        		int n = JOptionPane.showConfirmDialog(null,chest.getDescription() +
+	                    "Do you want to open it?",
+	                    "Information",
+	                    JOptionPane.YES_NO_OPTION); 
+	                    if (n == JOptionPane.YES_OPTION) {
+	                    	chest.checkChest(woz.getPlayer());
+	                    	//if we have the key, the chest is open
+	                    	if(chest.getIsOpened()) {
+	                    		JOptionPane.showMessageDialog(null, chest.getName() + 
+	                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
+	                    				chest.getContent().getName(), 
+	                    				"Information", JOptionPane.INFORMATION_MESSAGE);
+	                    		//the chest is removed of the inventory
+	                    		myButton.setEnabled(false);
+	                    		woz.getPlayer().getInventory().remove(chest);
+	                    	} 
+	                    	//if we have not the key
+	                    	else {
+	    					JOptionPane.showMessageDialog(null,  chest.getName() + 
+                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	                    	}
+	                    } else if (n == JOptionPane.NO_OPTION) {
+	                    	JOptionPane.showMessageDialog(null,  chest.getName() + 
+                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	                    }
+        	}
+		});
+		return(myButton);
+    }
+    /**
+	 * This method allows to create buttons for the different key in the inventory
+	 * @param woz
+	 * @param myPanel
+	 * @param chest
+	 */
+    private JButton inventory(WoZ woz, JPanel myPanel, Key key) {
+    	//creation of buttons for the part of ship
+    	myButton = new JButton(key.getName());
+		myButton.addActionListener(new ActionListener (){
+        	public void actionPerformed (ActionEvent e){
+        		//creation of the dialog box to show an information message
+        		JOptionPane.showMessageDialog(null, key.getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
+        	}
+        });
+		return(myButton);
+    }
+    
         public HUD(WoZ woz) {
 
         	this.woz=woz;
@@ -70,44 +197,13 @@ public class HUD implements ActionListener {
             	public void actionPerformed (ActionEvent e){
             		Player player = woz.getPlayer();
             		ArrayList<Item> inventory = player.getInventory();
-
             		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame
             		
             		//Panel of chest
             		myPanelChest = new JPanel();
             		myPanelChest.setLayout(new GridLayout(1,3));
             		// button for old chest
-            		myButton = new JButton(woz.getObjGame().getChestMarketplace().getName());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to open the chest
-                    		int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getChestMarketplace().getDescription() +
-    	    	                    "Do you want to open it?",
-    	    	                    "Information",
-    	    	                    JOptionPane.YES_NO_OPTION); 
-    	    	                    if (n == JOptionPane.YES_OPTION) {
-    	    	                    	woz.getObjGame().getChestMarketplace().checkChest(woz.getPlayer());
-    	    	                    	//if we have the key, the chest is open
-    	    	                    	if(woz.getObjGame().getChestMarketplace().getIsOpened()) {
-    	    	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getChestMarketplace().getName() + 
-    	    	                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
-    	    	                    				woz.getObjGame().getChestMarketplace().getContent().getName(), 
-    	    	                    				"Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    		//the chest is removed of the inventory
-    	    	                    		myButton.setEnabled(false);
-    	    	                    		woz.getPlayer().getInventory().remove(woz.getObjGame().getChestMarketplace());
-    	    	                    	} 
-    	    	                    	//if we do not have the key
-    	    	                    	else {
-    	    	    					JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestMarketplace().getName() + 
-	    	                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    	}
-    	    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	    	                    	JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestMarketplace().getName() + 
-	    	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    }
-                    	}
-            		});
+            		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestMarketplace());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Old Chest") {
@@ -117,37 +213,7 @@ public class HUD implements ActionListener {
             		myPanelChest.add(myButton);
             		
             		// button for A Tidying Chest
-            		myButton = new JButton(woz.getObjGame().getChestHouse().getName());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to open the chest
-                    		int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getChestHouse().getDescription() +
-    	    	                    "Do you want to open it?",
-    	    	                    "Information",
-    	    	                    JOptionPane.YES_NO_OPTION); 
-    	    	                    if (n == JOptionPane.YES_OPTION) {
-    	    	                    	woz.getObjGame().getChestHouse().checkChest(woz.getPlayer());
-    	    	                    	//if we have the key, the chest is open
-    	    	                    	if(woz.getObjGame().getChestHouse().getIsOpened()) {
-    	    	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getChestHouse().getName() + 
-    	    	                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
-    	    	                    				woz.getObjGame().getChestHouse().getContent().getName(), 
-    	    	                    				"Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    		//the chest is removed of the inventory
-    	    	                    		myButton.setEnabled(false);
-    	    	                    		woz.getPlayer().getInventory().remove(woz.getObjGame().getChestHouse());
-    	    	                    	} 
-    	    	                    	//if we have not the key
-    	    	                    	else {
-    	    	    					JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestHouse().getName() + 
-	    	                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    	}
-    	    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	    	                    	JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestHouse().getName() + 
-	    	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    }
-                    	}
-            		});
+            		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestHouse());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Old Chest") {
@@ -157,37 +223,7 @@ public class HUD implements ActionListener {
             		myPanelChest.add(myButton);
             		
             		// button for A Chest
-            		myButton = new JButton(woz.getObjGame().getChestChurch().getName());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to open the chest
-                    		int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getChestChurch().getDescription() +
-    	    	                    "Do you want to open it?",
-    	    	                    "Information",
-    	    	                    JOptionPane.YES_NO_OPTION); 
-    	    	                    if (n == JOptionPane.YES_OPTION) {
-    	    	                    	woz.getObjGame().getChestChurch().checkChest(woz.getPlayer());
-    	    	                    	//if we have the key, the chest is open
-    	    	                    	if(woz.getObjGame().getChestChurch().getIsOpened()) {
-    	    	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getChestChurch().getName() + 
-    	    	                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
-    	    	                    				woz.getObjGame().getChestChurch().getContent().getName(), 
-    	    	                    				"Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    		//the chest is removed of the inventory
-    	    	                    		myButton.setEnabled(false);
-    	    	                    		woz.getPlayer().getInventory().remove(woz.getObjGame().getChestChurch());
-    	    	                    	} 
-    	    	                    	//if we have not the key
-    	    	                    	else {
-    	    	    					JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestChurch().getName() + 
-	    	                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    	}
-    	    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	    	                    	JOptionPane.showMessageDialog(null,  woz.getObjGame().getChestChurch().getName() + 
-	    	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	    	                    }
-                    	}
-            		});
+            		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestChurch());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Old Chest") {
@@ -200,29 +236,8 @@ public class HUD implements ActionListener {
             		myPanelWeapon = new JPanel();
             		myPanelWeapon.setLayout(new GridLayout(2,2));
             		// button for the gun
-            		myButton = new JButton(woz.getObjGame().getGun().getImage());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getGun()) {
-	                    		//creation of the dialog box to equip a new weapon
-	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getGun().getDescription() +
-	    	                    "Do you want to equip it?",
-	    	                    "Information",
-	    	                    JOptionPane.YES_NO_OPTION); 
-	    	                    if (n == JOptionPane.YES_OPTION) {
-	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getGun());
-	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    } else if (n == JOptionPane.NO_OPTION) {
-	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    }
-	                    	} else {
-	                    		//creation of the dialog box to show an information message 
-	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getGun().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	                    	} 
-                    		
-                    	}
-                    	
-                    });	
+            		myButton = inventory(woz,myPanelWeapon,woz.getObjGame().getGun());
+            		
             		// the button is not enable if we have not the weapon
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
@@ -232,27 +247,8 @@ public class HUD implements ActionListener {
             		}
             		myPanelWeapon.add(myButton);
             		// button for the sword
-            		myButton = new JButton(woz.getObjGame().getSword().getImage());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getSword()) {
-	                    		//creation of the dialog box to equip a new weapon
-	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getSword().getDescription() +
-	    	                    "Do you want to equip it?",
-	    	                    "Information",
-	    	                    JOptionPane.YES_NO_OPTION); 
-	    	                    if (n == JOptionPane.YES_OPTION) {
-	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getSword());
-	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Sword.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    } else if (n == JOptionPane.NO_OPTION) {
-	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    }
-                    		} else {
-	                    		//creation of the dialog box to show an information message 
-	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getSword().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	                    	} 
-                    	}
-                    });	
+            		myButton = inventory(woz,myPanelWeapon,woz.getObjGame().getSword());
+            		
             		// the button is not enable if we have not the weapon
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
@@ -262,27 +258,7 @@ public class HUD implements ActionListener {
             		}
             		myPanelWeapon.add(myButton);
             		// button for the knife
-            		myButton = new JButton(woz.getObjGame().getKnife().getImage());
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getKnife()) {
-	                    		//creation of the dialog box to equip a new weapon
-	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getKnife().getDescription() +
-	    	                    "Do you want to equip it?",
-	    	                    "Information",
-	    	                    JOptionPane.YES_NO_OPTION); 
-	    	                    if (n == JOptionPane.YES_OPTION) {
-	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getKnife());
-	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Knife.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    } else if (n == JOptionPane.NO_OPTION) {
-	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	    	                    }
-                    		} else {
-	                    		//creation of the dialog box to show an information message 
-	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKnife().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	                    	} 
-                    	}
-                    });	
+            		myButton = inventory(woz,myPanelWeapon,woz.getObjGame().getKnife());
             		// the button is not enable if we have not the weapon
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
@@ -298,13 +274,7 @@ public class HUD implements ActionListener {
             		myPanelObject.setLayout(new GridLayout(2,2));
             		
                     // button for the generator
-            		myButton = new JButton("Générateur");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeySSGenerator().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeySSGenerator());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Generator Cell") {
@@ -313,13 +283,8 @@ public class HUD implements ActionListener {
             		}
             		myPanelObject.add(myButton);
             		
-            		myButton = new JButton("FTL");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeySSFTL().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the FTL
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeySSFTL());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "FTL") {
@@ -328,13 +293,8 @@ public class HUD implements ActionListener {
             		}
             		myPanelObject.add(myButton);
             		
-            		myButton = new JButton("Wheels");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeySSWheel().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the wheels
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeySSWheel());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Wheels") {
@@ -343,13 +303,8 @@ public class HUD implements ActionListener {
             		}
             		myPanelObject.add(myButton);
             		
-            		myButton = new JButton("Energy Cell");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeySSEnergyCell().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		//button for the energy cell
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeySSEnergyCell());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Energy Cell") {
@@ -361,14 +316,8 @@ public class HUD implements ActionListener {
             		//Panel of key
             		myPanelKey = new JPanel();
             		myPanelKey.setLayout(new GridLayout(2,4));
-            		
-            		myButton = new JButton("Machete");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyForestS().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the machete
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyForestS());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Machete") {
@@ -376,14 +325,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		
-            		myButton = new JButton("Planks");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyForestW().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the Planks
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyForestW());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Planks") {
@@ -391,13 +334,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("Old Key");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyHouse().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the Old Key
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyHouse());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Old Key") {
@@ -405,13 +343,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("Small old Key");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyChestChurch().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the Small Old Key
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyChestChurch());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Small old Key") {
@@ -419,13 +352,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("Bunch of keys");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyJail().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the Bunch of keys
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyJail());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Bunch of keys") {
@@ -433,13 +361,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("Climbing kit");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyPick().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the Climbing kit
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyPick());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Climbing kit") {
@@ -447,13 +370,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("A very old Key");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyChestMarketplace().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the very old Key
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyChestMarketplace());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "A very old Key") {
@@ -461,13 +379,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelKey.add(myButton);
-            		myButton = new JButton("A big old Key");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to show an information message
-                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKeyChestHouse().getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-                    	}
-                    });
+            		// button for the big old Key
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getKeyChestHouse());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "A big old Key") {
@@ -479,23 +392,8 @@ public class HUD implements ActionListener {
             		//Panel of medikit
             		myPanelMedikit = new JPanel();
             		myPanelMedikit.setLayout(new GridLayout(2,1));
-            		myButton = new JButton("Magic Lake");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box
-    	                    int n = JOptionPane.showConfirmDialog(null, woz.getObjGame().getMedLake().getDescription() +
-    	                    "\n Do you want to drink the Magic Lake?", "Information", JOptionPane.YES_NO_OPTION);                    		
-    	                    if (n == JOptionPane.YES_OPTION) {
-    	    					woz.getObjGame().getMedLake().cure(woz.getPlayer());
-    	    					//the medikit is used and removed from the inventory
-    	    					myButton.setEnabled(false);
-    	    					woz.getPlayer().getInventory().remove(woz.getObjGame().getMedLake());
-    	    					JOptionPane.showMessageDialog(null,  "You have recovered " + woz.getObjGame().getMedLake().getHP() + " hp and " + 
-    	    							woz.getObjGame().getMedLake().getEP() + " ep.", 
-    	    							"Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    }
-                    	}
-                    });	
+            		// button for the Magic Lake
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getMedLake());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Magic Lake") {
@@ -503,25 +401,8 @@ public class HUD implements ActionListener {
             			}
             		}
             		myPanelMedikit.add(myButton);
-            		myButton = new JButton("Small Medikit");
-            		myButton.addActionListener(new ActionListener (){
-                    	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box
-    	                    int n = JOptionPane.showConfirmDialog(null,  woz.getObjGame().getMedChurch().getDescription() +
-    	                    "\n Do you want to use the Small Medikit?",
-    	                    "Information",
-    	                    JOptionPane.YES_NO_OPTION);                    		
-    	                    if (n == JOptionPane.YES_OPTION) {
-    	    					woz.getObjGame().getMedChurch().cure(woz.getPlayer());
-    	    					//the medikit is used and removed from the inventory
-    	    					myButton.setEnabled(false);
-    	    					woz.getPlayer().getInventory().remove(woz.getObjGame().getMedChurch()); 
-    	    					JOptionPane.showMessageDialog(null,  "You have recovered " + woz.getObjGame().getMedChurch().getHP() + " hp and " + 
-    	    							woz.getObjGame().getMedChurch().getEP() + " ep.", 
-    	    							"Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    }
-                    	}
-                    });
+            		// button for the Small Medikit
+            		myButton = inventory(woz,myPanelObject,woz.getObjGame().getMedChurch());
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i).getName() == "Small Medikit") {
@@ -540,9 +421,11 @@ public class HUD implements ActionListener {
                  	inventFrame.add(myPanelInventory);
                  	inventFrame.setResizable(false);
                  	inventFrame.setLocationRelativeTo(myFrame);
+
                  	//Reading of the screen size
                  	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize(); 
                  	inventFrame.pack(); 
+
                  	//the window is centered
                  	inventFrame.setLocation( 
                  	        (screenSize.width-inventFrame.getWidth())/2, 
@@ -551,8 +434,9 @@ public class HUD implements ActionListener {
                  	inventFrame.pack();
                  	inventFrame.setVisible(true);
             	}
+            	
             });
-            
+         
             //my map
             myMap = new JButton(new ImageIcon(getClass().getResource("/images/mapButton.png")));
             myMap.addActionListener(new ActionListener (){
@@ -608,13 +492,9 @@ public class HUD implements ActionListener {
             myAttackButton.setEnabled(false);//attack button is not available
             
             myAttackButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {//if there is a monster in this zone
-            			//the fight begin and a message is displayed
-	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
-	            		//if the npc health points are not null
-	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
-	            			///the fight begin and a message is displayed
+            	public void actionPerformed (ActionEvent e){   	
+            		//if there is a fight monster 
+            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) {
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myHP.setText("My HP : " + woz.getPlayer().getHP());//new health points are set
 		            		myEP.setText("My EP : " + woz.getPlayer().getEP());//new energy points are set
@@ -630,7 +510,7 @@ public class HUD implements ActionListener {
 		                        mySouthArrow.setEnabled(true);
 		                        mySearchButton.setEnabled(true);
 		                    }
-	            		}
+	            		
 
             		}
 	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {//if there is a boss in this zone

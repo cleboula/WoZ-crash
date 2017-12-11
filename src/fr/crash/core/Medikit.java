@@ -52,6 +52,12 @@ public class Medikit extends Item
     	int newEp;
     	newHp = player.getHP()+hpPlayer;
     	newEp = player.getEP()+epPlayer;
+    	if(newHp>100) {
+    		newHp=100;
+    	}
+    	if(newEp>100) {
+    		newEp=100;
+    	}
     	player.setHp(newHp);
     	player.setEp(newEp);
     }
