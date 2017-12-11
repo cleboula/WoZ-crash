@@ -63,7 +63,7 @@ public class HUD implements ActionListener {
 	 * @param medikit
 	 */
 	private JButton inventory(WoZ woz, JPanel myPanel, Medikit medikit) {
-		myButton = new JButton(medikit.getName());
+		myButton = new JButton(medikit.getName(), medikit.getImage());
 		myButton.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e){
 	    		//creation of the dialog box
@@ -131,7 +131,7 @@ public class HUD implements ActionListener {
 	 */
     private JButton inventory(WoZ woz, JPanel myPanel, Chest chest) {
     	//creation of buttons for the chest
-    	myButton = new JButton(chest.getName());
+    	myButton = new JButton(chest.getName(), chest.getImage());
 		myButton.addActionListener(new ActionListener (){
         	public void actionPerformed (ActionEvent e){
         		//creation of the dialog box to open the chest
@@ -172,7 +172,7 @@ public class HUD implements ActionListener {
 	 */
     private JButton inventory(WoZ woz, JPanel myPanel, Key key) {
     	//creation of buttons for the part of ship
-    	myButton = new JButton(key.getName());
+    	myButton = new JButton(key.getName(), key.getImage());
 		myButton.addActionListener(new ActionListener (){
         	public void actionPerformed (ActionEvent e){
         		//creation of the dialog box to show an information message
@@ -914,13 +914,7 @@ public class HUD implements ActionListener {
 				 if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {//if there is a npc dialog
 					 talk.setEnabled(true);
 				 }
-			//when we want to take items
-    		 } else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
-    			 for (Item j : woz.getCurrentZone().getListItems()) { //add items to the inventory
-    				 woz.getPlayer().getInventory().add(j);
-    				 woz.getNewlist().add(j);//add items to the new list
-    			 }
-			
+			//when we want to take items	
 		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
 			for (Item j : woz.getCurrentZone().getListItems()) {
 				woz.getPlayer().getInventory().add(j);
@@ -929,8 +923,8 @@ public class HUD implements ActionListener {
 			String content2 = "";
 			for (Item item : woz.getNewlist()) {
      			content2 = content2 + item.getName() + "\n";
-     		}
-			
+     		
+			}
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
 			woz.setnewlistEmpty();
