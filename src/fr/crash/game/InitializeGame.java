@@ -1,12 +1,9 @@
 package fr.crash.game;
 
-import java.util.ArrayList;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import fr.crash.core.*;
-import fr.crash.view.HUD;
+
+import javax.swing.*;
+import java.util.ArrayList;
 
 public class InitializeGame {
 	//construction of our world
@@ -98,7 +95,7 @@ public InitializeGame() {
 			
 			//creation of the medikits
 			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",null);
-			medLake = new Medikit(30,30,"Magic Lake", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
+			medLake = new Medikit(30,30,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
 	
 			// creation of the keys
 			//keys to unlock the paths
@@ -295,7 +292,7 @@ public InitializeGame() {
 		String selecteddialogline = "";
 		if (npcdial!=null){
 		if (npcdial.getJobnpc()== job.prisoner)
-		{ selecteddialogline = "I hided a key in the wall ... but i'm too weak to escape" ;}
+		{ selecteddialogline = "I hide a key in the wall ... but i'm too weak to escape" ;}
 		else if (npcdial.getJobnpc()== job.citizen)
 		{
 
@@ -308,10 +305,10 @@ public InitializeGame() {
 		}
 		else if (npcdial.getJobnpc()== job.shaman) {
 			selecteddialogline = "test";
-			if (!player.searchInventory(keyPick)) {
+			if (player.searchInventory(keyPick)) {
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
-			else if (!player.searchInventory(keyJail)) {
+			else if (player.searchInventory(keyJail)) {
 				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
 			}
 			else if (player.searchInventory(keyForestW)) {
