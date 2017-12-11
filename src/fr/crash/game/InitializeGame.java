@@ -3,26 +3,17 @@ package fr.crash.game;
 import fr.crash.core.*;
 
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class InitializeGame {
 	//construction of our world
-	private Zone currentZone;
-	private ArrayList<Zone> listZone;
-	
-	private Weapon knife, sword, gun;
-	
-	private Medikit medChurch, medLake;
-	
+	private Zone currentZone; //the zone where the player is
+	private Weapon knife, sword, gun;//the different weapon
+	private Medikit medChurch, medLake;//the different medikit
 	private Key keyForestS, keyForestW, keyHouse, keyJail, keyPick, keyChestMarketplace, keyChestHouse, keyChestChurch,
-			keySSGenerator, keySSWheel, keySSEnergyCell, keySSFTL;
-	
-	private Chest chestMarketplace, chestHouse, chestChurch;
-
+			keySSGenerator, keySSWheel, keySSEnergyCell, keySSFTL; //the different keys
+	private Chest chestMarketplace, chestHouse, chestChurch;//the different chests
 	private Zone glade, crashzone, forestS, forestW, forestN, bridge, cityentrance, marketplace, house, church,
-			jailentrance, jail, caveentrance, frozenlake, mountainbase, pick, cave, lairofthebeast;
-
-	
+			jailentrance, jail, caveentrance, frozenlake, mountainbase, pick, cave, lairofthebeast;//the different zones
 	private Path glade_crashzone, crashzone_glade, glade_forestS, forestS_glade, glade_forestW, forestW_glade,
 			glade_forestN, forestN_glade, bridge_forestW, forestW_bridge, bridge_forestN, forestN_bridge,
 			bridge_cityentrance, forestN_caveentrance, caveentrance_forestN, pick_mountainbase,
@@ -30,13 +21,11 @@ public class InitializeGame {
 			caveentrance_cave, cave_caveentrance, caveentrance_frozenlake, frozenlake_caveentrance, cave_lairofthebeast,
 			lairofthebeast_cave, jailentrance_jail, jail_jailentrance, jailentrance_marketplace,
 			marketplace_jailentrance, marketplace_church, church_marketplace, marketplace_cityentrance,
-			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;
-	
+			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;//the different path
 	private Icon crashZonePic, gladePic, forestWPic, forestSPic, forestNPic, bridgePic, cityentrancePic, 
 	marketplacePic, housePic, churchPic,jailentrancePic, jailPic, caveentrancePic, frozenlakePic, 
-	mountainbasePic, pickPic, cavePic, lairofthebeastPic;
-	
-	private Icon swordPic, knifePic, gunPic;
+	mountainbasePic, pickPic, cavePic, lairofthebeastPic;//the different zone pictures 	
+	private Icon swordPic, knifePic, gunPic;//the different weapon pictures
 
 
 public InitializeGame() {
@@ -65,6 +54,7 @@ public InitializeGame() {
 
 			
 		   //images
+		   //zone pictures
 		   crashZonePic = new ImageIcon(getClass().getResource("/images/crash.png"));
 		   gladePic = new ImageIcon(getClass().getResource("/images/glade.jpg"));
 		   forestWPic = new ImageIcon(getClass().getResource("/images/forestW.jpg"));
@@ -83,10 +73,11 @@ public InitializeGame() {
 		   cityentrancePic = new ImageIcon(getClass().getResource("/images/cityentrance.jpg"));
 		   marketplacePic = new ImageIcon(getClass().getResource("/images/marketplace.jpg"));
 		   caveentrancePic = new ImageIcon(getClass().getResource("/images/caveentrance.png"));
-		   
+		   //weapon pictures
 		   swordPic = new ImageIcon(getClass().getResource("/images/sword.png"));
 		   knifePic = new ImageIcon(getClass().getResource("/images/knife.png"));
 		   gunPic = new ImageIcon(getClass().getResource("/images/gun.png"));
+		   
 			//creation of the items
 			//creation of the weapons
 			knife = new Weapon(5, 2, "knife", "This knife can be useful to fight small targets.", knifePic);
@@ -206,8 +197,7 @@ public InitializeGame() {
            cityentrance_marketplace = new Path(marketplace, false, null);
            marketplace_house = new Path(house, true, keyHouse);//path initially blocked
            house_marketplace = new Path(marketplace, false, null);
- 
-         
+  
            //initialization of exits
            glade.setExits("north",glade_forestN);
            glade.setExits("east",glade_crashzone);
@@ -263,7 +253,7 @@ public InitializeGame() {
            
            pick.setExits("south", pick_mountainbase);
               
-         //Placement of Npcs
+            //Placement of Npcs
        		jailentrance.setCurrentNpcFightGuard(guard);
 
 			lairofthebeast.setCurrentNpcFightBoss(boss);
@@ -275,7 +265,6 @@ public InitializeGame() {
 			church.setCurrentNpcDialog(citizen3);
 			house.setCurrentNpcDialog(citizen4);
 
-
 			forestN.setCurrentNpcFightMonster(snake1);
 			forestW.setCurrentNpcFightMonster(snake1bis);
 			caveentrance.setCurrentNpcFightMonster(snake2);
@@ -286,63 +275,62 @@ public InitializeGame() {
 
 
 
-
+	/**
+	 * This method allows to chose the right sentence depending on the situation
+	 * @param player : the main player
+	 * @param keyForestW : key of the west forest
+	 * @param keyPick : key of the pick
+	 * @param keyJail : key of the jail
+	 * @param keyForestS : key of the south forest
+	 * @param npcdial : the npc dialog concerned
+	 * @return the sentence wanted
+	 */
 	public String dialogTree(Player player,Item keyForestW,Item keyPick, Item keyJail,Item keyForestS,NpcDialog npcdial)
 	{
 		String selecteddialogline = "";
-		if (npcdial!=null){
-		if (npcdial.getJobnpc()== job.prisoner)
-		{ selecteddialogline = "I hide a key in the wall ... but i'm too weak to escape" ;}
-		else if (npcdial.getJobnpc()== job.citizen)
-		{
+		if (npcdial!=null){ //if there is a npc dialog
+			if (npcdial.getJobnpc()== job.prisoner){ //if the npc is a prisoner
+				selecteddialogline = "I hide a key in the wall ... but i'm too weak to escape" ;
+			}
+			else if (npcdial.getJobnpc()== job.citizen){ //if the npc is a citizen
 
-			if (player.searchInventory(keyJail)) {
-				selecteddialogline = "Guards !!!! seize that rogue !!!";
+				if (player.searchInventory(keyJail)) { //if the player is escaped
+					selecteddialogline = "Guards !!!! seize that rogue !!!";
+				}
+				else if (!player.searchInventory(keyJail)) { //if the player is not escaped
+					selecteddialogline = "We don't take kindly your types in here!";
+				}
 			}
-			else if (!player.searchInventory(keyJail)) {
-				selecteddialogline = "We don't take kindly your types in here!";
-			}
-		}
-		else if (npcdial.getJobnpc()== job.shaman) {
-			selecteddialogline = "test";
-			if (player.searchInventory(keyPick)) {
+		else if (npcdial.getJobnpc()== job.shaman) { //if the npc is the chaman
+
+			if (player.searchInventory(keyPick)) {//if the player has the pick key
 				selecteddialogline = "If you find all the ship parts it's time for you to leave";
 			}
-			else if (player.searchInventory(keyJail)) {
+			else if (player.searchInventory(keyJail)) {//if the player has the jail key
 				selecteddialogline = "In the mountain, you will have to climb to the peak to find the last part of the ship";
 			}
-			else if (player.searchInventory(keyForestW)) {
+			else if (player.searchInventory(keyForestW)) {//if the player has the forest west key
 				selecteddialogline = "You must go to the city and find the next part of your starship";
 			}
-			else if (player.searchInventory(keyForestS)) {
+			else if (player.searchInventory(keyForestS)) {//if the player has the forest west key
 				selecteddialogline = "You must build a bridge using the nature force if you want to proceed to the city";
 			}
-			else if (!player.searchInventory(keyForestS)) {
+			else if (!player.searchInventory(keyForestS)) {//if the player has the forest south key
 				selecteddialogline = "Hello stranger that fell from the stars, first find the machete to clear your path";
 			}
 			else { selecteddialogline ="??? ??? ??? You just can't understand this alien language ... if only you had a traductor";}
 
 			}
 		} return selecteddialogline;
-		
-			
+	
 	}
 
-
-
-/**
- * @return the currentZone
- */
-public Zone getCurrentZone() {
-	return currentZone;
-}
-
-/**
- * @return the listZone
- */
-public ArrayList<Zone> getListZone() {
-	return listZone;
-}
+	/**
+	 * @return the currentZone
+	 */
+	public Zone getCurrentZone() {
+		return currentZone;
+	}
 
 /**
  * @return the knife
@@ -484,388 +472,28 @@ public Chest getChestChurch() {
 	return chestChurch;
 }
 
-/**
- * @return the glade
- */
-public Zone getGlade() {
-	return glade;
-}
 
-/**
- * @return the crashzone
- */
-public Zone getCrashzone() {
-	return crashzone;
-}
 
-/**
- * @return the forestS
- */
-public Zone getForestS() {
-	return forestS;
-}
-
-/**
- * @return the forestW
- */
-public Zone getForestW() {
-	return forestW;
-}
-
-/**
- * @return the forestN
- */
-public Zone getForestN() {
-	return forestN;
-}
-
-/**
- * @return the bridge
- */
-public Zone getBridge() {
-	return bridge;
-}
-
-/**
- * @return the cityentrance
- */
-public Zone getCityentrance() {
-	return cityentrance;
-}
-
-/**
- * @return the marketplace
- */
-public Zone getMarketplace() {
-	return marketplace;
-}
-
-/**
- * @return the house
- */
-public Zone getHouse() {
-	return house;
-}
-
-/**
- * @return the church
- */
-public Zone getChurch() {
-	return church;
-}
-
-/**
- * @return the jailentrance
- */
-public Zone getJailentrance() {
-	return jailentrance;
-}
-
-/**
- * @return the jail
- */
-public Zone getJail() {
-	return jail;
-}
-
-/**
- * @return the caveentrance
- */
-public Zone getCaveentrance() {
-	return caveentrance;
-}
-
-/**
- * @return the frozenlake
- */
-public Zone getFrozenlake() {
-	return frozenlake;
-}
-
-/**
- * @return the mountainbase
- */
-public Zone getMountainbase() {
-	return mountainbase;
-}
-
-/**
- * @return the pick
- */
 public Zone getPick() {
 	return pick;
 }
 
-/**
- * @return the cave
- */
-public Zone getCave() {
-	return cave;
-}
 
-/**
- * @return the lairofthebeast
- */
+
 public Zone getLairofthebeast() {
 	return lairofthebeast;
 }
 
-/**
- * @return the glade_crashzone
- */
-public Path getGlade_crashzone() {
-	return glade_crashzone;
+
+
+public Zone getForestS() {
+	return forestS;
 }
 
-/**
- * @return the crashzone_glade
- */
-public Path getCrashzone_glade() {
-	return crashzone_glade;
+
+
+public Zone getHouse() {
+	return house;
 }
 
-/**
- * @return the glade_forestS
- */
-public Path getGlade_forestS() {
-	return glade_forestS;
-}
-
-/**
- * @return the forestS_glade
- */
-public Path getForestS_glade() {
-	return forestS_glade;
-}
-
-/**
- * @return the glade_forestW
- */
-public Path getGlade_forestW() {
-	return glade_forestW;
-}
-
-/**
- * @return the forestW_glade
- */
-public Path getForestW_glade() {
-	return forestW_glade;
-}
-
-/**
- * @return the glade_forestN
- */
-public Path getGlade_forestN() {
-	return glade_forestN;
-}
-
-/**
- * @return the forestN_glade
- */
-public Path getForestN_glade() {
-	return forestN_glade;
-}
-
-/**
- * @return the bridge_forestW
- */
-public Path getBridge_forestW() {
-	return bridge_forestW;
-}
-
-/**
- * @return the forestW_bridge
- */
-public Path getForestW_bridge() {
-	return forestW_bridge;
-}
-
-/**
- * @return the bridge_forestN
- */
-public Path getBridge_forestN() {
-	return bridge_forestN;
-}
-
-/**
- * @return the forestN_bridge
- */
-public Path getForestN_bridge() {
-	return forestN_bridge;
-}
-
-/**
- * @return the bridge_cityentrance
- */
-public Path getBridge_cityentrance() {
-	return bridge_cityentrance;
-}
-
-/**
- * @return the forestN_caveentrance
- */
-public Path getForestN_caveentrance() {
-	return forestN_caveentrance;
-}
-
-/**
- * @return the caveentrance_forestN
- */
-public Path getCaveentrance_forestN() {
-	return caveentrance_forestN;
-}
-
-/**
- * @return the pick_mountainbase
- */
-public Path getPick_mountainbase() {
-	return pick_mountainbase;
-}
-
-/**
- * @return the mountainbase_pick
- */
-public Path getMountainbase_pick() {
-	return mountainbase_pick;
-}
-
-/**
- * @return the mountainbase_caveentrance
- */
-public Path getMountainbase_caveentrance() {
-	return mountainbase_caveentrance;
-}
-
-/**
- * @return the caveentrance_mountainbase
- */
-public Path getCaveentrance_mountainbase() {
-	return caveentrance_mountainbase;
-}
-
-/**
- * @return the caveentrance_cave
- */
-public Path getCaveentrance_cave() {
-	return caveentrance_cave;
-}
-
-/**
- * @return the cave_caveentrance
- */
-public Path getCave_caveentrance() {
-	return cave_caveentrance;
-}
-
-/**
- * @return the caveentrance_frozenlake
- */
-public Path getCaveentrance_frozenlake() {
-	return caveentrance_frozenlake;
-}
-
-/**
- * @return the frozenlake_caveentrance
- */
-public Path getFrozenlake_caveentrance() {
-	return frozenlake_caveentrance;
-}
-
-/**
- * @return the cave_lairofthebeast
- */
-public Path getCave_lairofthebeast() {
-	return cave_lairofthebeast;
-}
-
-/**
- * @return the lairofthebeast_cave
- */
-public Path getLairofthebeast_cave() {
-	return lairofthebeast_cave;
-}
-
-/**
- * @return the jailentrance_jail
- */
-public Path getJailentrance_jail() {
-	return jailentrance_jail;
-}
-
-/**
- * @return the jail_jailentrance
- */
-public Path getJail_jailentrance() {
-	return jail_jailentrance;
-}
-
-/**
- * @return the jailentrance_marketplace
- */
-public Path getJailentrance_marketplace() {
-	return jailentrance_marketplace;
-}
-
-/**
- * @return the marketplace_jailentrance
- */
-public Path getMarketplace_jailentrance() {
-	return marketplace_jailentrance;
-}
-
-/**
- * @return the marketplace_church
- */
-public Path getMarketplace_church() {
-	return marketplace_church;
-}
-
-/**
- * @return the church_marketplace
- */
-public Path getChurch_marketplace() {
-	return church_marketplace;
-}
-
-/**
- * @return the marketplace_cityentrance
- */
-public Path getMarketplace_cityentrance() {
-	return marketplace_cityentrance;
-}
-
-/**
- * @return the cityentrance_bridge
- */
-public Path getCityentrance_bridge() {
-	return cityentrance_bridge;
-}
-
-/**
- * @return the cityentrance_marketplace
- */
-public Path getCityentrance_marketplace() {
-	return cityentrance_marketplace;
-}
-
-/**
- * @return the marketplace_house
- */
-public Path getMarketplace_house() {
-	return marketplace_house;
-}
-
-/**
- * @return the house_marketplace
- */
-public Path getHouse_marketplace() {
-	return house_marketplace;
-}
-
-/**
- * @return the crashZonePic
- */
-public Icon getCrashZonePic() {
-	return crashZonePic;
-}
 }

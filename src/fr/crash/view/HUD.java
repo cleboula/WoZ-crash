@@ -60,7 +60,7 @@ public class HUD implements ActionListener {
 	 * This method allows to create buttons for the different medikit in the inventory
 	 * @param woz
 	 * @param myPanel
-	 * @param weapon
+	 * @param medikit
 	 */
 	private JButton inventory(WoZ woz, JPanel myPanel, Medikit medikit) {
 		myButton = new JButton(medikit.getName());
@@ -168,7 +168,7 @@ public class HUD implements ActionListener {
 	 * This method allows to create buttons for the different key in the inventory
 	 * @param woz
 	 * @param myPanel
-	 * @param chest
+	 * @param key
 	 */
     private JButton inventory(WoZ woz, JPanel myPanel, Key key) {
     	//creation of buttons for the part of ship
