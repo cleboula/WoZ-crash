@@ -27,17 +27,7 @@ public class Weapon extends Item
         picWeapon = image;
     }
 
-	/**
-     * this method allows to hit the enemy,
-     * the enemy lose hp while the player lose energy (energybyshot)
-     */
-    //TODO the enemy does not lose hp here
-    public void shot(Player player)
-    {
-        int epPlayer = player.getEP(); 
-        player.setEp(epPlayer - energybyshot); 
-        
-    }
+
     
     /**
      * Getter of damages

@@ -15,13 +15,13 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import fr.crash.core.Player;
+import fr.crash.core.Weapon;
 import fr.crash.main;
 import fr.crash.core.Chest;
 import fr.crash.core.Item;
 import fr.crash.core.Key;
 import fr.crash.core.Medikit;
 import fr.crash.core.Path;
-import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
 import fr.crash.game.InitializeGame;
 
@@ -35,7 +35,7 @@ import fr.crash.game.InitializeGame;
 public class HUD implements ActionListener {
 
 	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myInvent, myWeapon;
+    private JLabel myPlayerName, myHP, myEP, myWeapon;
     private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
     private JTextArea myText;
     
@@ -49,7 +49,7 @@ public class HUD implements ActionListener {
 	private JLabel myEmptyLabel;//empty panel to the arrows panel
 
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow, again;
-    private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myButton;
+    private JButton mySearchButton, myTakeButton, myAttackButton, myButton;
     private JButton talk;
     
     private WoZ woz;
@@ -181,6 +181,7 @@ public class HUD implements ActionListener {
         });
 		return(myButton);
     }
+    
         public HUD(WoZ woz) {
 
         	this.woz=woz;
@@ -420,8 +421,12 @@ public class HUD implements ActionListener {
                  	inventFrame.add(myPanelInventory);
                  	inventFrame.setResizable(false);
                  	inventFrame.setLocationRelativeTo(myFrame);
+
+                 	//Reading of the screen size
                  	java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize(); 
                  	inventFrame.pack(); 
+
+                 	//the window is centered
                  	inventFrame.setLocation( 
                  	        (screenSize.width-inventFrame.getWidth())/2, 
                  	        (screenSize.height-inventFrame.getHeight())/2 
@@ -473,21 +478,12 @@ public class HUD implements ActionListener {
             myTakeButton.addActionListener(this);
             myTakeButton.setEnabled(false);
             
-            //the open button
-            //myOpenButton = new JButton("Open");
-            //myOpenButton.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
-            //myOpenButton.setForeground(Color.black);
-            //myOpenButton.setEnabled(false);//open button is not available
-            //myOpenButton.addActionListener(this);
-
             // the talk button
             talk = new JButton("Talk to a character");
             talk.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             talk.setForeground(Color.black);
             talk.addActionListener(this);
             talk.setEnabled(false);
-            
-            
             
             //the Attack button
             myAttackButton = new JButton("Attack");
@@ -496,19 +492,17 @@ public class HUD implements ActionListener {
             myAttackButton.setEnabled(false);//attack button is not available
             
             myAttackButton.addActionListener(new ActionListener (){
-            	public void actionPerformed (ActionEvent e){
-            	
+            	public void actionPerformed (ActionEvent e){   	
+            		//if there is a fight monster 
             		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) {
-            			
-	            		
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
-		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
-		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
+		            		myHP.setText("My HP : " + woz.getPlayer().getHP());//new health points are set
+		            		myEP.setText("My EP : " + woz.getPlayer().getEP());//new energy points are set
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
-		            		if(woz.isCurrentfight()==false) {
+		            		if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
 		                        myAttackButton.setEnabled(false);
 		                        myNorthArrow.setEnabled(true); 
 		                        myEastArrow.setEnabled(true);
@@ -519,29 +513,45 @@ public class HUD implements ActionListener {
 	            		
 
             		}
-	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {
-	            			if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
-		            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
+	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {//if there is a boss in this zone
+	            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
+	            		if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
+	            			myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
 		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
 		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
 		            		myText.setEditable(false);
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
+		        			if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
+		                        myAttackButton.setEnabled(false);
+		                        myNorthArrow.setEnabled(true); 
+		                        myEastArrow.setEnabled(true);
+		                        myWestArrow.setEnabled(true);
+		                        mySouthArrow.setEnabled(true);
+		                        mySearchButton.setEnabled(true);
+		                    }
 		        			
 		        	}else if(woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+		        		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
             			if(woz.getCurrentZone().getCurrentNpcFightGuard().getHp()!=0) {
-	            		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
-	            		myHP.setText("My HP : " + woz.getPlayer().getHP());
-	            		myEP.setText("My EP : " + woz.getPlayer().getEP());
-	            		myText.setEditable(false);
-	            		myFrame.setContentPane(newPanel());
-	        			myFrame.repaint();
-	        			myFrame.revalidate();
-	        			}
-		        	}
-	            			
-	            		
+            				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+            				myHP.setText("My HP : " + woz.getPlayer().getHP());
+            				myEP.setText("My EP : " + woz.getPlayer().getEP());
+            				myText.setEditable(false);
+            				myFrame.setContentPane(newPanel());
+            				myFrame.repaint();
+            				myFrame.revalidate();
+            				if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
+            					myAttackButton.setEnabled(false);
+            					myNorthArrow.setEnabled(true); 
+            					myEastArrow.setEnabled(true);
+            					myWestArrow.setEnabled(true);
+            					mySouthArrow.setEnabled(true);
+            					mySearchButton.setEnabled(true);
+            				}
+	        			}	
+		        	}	
             		}
             	}
             });
@@ -569,7 +579,8 @@ public class HUD implements ActionListener {
             //image of the current weapon
             myWeapon = new JLabel(woz.getPlayer().getCurrentWeapon().getImage());
             myWeapon.setPreferredSize(new Dimension(40,40));
-          //image of the current zone
+            
+            //image of the current zone
             JLabel labelZone = new JLabel(woz.getCurrentZone().getPicZone());
             labelZone.setPreferredSize(new Dimension(700,400));
             labelZone.setMaximumSize(new Dimension(700,400));
@@ -592,7 +603,6 @@ public class HUD implements ActionListener {
             myPanelLittleRight.setLayout(new GridLayout(4,1));
             myPanelLittleRight.add(mySearchButton);
             myPanelLittleRight.add(myTakeButton);
-            //myPanelLittleRight.add(myOpenButton);
             myPanelLittleRight.add(talk);
             myPanelLittleRight.add(myAttackButton);
             
@@ -602,7 +612,6 @@ public class HUD implements ActionListener {
             myPanelRight.add(myPanelArrows);
             myPanelRight.add(myPanelLittleRight);
             
-
             myPanelUp = new JPanel();
             myPanelUp.setLayout(new GridLayout(1,5));
             myPanelUp.add(myPlayerName);
@@ -610,7 +619,6 @@ public class HUD implements ActionListener {
             myPanelUp.add(myEP);
             myPanelUp.add(myWeapon);
             myPanelUp.add(myInventory);
-            
 
             //the all panel
             myPanel = new JPanel();
@@ -629,12 +637,18 @@ public class HUD implements ActionListener {
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
-	
         }
         
+        /**
+         * New content of the frame after an action/a modification of items displayed
+         * When the player is dead, it launches the game over
+         * When the game is finished (crash zone and all parts of the spaceship), it launches the win picture
+         * Else, it display the new content of the frame
+         * @return the panel adapted to the situation
+         */
         private JPanel newPanel() {
-        		if (woz.isAlivePlayer(woz.getPlayer()) == false) {
-            	JLabel lastLabel = new JLabel(getGameOverPic());
+        	if (woz.isAlivePlayer(woz.getPlayer()) == false) {//When the player is dead
+            	JLabel lastLabel = new JLabel(getGameOverPic());//game over
             	again = new JButton("Play Again");
             	again.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,50));
             	again.setForeground(Color.black);
@@ -644,8 +658,8 @@ public class HUD implements ActionListener {
             	lastPanel.add(again);
            	return lastPanel;
            	
-        		}else {
-            	if(woz.getCurrentZone().getZoneName() == "crashZone" && woz.haveAllKey() == true) {
+        	}else {
+            	if(woz.getCurrentZone().getZoneName() == "crashZone" && woz.haveAllKey() == true) { //when we win the game
             		JLabel lastLabel = new JLabel(getWinPic());
                 	again = new JButton("Play Again");
                 	again.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,50));
@@ -656,125 +670,139 @@ public class HUD implements ActionListener {
                 	winPanel.add(again);
                	return winPanel;
         			
-        		}else {
-            	
-            JLabel l1 = new JLabel(woz.getCurrentZone().getPicZone());
-            l1.setPreferredSize(new Dimension(700,450));
+        	}else {
+        		JLabel l1 = new JLabel(woz.getCurrentZone().getPicZone());
+        		l1.setPreferredSize(new Dimension(700,450));
+        		//remove the different elements
             	myPanelUp.remove(myPlayerName);
     			myPanelUp.remove(myEP);     
     			myPanelUp.remove(myHP);
     			myPanelUp.remove(myWeapon);
     			myPanelUp.remove(myInventory);
-		   	myPanelUp.setLayout(new GridLayout(1,5));
-		   	myPanelUp.add(myPlayerName);
-		   	myPanelUp.add(myHP);
-		   	myPanelUp.add(myEP);
-		   	myPanelUp.add(myWeapon);
-		   	myPanelUp.add(myInventory);
-            JPanel p1 = new JPanel();
-            p1.setLayout(new BorderLayout());
-            p1.add(l1, BorderLayout.CENTER);
-            p1.add(myPanelUp, BorderLayout.NORTH);
-            p1.add(myText, BorderLayout.SOUTH);
-            p1.add(myPanelRight, BorderLayout.EAST);
+    			myPanelUp.setLayout(new GridLayout(1,5));
+    			//add the new elements
+    			myPanelUp.add(myPlayerName);
+    			myPanelUp.add(myHP);
+    			myPanelUp.add(myEP);
+    			myPanelUp.add(myWeapon);
+    			myPanelUp.add(myInventory);
+    			JPanel p1 = new JPanel();
+    			p1.setLayout(new BorderLayout());
+    			p1.add(l1, BorderLayout.CENTER);
+    			p1.add(myPanelUp, BorderLayout.NORTH);
+    			p1.add(myText, BorderLayout.SOUTH);
+    			p1.add(myPanelRight, BorderLayout.EAST);
         	return p1;
             }
           }
         }
-      
+       
+        /**
+         * This method manages the dialog boxes that appears 
+         * when we want to move to a locked zone
+         * The player can choose to unlock the path or not
+         * @param dir the direction choose by the player
+         */
         public void dialogMove(String dir) {
         	if (dir!="") {
-    				for (HashMap.Entry<String, Path> entry:woz.getCurrentZone().getHMap().entrySet()){
-    	                String key= entry.getKey();
-    	                Path value= entry.getValue(); 
-    	                if(dir.equals(key)) {
-    	                if (value.getIsLocked()==true) {
-    	                	if (value.haveKey(woz.getPlayer())==true) {
-
-        	                	//creation of the dialog box
-        	                    if(woz.getCurrentZone().getZoneName() == "mountainbase") {
-        	                    		int n = JOptionPane.showConfirmDialog(null,
-    	                				"Do you want to unlock the path?",
-    	                				"Information",
-    	                				JOptionPane.YES_NO_OPTION);
-        	                    
-    	                					if (n == JOptionPane.YES_OPTION) {
-    	                						value.checkZone(woz.getPlayer());
-    	                						JOptionPane.showMessageDialog(null, "   The path is unlocked!\nTry to climb the mountain!", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                					}
-    	                					else if (n == JOptionPane.NO_OPTION) {
-    	                					    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                					}
+    			for (HashMap.Entry<String, Path> entry:woz.getCurrentZone().getHMap().entrySet()){
+    				String key= entry.getKey();
+    	            Path value= entry.getValue(); 
+    	            if(dir.equals(key)) {
+    	            	if (value.getIsLocked()==true) {//when the path is locked
+    	            		if (value.haveKey(woz.getPlayer())==true) {//when the player has the key
+    	            		//creation of the dialog box
+    	                		if(woz.getCurrentZone().getZoneName() == "mountainbase") {//when the player is in the mountain, the message is a little different
+        	                   		int n = JOptionPane.showConfirmDialog(null,
+    	                			"Do you want to unlock the path?",
+    	                			"Information",
+    	                			JOptionPane.YES_NO_OPTION);
+        	                  
+    	                			if (n == JOptionPane.YES_OPTION) {
+    	                				value.checkZone(woz.getPlayer());
+    	                				JOptionPane.showMessageDialog(null, "   The path is unlocked!\nTry to climb the mountain!", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                			}
+    	                			else if (n == JOptionPane.NO_OPTION) {
+    	                	    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                			}
 
         	                    }else {
-        	                    		int n = JOptionPane.showConfirmDialog(null,
-        	                			"Do you want to unlock the path?",
-        	                			"Information",
-        	                			JOptionPane.YES_NO_OPTION);
+        	                    	int n = JOptionPane.showConfirmDialog(null,
+        	                		"Do you want to unlock the path?",
+        	                		"Information",
+        	                		JOptionPane.YES_NO_OPTION);
             	                    
-        	                					if (n == JOptionPane.YES_OPTION) {
-        	                						value.checkZone(woz.getPlayer());
-        	                						JOptionPane.showMessageDialog(null,  "The path is unlocked! \n  You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        	                					}
-        	                					else if (n == JOptionPane.NO_OPTION) {
-        	                					    		JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
-        	                					}
+        	                		if (n == JOptionPane.YES_OPTION) {
+        	                			value.checkZone(woz.getPlayer());
+        	                			JOptionPane.showMessageDialog(null,  "The path is unlocked! \n  You can pass now.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                		}
+        	                		else if (n == JOptionPane.NO_OPTION) {
+        	                			JOptionPane.showMessageDialog(null,  "  The path is locked!\nYOU SHALL NOT PASS.", "Information", JOptionPane.INFORMATION_MESSAGE);
+        	                		}
         	                    }
+    	            		}	
     	                }
-    	                }
-    	                }
-    				}		
-        }
+    	            }
+    			}		
+        	}
         }
         
+        /**
+         * This method simulates a riddle to climb the mountain without falling
+         * If the correct boolean is true, the player will move to the pick
+         * If not, the player falls.
+         * @return correct boolean saying if the player find the right path or not
+         */
         public  boolean climb_riddle() {
-            String[] direction = {"Go right", "Go straight", "Go left"};
+            String[] direction = {"Go right", "Go straight", "Go left"};//different directions available
             boolean correct = false;
-            int vie = woz.getPlayer().getHP(); 
+            int vie = woz.getPlayer().getHP(); //the player health points 
             int rang=0, rang2=0, rang3=0, rang4=0;
              rang = JOptionPane.showOptionDialog(null, "Find the right path ?", "Step 1", JOptionPane.YES_NO_CANCEL_OPTION,
             		JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
             
-            if (rang == JOptionPane.YES_OPTION) {
+            if (rang == JOptionPane.YES_OPTION) {//if the first answer is good
              rang2 = JOptionPane.showOptionDialog(null, "A good start!\nFind the right path ?", "Step 2", JOptionPane.YES_NO_CANCEL_OPTION,
                 JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
             
-            		if (rang2 == JOptionPane.CANCEL_OPTION) {
+            		if (rang2 == JOptionPane.CANCEL_OPTION) {//if the second answer is good
             		 rang3 = JOptionPane.showOptionDialog(null, "You're on the way!\nFind the right path ?", "Step 3", JOptionPane.YES_NO_CANCEL_OPTION,
             	        JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
             		
-                		if (rang3 == JOptionPane.CANCEL_OPTION) {
+                		if (rang3 == JOptionPane.CANCEL_OPTION) {//if the third answer is good
                 	     rang4 = JOptionPane.showOptionDialog(null, "You're high! don't fall now!\nFind the right path ?", "Step 4", JOptionPane.YES_NO_CANCEL_OPTION,
                 	            JOptionPane.QUESTION_MESSAGE, null, direction, direction[1]);
                 	    
-                				if (rang4 == JOptionPane.NO_OPTION) {
+                				if (rang4 == JOptionPane.NO_OPTION) {//if the final answer is good
                 					JOptionPane.showMessageDialog(null, "You reach the top !", null, JOptionPane.INFORMATION_MESSAGE);
                     			}else if (rang4 != JOptionPane.NO_OPTION){
                     				JOptionPane.showMessageDialog(null, "You fell from high !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);                    			}	
                 		
-                		}else if(rang3 != JOptionPane.CANCEL_OPTION) {
+                		}else if(rang3 != JOptionPane.CANCEL_OPTION) {//if the third answer is not good
                         JOptionPane.showMessageDialog(null, "You fell !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
                 				woz.getPlayer().setHp(vie-15);
                 		}
-            		}else if(rang2 != JOptionPane.CANCEL_OPTION) {
+            		}else if(rang2 != JOptionPane.CANCEL_OPTION) {//if the second answer is not good
             			JOptionPane.showMessageDialog(null, "You fell !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
             				woz.getPlayer().setHp(vie-10);
             		}
-            	}else if(rang != JOptionPane.YES_OPTION){
+            	}else if(rang != JOptionPane.YES_OPTION){//if the first answer is not good
         			JOptionPane.showMessageDialog(null, "This way is slippery !\n Try again ", null, JOptionPane.INFORMATION_MESSAGE);
             	}
-            
+            //when all answers are good
             if(rang == JOptionPane.YES_OPTION && rang2 == JOptionPane.CANCEL_OPTION && rang3 == JOptionPane.CANCEL_OPTION && rang4 == JOptionPane.NO_OPTION) {
             	correct = true;
+            //when there are not all good
             }else {
             	correct = false;
+            		//when the player lose at the last question, it fall and lose health points
             		if(rang == JOptionPane.YES_OPTION && rang2 == JOptionPane.CANCEL_OPTION && rang3 == JOptionPane.CANCEL_OPTION && rang4 != JOptionPane.NO_OPTION) {
             			woz.getPlayer().setHp(vie-20);
             		}
             }
-            		myHP.setText("My HP : " + woz.getPlayer().getHP());
-    			   	myHP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
-    			   	myHP.setForeground(Color.black);
+            myHP.setText("My HP : " + woz.getPlayer().getHP());
+    		myHP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
+    		myHP.setForeground(Color.black);
             return correct;
         }
 
@@ -783,15 +811,17 @@ public class HUD implements ActionListener {
     	public void actionPerformed(ActionEvent e) {
     		@SuppressWarnings("unused")
 			InitializeGame objHUDGame = new InitializeGame();
-    		if (e.getSource() == myNorthArrow)
+    		//When we click on a direction button
+    		if (e.getSource() == myNorthArrow) //when we go to the north
     		{
+    			//some buttons are disabled
     			myTakeButton.setEnabled(false);
-    			//myOpenButton.setEnabled(false);
     			talk.setEnabled(false);
     			dialogMove("north");
-    			if (woz.getCurrentZone().getZoneName() == "mountainbase") {
-    				if (climb_riddle() == true) {
-                		myText = new JTextArea (woz.move("north"));	
+    			
+    			if (woz.getCurrentZone().getZoneName() == "mountainbase") {//if the player is in the mountain
+    				if (climb_riddle() == true) { //when the player reaches the pick
+                		myText = new JTextArea (woz.move("north"));	//he can go further
             			myText.setEditable(false);
             			myFrame.setContentPane(newPanel());
             			myFrame.repaint();
@@ -813,9 +843,8 @@ public class HUD implements ActionListener {
         			myFrame.revalidate();
    
 	
-    		} else if (e.getSource() == myEastArrow){
+    		 }else if (e.getSource() == myEastArrow){ //when we go to the east
     			myTakeButton.setEnabled(false);
-    			//myOpenButton.setEnabled(false);
     			talk.setEnabled(false);
     			dialogMove("east");
             	myText = new JTextArea (woz.move("east"));
@@ -832,116 +861,104 @@ public class HUD implements ActionListener {
     		    myFrame.repaint();
     		    myFrame.revalidate();
     		
-		} else if (e.getSource() == mySouthArrow){
-			myTakeButton.setEnabled(false);
-			//myOpenButton.setEnabled(false);
-			talk.setEnabled(false);
-			dialogMove("south");
-			myText = new JTextArea (woz.move("south"));
-			myText.setEditable(false);
-			if(woz.isCurrentfight()==true) {
-                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
-                myNorthArrow.setEnabled(false); // disable direction button
-                myEastArrow.setEnabled(false);
-                myWestArrow.setEnabled(false);
-                mySouthArrow.setEnabled(false);
-                mySearchButton.setEnabled(false);
-            }
-		    myFrame.setContentPane(newPanel());
-		    myFrame.repaint();
-		    myFrame.revalidate();
+    		 } else if (e.getSource() == mySouthArrow){ //when we go the south
+    			 myTakeButton.setEnabled(false);
+    			 talk.setEnabled(false);
+    			 dialogMove("south");
+    			 myText = new JTextArea (woz.move("south"));
+    			 myText.setEditable(false);
+    			 if(woz.isCurrentfight()==true) {
+    				 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+    				 myNorthArrow.setEnabled(false); // disable direction button
+    				 myEastArrow.setEnabled(false);
+    				 myWestArrow.setEnabled(false);
+    				 mySouthArrow.setEnabled(false);
+    				 mySearchButton.setEnabled(false);
+    			 }
+    			 myFrame.setContentPane(newPanel());
+    			 myFrame.repaint();
+    			 myFrame.revalidate();
  	    	
-		} else if (e.getSource() == myWestArrow){
-			myTakeButton.setEnabled(false);
-			//myOpenButton.setEnabled(false);
-			talk.setEnabled(false);
-			dialogMove("west");
-		    myText = new JTextArea (woz.move("west"));
-		    myText.setEditable(false);
-		    if(woz.isCurrentfight()==true) {
-                myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
-                myNorthArrow.setEnabled(false); // disable direction button
-                myEastArrow.setEnabled(false);
-                myWestArrow.setEnabled(false);
-                mySouthArrow.setEnabled(false);
-                mySearchButton.setEnabled(false);
+    		 } else if (e.getSource() == myWestArrow){ //when we go to the west
+    			 myTakeButton.setEnabled(false);
+    			 talk.setEnabled(false);
+    			 dialogMove("west");
+    			 myText = new JTextArea (woz.move("west"));
+    			 myText.setEditable(false);
+    			 if(woz.isCurrentfight()==true) {
+    				 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+    				 myNorthArrow.setEnabled(false); // disable direction button
+    				 myEastArrow.setEnabled(false);
+    				 myWestArrow.setEnabled(false);
+    				 mySouthArrow.setEnabled(false);
+    				 mySearchButton.setEnabled(false);
                 
-            }
-		    myFrame.setContentPane(newPanel());
-		    myFrame.repaint();
-		    myFrame.revalidate();
+    			 }
+    			 myFrame.setContentPane(newPanel());
+    			 myFrame.repaint();
+    			 myFrame.revalidate();
 
+		    //when we search
+    		 } else if (e.getSource()== mySearchButton) {
+    			 myText = new JTextArea(woz.search());
+    			 myText.setEditable(false);
+				 myFrame.setContentPane(newPanel());
+				 myFrame.repaint();
+				 myFrame.revalidate();
+				 if (woz.getCurrentZone().getListItems().isEmpty()==false) {//if the list is not empty
+					 myTakeButton.setEnabled(true);
+				 }
 		    
-		} else if (e.getSource()== mySearchButton) {
-			myText = new JTextArea(woz.search());
-			myText.setEditable(false);
-		    myFrame.setContentPane(newPanel());
-		    myFrame.repaint();
-		    myFrame.revalidate();
-			for (Item j : woz.getCurrentZone().getListItems()) {
-				if (j instanceof Weapon || j instanceof Key || j instanceof Medikit) {
-					myTakeButton.setEnabled(true);
-				} else if (j instanceof Chest) {
-					//myOpenButton.setEnabled(true);
-					myTakeButton.setEnabled(true);
-				}
-		    }
-			if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {
-				talk.setEnabled(true);
-			}
+				 if (woz.getCurrentZone().getCurrentNpcDialog()!=null) {//if there is a npc dialog
+					 talk.setEnabled(true);
+				 }
+			//when we want to take items
+    		 } else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
+    			 for (Item j : woz.getCurrentZone().getListItems()) { //add items to the inventory
+    				 woz.getPlayer().getInventory().add(j);
+    				 woz.getNewlist().add(j);//add items to the new list
+    			 }
 			
-		} else if (myTakeButton.isEnabled() && e.getSource()==myTakeButton) {
-			for (Item j : woz.getCurrentZone().getListItems()) {
-				woz.getPlayer().getInventory().add(j);
-				woz.getNewlist().add(j);
-			}
-			String content2 = "";
-			for (Item item : woz.getNewlist()) {
-     			content2 = content2 + item.getName() + "\n";
-     		}
-			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
-			woz.getCurrentZone().setListItemsEmpty();
-			woz.setnewlistEmpty();
-			myTakeButton.setEnabled(false);
+    			 String content2 = "";
+    			 for (Item item : woz.getNewlist()) { //the new list allow the display of taken items
+    				 content2 = content2 + item.getName() + "\n";
+    			 }
+    			 JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
+    			 woz.getCurrentZone().setListItemsEmpty();//the zone items list is now empty
+    			 woz.setnewlistEmpty();//the list that allow the items text display
+    			 myTakeButton.setEnabled(false);
 			
-		} /*else if (e.getSource()==myOpenButton) {
-			for (Item i : woz.getCurrentZone().getListItems()) {
-
-    				if (i instanceof Chest) {//if an item is a chest
-    					((Chest) i).checkChest(woz.getPlayer());//check the chest and open it if the corresponding key is in the inventory
-    					if (((Chest) i).getIsOpened() == true) {
-    						myText = new JTextArea("You have a new item! " + ((Chest)i).getContent().getDescription());
-    						myText.setEditable(false);
-    						myOpenButton.setEnabled(false);
-    						woz.getCurrentZone().setListItemsEmpty();
-    						myFrame.setContentPane(newPanel());
-    						myFrame.repaint();
-    						myFrame.revalidate();
-    						woz.getPlayer().getInventory().remove((Chest) i);
-    					}
-    				}
-			}
-			
-		}*/ if (talk.isEnabled() && e.getSource()==talk) {
-			String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
-        	myText = new JTextArea(test);
-        	myText.setEditable(false);
-        	talk.setEnabled(false);
-        	myFrame.setContentPane(newPanel());
-        	myFrame.repaint();
-        	myFrame.revalidate();
-		}
-        	
-		else if (e.getSource()==again) {
-			main.main(null);
-			myFrame.dispose();
-		}
-    	}    	
-    	public Icon getGameOverPic() {
+    		//when we want to talk to a character
+    		 } else if (talk.isEnabled() && e.getSource()==talk) {
+    			 //go find the right dialog
+    			 String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
+    			 myText = new JTextArea(test);
+    			 myText.setEditable(false);
+    			 talk.setEnabled(false);
+    			 myFrame.setContentPane(newPanel());
+    			 myFrame.repaint();
+    			 myFrame.revalidate();
+    		
+    		//when we want to play again
+    		 } else if (e.getSource()==again) {
+    			 main.main(null); //call the main
+    			 myFrame.dispose();
+    		 }
+    	}   
+    	
+    	/**
+    	 * Getter of game over picture
+    	 * @return gameoverPic : game over picture
+    	 */
+    	private Icon getGameOverPic() {
     		return gameoverPic;
     	}
-
-    	public Icon getWinPic() {
+    	
+    	/**
+    	 * Getter of win picture
+    	 * @return winPic : the win picture
+    	 */
+    	private Icon getWinPic() {
     		return winPic;
     	}
 }
