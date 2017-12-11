@@ -1,8 +1,11 @@
 package fr.crash.core;
 
-//Enumerated type for jobs ( NpcDialog)
- // @author G1
- // @version 21/11/17
+/**
+ *  Type_Enum for the job for the Dialog Npcs
+ *
+ * @author G1
+ * @version 11/12/17
+ */
 
 public enum job {
 	shaman,citizen,prisoner
