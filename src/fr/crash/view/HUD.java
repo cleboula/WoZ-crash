@@ -498,11 +498,9 @@ public class HUD implements ActionListener {
             myAttackButton.addActionListener(new ActionListener (){
             	public void actionPerformed (ActionEvent e){
             	
-            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null) {
+            		if(woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) {
             			
-            			//JLabel labelZone = new JLabel(fightMonsterpic);
-	            		myText = new JTextArea (woz.fightMonster(woz.getPlayer(), woz.getCurrentZone().getCurrentNpcFightMonster()));
-	            		if (woz.getCurrentZone().getCurrentNpcFightMonster().getHp()!=0) {
+	            		
 		            		myText =new JTextArea(woz.fightMonster(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightMonster()));
 		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
 		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
@@ -518,7 +516,7 @@ public class HUD implements ActionListener {
 		                        mySouthArrow.setEnabled(true);
 		                        mySearchButton.setEnabled(true);
 		                    }
-	            		}
+	            		
 
             		}
 	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {
