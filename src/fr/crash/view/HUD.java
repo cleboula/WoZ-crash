@@ -653,6 +653,14 @@ public class HUD implements ActionListener {
 		            		myFrame.setContentPane(newPanel());
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
+		        			if(woz.isCurrentfight()==false) {
+		                        myAttackButton.setEnabled(false);
+		                        myNorthArrow.setEnabled(true); 
+		                        myEastArrow.setEnabled(true);
+		                        myWestArrow.setEnabled(true);
+		                        mySouthArrow.setEnabled(true);
+		                        mySearchButton.setEnabled(true);
+		                    }
 		        			
 		        	}else if(woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
             			if(woz.getCurrentZone().getCurrentNpcFightGuard().getHp()!=0) {
@@ -663,6 +671,14 @@ public class HUD implements ActionListener {
 	            		myFrame.setContentPane(newPanel());
 	        			myFrame.repaint();
 	        			myFrame.revalidate();
+	        			if(woz.isCurrentfight()==false) {
+	                        myAttackButton.setEnabled(false);
+	                        myNorthArrow.setEnabled(true); 
+	                        myEastArrow.setEnabled(true);
+	                        myWestArrow.setEnabled(true);
+	                        mySouthArrow.setEnabled(true);
+	                        mySearchButton.setEnabled(true);
+	                    }
 	        			}
 		        	}
 	            			
@@ -1024,11 +1040,40 @@ public class HUD implements ActionListener {
 			for (Item item : woz.getNewlist()) {
      			content2 = content2 + item.getName() + "\n";
      		}
+			
 			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
 			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
+			
+				
+			
+			
+			if (woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+				
+				woz.setCurrentfight(true);
+				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+				myHP.setText("My HP : " + woz.getPlayer().getHP());
+				myEP.setText("My EP : " + woz.getPlayer().getEP());
+				myText.setEditable(false);
+				myFrame.setContentPane(newPanel());
+				myFrame.repaint();
+				myFrame.revalidate();	
+			
+				if(woz.isCurrentfight()==true) {
+					myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
+					myNorthArrow.setEnabled(false); // disable direction button
+					myEastArrow.setEnabled(false);
+					myWestArrow.setEnabled(false);
+					mySouthArrow.setEnabled(false);
+					mySearchButton.setEnabled(false);
+					JOptionPane.showMessageDialog(null, "A guard caught you robing things \n You have got trapped into jail","Information",JOptionPane.INFORMATION_MESSAGE);
+				}
+				
+			
+				
+			}
 		} /*else if (e.getSource()==myOpenButton) {
 			for (Item i : woz.getCurrentZone().getListItems()) {
 

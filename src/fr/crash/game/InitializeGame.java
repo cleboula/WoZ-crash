@@ -64,7 +64,7 @@ public InitializeGame() {
 			NpcFightMonster wolf=new NpcFightMonster(50,10,"Wolf","black wolf");
 			NpcFightMonster shark=new NpcFightMonster(25,5,"Shark","shark");
 			//the guard
-			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",house);     
+			NpcFightGuard guard = new NpcFightGuard(100,1,"Guard","This is a city guard",jail);     
 
 			
 		   //images
@@ -267,7 +267,7 @@ public InitializeGame() {
            pick.setExits("south", pick_mountainbase);
               
          //Placement of Npcs
-       		jailentrance.setCurrentNpcFightGuard(guard);
+       		house.setCurrentNpcFightGuard(guard);
 
 			lairofthebeast.setCurrentNpcFightBoss(boss);
 			

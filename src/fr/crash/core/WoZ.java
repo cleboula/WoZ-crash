@@ -154,19 +154,14 @@ public class WoZ
 	   
 	   //setCurrentfight(true);	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
-		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
-		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
-		   npc1.setHp(npc1.getHp()-player1.getCurrentWeapon().getDamages());//set the npc hp
-		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
-		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
-			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
-			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
-		   }
-		   if(player1.getHP()<=0){
-			   //game over  
-		   }
+		   
+		  // npc1.attackPattern();//chain
+		   
+		   setCurrentfight(false);
+		   setCurrentZone(objGame.getJail());
+		   
+		   
+		 
 	   }
 	   
 	   return messageatk;
@@ -266,10 +261,10 @@ public class WoZ
                 			setCurrentfight(true);//if there is a fight monster in the zone
                 			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
                 		
-                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null && getCurrentZone().getCurrentNpcFightMonster().getHp()>=1 ){ //if there is the boss in the zone
+                		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null && getCurrentZone().getCurrentNpcFightBoss().getHp()>=1 ){ //if there is the boss in the zone
                 			setCurrentfight(true);//if there is a fight monster in the zone
                 			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
-                			
+
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
                 		if (currentZone.getZoneName() == "mountainbase") {
