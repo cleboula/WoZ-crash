@@ -88,18 +88,25 @@ public class HUD implements ActionListener {
             		myButton = new JButton(woz.getObjGame().getGun().getImage());
             		myButton.addActionListener(new ActionListener (){
                     	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to equip a new weapon
-    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getGun().getDescription() +
-    	                    "Do you want to equip it?",
-    	                    "Information",
-    	                    JOptionPane.YES_NO_OPTION); 
-    	                    if (n == JOptionPane.YES_OPTION) {
-    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getGun());
-    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    }
+                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getGun()) {
+	                    		//creation of the dialog box to equip a new weapon
+	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getGun().getDescription() +
+	    	                    "Do you want to equip it?",
+	    	                    "Information",
+	    	                    JOptionPane.YES_NO_OPTION); 
+	    	                    if (n == JOptionPane.YES_OPTION) {
+	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getGun());
+	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    } else if (n == JOptionPane.NO_OPTION) {
+	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    }
+	                    	} else {
+	                    		//creation of the dialog box to show an information message 
+	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getGun().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	                    	} 
+                    		
                     	}
+                    	
                     });	
             		// the button is not enable if we have not the weapon
             		myButton.setEnabled(false);
@@ -113,17 +120,22 @@ public class HUD implements ActionListener {
             		myButton = new JButton(woz.getObjGame().getSword().getImage());
             		myButton.addActionListener(new ActionListener (){
                     	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to equip a new weapon
-    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getSword().getDescription() +
-    	                    "Do you want to equip it?",
-    	                    "Information",
-    	                    JOptionPane.YES_NO_OPTION); 
-    	                    if (n == JOptionPane.YES_OPTION) {
-    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getSword());
-    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Sword.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    }
+                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getSword()) {
+	                    		//creation of the dialog box to equip a new weapon
+	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getSword().getDescription() +
+	    	                    "Do you want to equip it?",
+	    	                    "Information",
+	    	                    JOptionPane.YES_NO_OPTION); 
+	    	                    if (n == JOptionPane.YES_OPTION) {
+	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getSword());
+	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Sword.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    } else if (n == JOptionPane.NO_OPTION) {
+	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    }
+                    		} else {
+	                    		//creation of the dialog box to show an information message 
+	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getSword().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	                    	} 
                     	}
                     });	
             		// the button is not enable if we have not the weapon
@@ -138,17 +150,22 @@ public class HUD implements ActionListener {
             		myButton = new JButton(woz.getObjGame().getKnife().getImage());
             		myButton.addActionListener(new ActionListener (){
                     	public void actionPerformed (ActionEvent e){
-                    		//creation of the dialog box to equip a new weapon
-    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getKnife().getDescription() +
-    	                    "Do you want to equip it?",
-    	                    "Information",
-    	                    JOptionPane.YES_NO_OPTION); 
-    	                    if (n == JOptionPane.YES_OPTION) {
-    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getKnife());
-    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Knife.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    } else if (n == JOptionPane.NO_OPTION) {
-    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-    	                    }
+                    		if(woz.getPlayer().getCurrentWeapon()!=woz.getObjGame().getKnife()) {
+	                    		//creation of the dialog box to equip a new weapon
+	    	                    int n = JOptionPane.showConfirmDialog(null,woz.getObjGame().getKnife().getDescription() +
+	    	                    "Do you want to equip it?",
+	    	                    "Information",
+	    	                    JOptionPane.YES_NO_OPTION); 
+	    	                    if (n == JOptionPane.YES_OPTION) {
+	    	    					woz.getPlayer().setCurrentWeapon(woz.getObjGame().getKnife());
+	    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a Knife.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    } else if (n == JOptionPane.NO_OPTION) {
+	    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	    	                    }
+                    		} else {
+	                    		//creation of the dialog box to show an information message 
+	                    		JOptionPane.showMessageDialog(null, woz.getObjGame().getKnife().getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+	                    	} 
                     	}
                     });	
             		// the button is not enable if we have not the weapon
@@ -355,6 +372,9 @@ public class HUD implements ActionListener {
     	                    "\n Do you want to drink the Magic Lake?", "Information", JOptionPane.YES_NO_OPTION);                    		
     	                    if (n == JOptionPane.YES_OPTION) {
     	    					woz.getObjGame().getMedLake().cure(woz.getPlayer());
+    	    					//the medikit is used and removed from the inventory
+    	    					myButton.setEnabled(false);
+    	    					woz.getPlayer().getInventory().remove(woz.getObjGame().getMedLake());
     	    					JOptionPane.showMessageDialog(null,  "You have recovered " + woz.getObjGame().getMedLake().getHP() + " hp and " + 
     	    							woz.getObjGame().getMedLake().getEP() + " ep.", 
     	    							"Information", JOptionPane.INFORMATION_MESSAGE);
@@ -378,6 +398,9 @@ public class HUD implements ActionListener {
     	                    JOptionPane.YES_NO_OPTION);                    		
     	                    if (n == JOptionPane.YES_OPTION) {
     	    					woz.getObjGame().getMedChurch().cure(woz.getPlayer());
+    	    					//the medikit is used and removed from the inventory
+    	    					myButton.setEnabled(false);
+    	    					woz.getPlayer().getInventory().remove(woz.getObjGame().getMedChurch()); 
     	    					JOptionPane.showMessageDialog(null,  "You have recovered " + woz.getObjGame().getMedChurch().getHP() + " hp and " + 
     	    							woz.getObjGame().getMedChurch().getEP() + " ep.", 
     	    							"Information", JOptionPane.INFORMATION_MESSAGE);
