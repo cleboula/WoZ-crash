@@ -81,6 +81,8 @@ public class WoZ
 	   System.out.println(player1.getPlayerName() + "2");
 	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
+	   int pvmax;
+	   pvmax=npc1.getHp();
 	   
 	   //setCurrentfight(true);	 	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0) { //if both player and npc are alive
@@ -107,6 +109,7 @@ public class WoZ
 			   //game over  
 		   }
 	   }
+	   npc1.setHp(pvmax);
 	   return messageatk;
 	}
 	/**
@@ -119,6 +122,8 @@ public class WoZ
     */
   public String fightBoss(Player player1,NpcFightBoss npc1){
 	   String messageatk ="";
+	   int pvmax;
+	   pvmax=npc1.getHp();
 	   //setCurrentfight(true);	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
 		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
@@ -138,6 +143,7 @@ public class WoZ
 			   //game over  
 		   }
 	   }
+	   npc1.setHp(pvmax);
 	   return messageatk;
 	}
 	/**
@@ -150,6 +156,8 @@ public class WoZ
    */
  public String fightGuard(Player player1,NpcFightGuard npc1){
 	   String messageatk ="";
+	   int pvmax;
+	   pvmax=npc1.getHp();
 	   //setCurrentfight(true);	   
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
 		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
@@ -166,7 +174,9 @@ public class WoZ
 			   //game over  
 		   }
 	   }
+	   npc1.setHp(pvmax);
 	   return messageatk;
+	   
 	}
 
    /**

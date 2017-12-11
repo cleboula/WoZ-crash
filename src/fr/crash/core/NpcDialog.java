@@ -5,40 +5,31 @@ package fr.crash.core;
  *  These are characters that are defined by their jobs and by the speak method
  *
  * @author G1
- * @version 21/11/17
+ * @version 11/12/17
  */
  
 public class NpcDialog extends Npc {
 	
 	
 	private job jobnpc;
-	//job is a enum
 
-	//todo implement with speak()
-	//private string selecteddialog
-
-	//Dialog Npc constructor
+	/**
+	 * Constructor of NpcDialog
+	 * @param name the Npc name
+	 * @param description the Npc description
+	 * @param npcjob the Npc job
+	 */
 	public NpcDialog(String name,String description,job npcjob){
 		super(name,description);
 		jobnpc=npcjob;
 	}
 
+    /**
+     * This method is used to get the job of the Npc.
+     * @return     the job of the Npc
+     */
 	public job getJobnpc() {
 		return jobnpc;
 		}
 
-
-	//Method to show the string selected in the dialog tree depending on the job of the Dialog Npc
-	//Method that grab the var from Game files that contain the dialog tree
-	//the dialog tree return the dialog line wich is "selected dialog"
-	//The game feature of "Dialogue Tree" must be :
-	// A conditional verification of the job of the Npc
-	// Followed of a conditional verification of the Player Inventory
-	// Depending of the Job Npc and of the Player Inventory, a String is returned
-	//todo Once Game features implemented
-	//public String speak(){
-
-	//	dialogtree(String);
-	//		return selecteddialog;
-	//}
 }
