@@ -6,7 +6,6 @@ package fr.crash.view;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -27,7 +26,6 @@ import fr.crash.core.Medikit;
 import fr.crash.core.Path;
 import fr.crash.core.Weapon;
 import fr.crash.core.WoZ;
-import fr.crash.core.job;
 import fr.crash.game.InitializeGame;
 
 /**
@@ -39,29 +37,24 @@ import fr.crash.game.InitializeGame;
 
 public class HUD implements ActionListener {
 	private JFrame myFrame;  
-    private JLabel myPlayerName, myHP, myEP, myInvent, myWeapon;
-    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
+    private JLabel myPlayerName, myHP, myEP, myWeapon;
+    private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelMedikit, myPanelObject;  
     private JTextArea myText;
     private JPanel myPanel;//the global panel
     private JPanel myPanelArrows;//all arrows
     private JPanel myPanelRight;//map + myPanelArrows + actions
     private JPanel myPanelUp;//player name + labels of HP and EP + button for the inventory + image of the weapon
     private JPanel myPanelLittleRight;//search button + open button
-    private JLabel myEmptyLabel;//empty panel to the arrows panel
+    @SuppressWarnings("unused")
+	private JLabel myEmptyLabel;//empty panel to the arrows panel
 
     private JButton myInventory, myMap, myNorthArrow, myEastArrow, mySouthArrow, myWestArrow, again;
     private JButton mySearchButton, myOpenButton, myTakeButton, myAttackButton, myButton;
-
     private JButton talk;
-    private ArrayList<Item> newlist;
+    
     private WoZ woz;
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
 	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
-	//private Icon fightMonsterpic = new ImageIcon(getClass().getResource("/images/gladiatorvslion.jgp"));
-
-
-
-    //private InitializeGame objHUDGame;
     
         public HUD(WoZ woz) {
 
@@ -78,9 +71,7 @@ public class HUD implements ActionListener {
             	public void actionPerformed (ActionEvent e){
             		Player player = woz.getPlayer();
             		ArrayList<Item> inventory = player.getInventory();
-   
-            		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame
-            		
+            		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame 		
             		// Panel of weapon
             		myPanelWeapon = new JPanel();
             		myPanelWeapon.setLayout(new GridLayout(2,2));
@@ -789,7 +780,8 @@ public class HUD implements ActionListener {
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
-    		InitializeGame objHUDGame = new InitializeGame();
+    		@SuppressWarnings("unused")
+			InitializeGame objHUDGame = new InitializeGame();
     		if (e.getSource() == myNorthArrow)
     		{
     			myTakeButton.setEnabled(false);

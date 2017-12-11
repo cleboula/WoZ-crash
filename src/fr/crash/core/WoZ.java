@@ -78,8 +78,6 @@ public class WoZ
      * @return messageatk : the message displays during the fight
      */
    public String fightMonster(Player player1,NpcFightMonster npc1){
-	   System.out.println(player1.getPlayerName() + "2");
-	   System.out.println(npc1.getName() + "2");
 	   String messageatk ="";
 	   int pvmax;
 	   pvmax=npc1.getHp();
@@ -94,22 +92,15 @@ public class WoZ
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
 		   }
-		   
-	
-		   
-		   //if(npc1.getHp()==0 || npc1.getHp()<=0){ 
-		   if(npc1.getHp()<=0){ 
+
+		   if(npc1.getHp()<=0){ //if the npc is dead
 			   setCurrentfight(false);
-			   System.out.println(isCurrentfight());
 			   messageatk ="You won the fight, you can move out this zone";
-		   }else if(player1.getHP()==0 || player1.getHP()<=0){
-			   //game over  
+			   npc1.setHp(pvmax);
 		   }
 	   }
-	   npc1.setHp(pvmax);
+	   
 	   return messageatk;
 	}
 	/**
@@ -133,17 +124,14 @@ public class WoZ
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
 		   }
 		   if(npc1.getHp()==0){ 
 			   setCurrentfight(false);
 			   messageatk ="You won the fight, you can move out this zone";
-		   }else if(player1.getHP()==0){
-			   //game over  
+			   npc1.setHp(pvmax);
 		   }
 	   }
-	   npc1.setHp(pvmax);
+	   
 	   return messageatk;
 	}
 	/**
@@ -155,10 +143,7 @@ public class WoZ
    * @return messageatk : the message displays during the fight
    */
  public String fightGuard(Player player1,NpcFightGuard npc1){
-	   String messageatk ="";
-	   int pvmax;
-	   pvmax=npc1.getHp();
-	   //setCurrentfight(true);	   
+	   String messageatk ="";  
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
 		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
@@ -166,33 +151,11 @@ public class WoZ
 		   messageatk ="You have"+player1.getHP()+"health point left. Your opponent is bleeding,"+npc1.getHp()+"health point left !";
 		   }else if(player1.getEP()<player1.getCurrentWeapon().getEnergybyshot()) {
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
-			   messageatk="you do not have enough EP to attack";
-		   }else { //gameover 
-			 
-		   }
-		   if(player1.getHP()==0){
-			   //game over  
+			   messageatk="you do not have enough EP to attack"; 
 		   }
 	   }
-	   npc1.setHp(pvmax);
 	   return messageatk;
-	   
 	}
-
-   /**
-    * This method allows the player to switch weapon 
-    * @param player1
-    */
-   //TODO pourquoi la mettre ici et pas dans player ?
-   	public void switchWeapon(Player player1){
-   		Item item1;
-   		for(int i=0; i<player1.getListweapon().size(); i++) { 			
-   		    item1=player1.getListweapon().get(i);
-	   		    if ( player1.getCurrentWeapon()!=null){
-	   			player1.setCurrentWeapon(((Weapon)item1));	
-	   		    }
-   		}   		
-   	}
 
    /**
     * This method checks if the player does not have life anymore.
@@ -279,23 +242,18 @@ public class WoZ
                 if(dir.equals(key)) {  
                 	if (value.getIsLocked() == false) { //if the path is not locked
                 			if(currentZone.getZoneName() == "mountainbase") {
-                				// climb_riddle
-                				//TODO
+                				
                 			}
                 		setCurrentZone(value.getExit()); //the player is in a new current zone
                 		message = "You are in " + currentZone.getZoneName();
 
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone
-                			System.out.println (currentfight); //TODO
                 			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
                 		
-                			//message = fightMonster(player, getCurrentZone().getCurrentNpcFightMonster()); 
-
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null ){ //if there is the boss in the zone
                 			setCurrentfight(true);//if there is a fight monster in the zone
                 			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
-                			//fightBoss(player, getCurrentZone().getCurrentNpcFightBoss()); 
                 			
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
