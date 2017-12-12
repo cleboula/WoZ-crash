@@ -25,7 +25,8 @@ public class InitializeGame {
 	private Icon crashZonePic, gladePic, forestWPic, forestSPic, forestNPic, bridgePic, cityentrancePic, 
 	marketplacePic, housePic, churchPic,jailentrancePic, jailPic, caveentrancePic, frozenlakePic, 
 	mountainbasePic, pickPic, cavePic, lairofthebeastPic;//the different zone pictures 	
-	private Icon swordPic, knifePic, gunPic;//the different weapon pictures
+	private Icon swordPic, knifePic, gunPic, key1Pic, key2Pic, key3Pic, bunchkeyPic, machetePic, 
+			grapplePic, medlakePic, medikitPic, chestPic, plankPic;//the different weapon pictures
 
 
 public InitializeGame() {
@@ -42,7 +43,7 @@ public InitializeGame() {
 			
 			//Fighter Non player characters
 			//the boss
-			NpcFightBoss boss= new NpcFightBoss( 1000, 50, "transplantor"," uigfodnhk", 100);
+			NpcFightBoss boss= new NpcFightBoss( 300, 30, "transplantor"," uigfodnhk", 100);
 			//the monsters
 			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
@@ -77,6 +78,17 @@ public InitializeGame() {
 		   swordPic = new ImageIcon(getClass().getResource("/images/sword.png"));
 		   knifePic = new ImageIcon(getClass().getResource("/images/knife.png"));
 		   gunPic = new ImageIcon(getClass().getResource("/images/gun.png"));
+		   key1Pic = new ImageIcon(getClass().getResource("/images/key.jpg"));
+		   key2Pic = new ImageIcon(getClass().getResource("/images/key2.png"));
+		   key3Pic = new ImageIcon(getClass().getResource("/images/key3.jpg"));
+		   machetePic = new ImageIcon(getClass().getResource("/images/machete.png"));
+		   bunchkeyPic = new ImageIcon(getClass().getResource("/images/bunch_key.png"));
+		   grapplePic = new ImageIcon(getClass().getResource("/images/grapple.png"));
+		   medlakePic = new ImageIcon(getClass().getResource("/images/magic_water.png"));
+		   medikitPic = new ImageIcon(getClass().getResource("/images/Medkit_1.png"));
+		   chestPic = new ImageIcon(getClass().getResource("/images/chest.jpg"));		   
+		   plankPic = new ImageIcon(getClass().getResource("/images/plank.jpg"));		   
+
 		   
 			//creation of the items
 			//creation of the weapons
@@ -85,20 +97,20 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",null);
-			medLake = new Medikit(30,30,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",null);
+			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",medikitPic);
+			medLake = new Medikit(30,30,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",medlakePic);
 	
 			// creation of the keys
 			//keys to unlock the paths
-			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.",null);
-			keyForestW = new Key("Planks", " Great to build a path across gaps.",null);
-			keyHouse = new Key("Old Key", " No idea of what it can open...",null);
-			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.",null);
-			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.",null);
+			keyForestS = new Key("Machete", " Perfect to pull some wood out of the way.",machetePic);
+			keyForestW = new Key("Planks", " Great to build a path across gaps.",plankPic);
+			keyHouse = new Key("Old Key", " No idea of what it can open...",key2Pic);
+			keyJail = new Key("Bunch of keys", " Given by a helpful prisoner in jail.",bunchkeyPic);
+			keyPick = new Key("Climbing kit", " Perfect to cross difficulties on the way.",grapplePic);
 			//keys to open the chests
-			keyChestMarketplace = new Key("A very old Key", " Found in the house.",null);
-			keyChestHouse = new Key("A big old Key", " Wandering on the ground.",null);
-			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.",null);
+			keyChestMarketplace = new Key("A very old Key", " Found in the house.",key1Pic);
+			keyChestHouse = new Key("A big old Key", " Wandering on the ground.",key1Pic);
+			keyChestChurch = new Key("Small old Key", " Picked up on the Market place.",key3Pic);
 			//keys to repair the spaceship (SS)
 			keySSGenerator = new Key("Generator Cell", " Generator cell of your spaceship.",null);
 			keySSWheel = new Key("Wheels", " Wheels of your spaceship.",null);
@@ -106,9 +118,9 @@ public InitializeGame() {
 			keySSFTL = new Key("FTL", " 'Faster Than Light' technology, necessary for your spaceship.",null);
 			
 			//creation of the chests
-			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace,null);
-			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse,null);
-			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,null);
+			chestMarketplace = new Chest(sword, "Old Chest", " A very old wooden chest, a bit hidden in the street.", keyChestMarketplace,chestPic);
+			chestHouse = new Chest(keySSWheel, "A Tidying Chest", " A big tidying chest. Something is shining inside...", keyChestHouse,chestPic);
+			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,chestPic);
  
 			//create zones
 		   crashzone = new Zone("crashZone", "the crash zone, where your spaceship is", crashZonePic);
