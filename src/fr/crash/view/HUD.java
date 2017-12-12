@@ -65,10 +65,11 @@ public class HUD implements ActionListener {
 	 * @return a new button
 	 */
 	private JButton inventory(WoZ woz, JPanel myPanel, Item item, ArrayList<Item> inventory) {
-    	// button for the gun
+    	// button for an item
 		myButton = new JButton(item.getName(), item.getImage());
 		myButton.addActionListener(new ActionListener (){
         	public void actionPerformed (ActionEvent e){
+        		// if the item is a weapon
         		if(item instanceof Weapon) {
 	        		if(woz.getPlayer().getCurrentWeapon()!= item) {
 	            		//creation of the dialog box to equip a new weapon
@@ -86,7 +87,9 @@ public class HUD implements ActionListener {
 	            		//creation of the dialog box to show an information message 
 	            		JOptionPane.showMessageDialog(null, item.getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
 	            	} 
-        		} else if(item instanceof Medikit) {
+        		} 
+        		// if the item is a Medikit
+        		else if(item instanceof Medikit) {
         			//creation of the dialog box
     	            int n = JOptionPane.showConfirmDialog(null, item.getDescription() +
     	            "\n Do you want to use "+ item.getName() + "?", "Information", JOptionPane.YES_NO_OPTION);                    		
@@ -104,7 +107,9 @@ public class HUD implements ActionListener {
     	    			myFrame.repaint();
     	    			myFrame.revalidate();
     	            } 
-        		} else if(item instanceof Chest) {
+        		}
+        		// if the item is a Chest
+        		else if(item instanceof Chest) {
 	            	int n = JOptionPane.showConfirmDialog(null,item.getDescription() +
 		                    "Do you want to open it?",
 		                    "Information",
@@ -115,11 +120,16 @@ public class HUD implements ActionListener {
 		                    	if(((Chest)item).getIsOpened()) {
 		                    		//the chest is removed of the inventory
 		                    		myButton.setEnabled(false);
-		                    		woz.getPlayer().getInventory().remove(item);
+		        					woz.getPlayer().getInventory().remove(item);
 		                    		JOptionPane.showMessageDialog(null, item.getName() + 
 		                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
 		                    				((Chest)item).getContent().getName(), 
 		                    				"Information", JOptionPane.INFORMATION_MESSAGE);
+		                    		myHP.setText("My HP : " + woz.getPlayer().getHP());
+		        	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
+		                    		myFrame.setContentPane(newPanel());
+		        	    			myFrame.repaint();
+		        	    			myFrame.revalidate();
 		                    		
 		                    	} 
 		                    	//if we have not the key
@@ -131,14 +141,15 @@ public class HUD implements ActionListener {
 		                    	JOptionPane.showMessageDialog(null,  item.getName() + 
 	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
 		                    }
-	            } else if(item instanceof Key) {
+	            } 
+        		// if the item is a Key
+        		else if(item instanceof Key) {
 	                //creation of the dialog box to show an information message
 	                JOptionPane.showMessageDialog(null, item.getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
 	            }
         	}
-        	
         });
-		// the button is not enable if we have not the weapon
+		// the button is not enable if we have not the item in our inventory
 		myButton.setEnabled(false);
 		for (int i = 0; i < inventory.size(); i++) {
 			if(inventory.get(i) == item) {
@@ -179,51 +190,51 @@ public class HUD implements ActionListener {
             		myPanelWeapon = new JPanel();
             		myPanelWeapon.setLayout(new GridLayout(2,2));
             		// button for the gun
-            		myPanelWeapon.add(inventory(woz,myPanelChest,woz.getObjGame().getGun(),inventory));
+            		myPanelWeapon.add(inventory(woz,myPanelWeapon,woz.getObjGame().getGun(),inventory));
             		// button for the sword
-            		myPanelWeapon.add(inventory(woz,myPanelChest,woz.getObjGame().getSword(),inventory));
+            		myPanelWeapon.add(inventory(woz,myPanelWeapon,woz.getObjGame().getSword(),inventory));
             		// button for the knife
-            		myPanelWeapon.add(inventory(woz,myPanelChest,woz.getObjGame().getKnife(),inventory));
+            		myPanelWeapon.add(inventory(woz,myPanelWeapon,woz.getObjGame().getKnife(),inventory));
 
             		// Panel of parts of ship
             		myPanelObject = new JPanel();
             		myPanelObject.setLayout(new GridLayout(2,2));
                     // button for the generator
-            		myPanelObject.add(inventory(woz,myPanelChest,woz.getObjGame().getKeySSGenerator(),inventory));
+            		myPanelObject.add(inventory(woz,myPanelObject,woz.getObjGame().getKeySSGenerator(),inventory));
             		// button for the FTL
-            		myPanelObject.add(inventory(woz,myPanelChest,woz.getObjGame().getKeySSFTL(),inventory));
+            		myPanelObject.add(inventory(woz,myPanelObject,woz.getObjGame().getKeySSFTL(),inventory));
             		// button for the wheels
-            		myPanelObject.add(inventory(woz,myPanelChest,woz.getObjGame().getKeySSWheel(),inventory));
+            		myPanelObject.add(inventory(woz,myPanelObject,woz.getObjGame().getKeySSWheel(),inventory));
             		//button for the energy cell
-            		myPanelObject.add(inventory(woz,myPanelChest,woz.getObjGame().getKeySSEnergyCell(),inventory));
+            		myPanelObject.add(inventory(woz,myPanelObject,woz.getObjGame().getKeySSEnergyCell(),inventory));
             		
             		//Panel of key
             		myPanelKey = new JPanel();
             		myPanelKey.setLayout(new GridLayout(2,4));
             		// button for the machete
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyForestS(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyForestS(),inventory));
             		// button for the Planks
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyForestW(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyForestW(),inventory));
             		// button for the Old Key
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyHouse(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyHouse(),inventory));
             		// button for the Small Old Key
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyChestChurch(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyChestChurch(),inventory));
             		// button for the Bunch of keys
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyJail(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyJail(),inventory));
             		// button for the Climbing kit
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyPick(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyPick(),inventory));
             		// button for the very old Key
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyChestMarketplace(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyChestMarketplace(),inventory));
             		// button for the big old Key
-            		myPanelKey.add(inventory(woz,myPanelChest,woz.getObjGame().getKeyChestHouse(),inventory));
+            		myPanelKey.add(inventory(woz,myPanelKey,woz.getObjGame().getKeyChestHouse(),inventory));
             		
             		//Panel of medikit
             		myPanelMedikit = new JPanel();
             		myPanelMedikit.setLayout(new GridLayout(2,1));
             		// button for the Magic Lake
-            		myPanelMedikit.add(inventory(woz,myPanelChest,woz.getObjGame().getMedLake(),inventory));
+            		myPanelMedikit.add(inventory(woz,myPanelMedikit,woz.getObjGame().getMedLake(),inventory));
             		// button for the Small Medikit
-            		myPanelMedikit.add(inventory(woz,myPanelChest,woz.getObjGame().getMedChurch(),inventory));
+            		myPanelMedikit.add(inventory(woz,myPanelMedikit,woz.getObjGame().getMedChurch(),inventory));
 
             		myPanelInventory = new JPanel();
             		myPanelInventory.setLayout(new BorderLayout());
