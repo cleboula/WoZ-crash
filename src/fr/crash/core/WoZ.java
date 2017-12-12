@@ -256,11 +256,11 @@ public class WoZ
 
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null && getCurrentZone().getCurrentNpcFightMonster().getHp()>=1 ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone
-                			message= "You are in " + getCurrentZone().getZoneName()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
+                			message= "You are in " + currentZone.getDescriptionZone()+", a "+getCurrentZone().getCurrentNpcFightMonster().getName()+" jumped on you ! Be ready to fight";
                 		
                 		}else if(getCurrentZone().getCurrentNpcFightBoss()!=null && getCurrentZone().getCurrentNpcFightBoss().getHp()>=1 ){ //if there is the boss in the zone
                 			setCurrentfight(true);//if there is a fight monster in the zone
-                			message= "You are in " + currentZone.getZoneName()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
+                			message= "You are in " + currentZone.getDescriptionZone()+","+getCurrentZone().getCurrentNpcFightBoss().getName()+"is ready to fight you ! Be ready to fight";
 
                 		}
                 	} else { //if the path is locked, there is a different message according to the zone
