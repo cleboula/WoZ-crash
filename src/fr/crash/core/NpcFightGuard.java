@@ -32,10 +32,9 @@ public class NpcFightGuard extends NpcFight {
 	 * @return     the atk of the guard for this turn
 	 */
 	public int attackPattern(){
-		if ( super.getHp() < hpmax*99/100 ){
+		
 		chain();
-		super.setHp(0);
-		}
+		
 	
 	return(super.getAtk());
 	}

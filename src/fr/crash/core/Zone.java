@@ -19,6 +19,7 @@ public class Zone
 {
     private HashMap<String,Path> hmap; // hashmap of the direction and the path possibles depending on the current zone
     private String nameZone; // name of the current zone
+    private String descriptionZone; //description of the zone
     private ArrayList<Item> listItems; // list of items present in the zone
     //NPC present in this zone
     private NpcDialog currentNpcDialog; 
@@ -31,11 +32,11 @@ public class Zone
     /**
      * Object builder for Zone class
      */
-    public Zone(String name, Icon pic)
+    public Zone(String name, String description, Icon pic)
     {
     	picZone = pic;
         nameZone = name;
-        
+        descriptionZone = description;
         //hmap is the object Hashmap which is a list with 2 entries of the different rooms.
         hmap = new HashMap<String, Path>();
 
@@ -166,6 +167,12 @@ public class Zone
 	 */
 	public void setListItemsEmpty() {
 		listItems = new ArrayList<Item>();
+	}
+	/**
+	 * @return the descriptionZone
+	 */
+	public String getDescriptionZone() {
+		return descriptionZone;
 	}
 	
 }
