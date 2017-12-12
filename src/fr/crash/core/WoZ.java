@@ -157,8 +157,7 @@ public class WoZ
 		   
 		   setCurrentfight(false);
 		   setCurrentZone(objGame.getJail());
-		   
-		   
+
 		 
 	   }
 	   
@@ -243,7 +242,7 @@ public class WoZ
     public String move(String dir) {
     	String message = "";
     	if (dir!="") {
-    		message = "You are in " + currentZone.getZoneName();
+    		message = "You are in " + currentZone.getDescriptionZone();
     		for (HashMap.Entry<String, Path> entry:currentZone.getHMap().entrySet()){
                 String key= entry.getKey();
                 Path value= entry.getValue();              
@@ -253,7 +252,7 @@ public class WoZ
                 				
                 			}
                 		setCurrentZone(value.getExit()); //the player is in a new current zone
-                		message = "You are in " + currentZone.getZoneName();
+                		message = "You are in " + currentZone.getDescriptionZone();
 
                 		if(getCurrentZone().getCurrentNpcFightMonster()!=null && getCurrentZone().getCurrentNpcFightMonster().getHp()>=1 ) { 
                 			setCurrentfight(true);//if there is a fight monster in the zone

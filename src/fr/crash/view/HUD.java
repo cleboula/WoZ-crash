@@ -571,7 +571,7 @@ public class HUD implements ActionListener {
             myEP.setFont(new java.awt.Font(Font.SERIF,Font.BOLD,20));
             myEP.setForeground(Color.black);
             
-            myText = new JTextArea ("You crashed in " + woz.getCurrentZone().getZoneName() 
+            myText = new JTextArea ("You crashed in " + woz.getCurrentZone().getDescriptionZone() 
                 	+ ".\n Your spaceship is broken and monsters have stolen some components,\n"  
                 	+ " So you need to find the missing parts in order to escape this weird planet !!! ");
             myText.setEditable(false);

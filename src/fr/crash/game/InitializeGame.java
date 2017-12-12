@@ -111,24 +111,24 @@ public InitializeGame() {
 			chestChurch = new Chest(medChurch, "Chest", " There is a wooden chest in the church. Do you think you're allowed to open it?", keyChestChurch,null);
  
 			//create zones
-		   crashzone = new Zone("crashZone", crashZonePic);
-           glade = new Zone("glade", gladePic);
-           forestS = new Zone("forestS", forestSPic);
-           forestW = new Zone("forestW", forestWPic);
-           forestN = new Zone("forestN", forestNPic);
-           bridge = new Zone("bridge", bridgePic);
-           cityentrance = new Zone("cityentrance", cityentrancePic);
-           marketplace = new Zone("marketplace", marketplacePic);
-           house= new Zone("house", housePic);
-           church = new Zone("church", churchPic);
-           jailentrance = new Zone("jailentrance", jailentrancePic);
-           jail = new Zone("jail", jailPic);
-           caveentrance = new Zone("caveentrance", caveentrancePic);
-           frozenlake = new Zone("frozenlake", frozenlakePic);
-           mountainbase= new Zone("mountainbase", mountainbasePic);
-           pick = new Zone("pick", pickPic);
-           cave = new Zone("cave", cavePic);
-           lairofthebeast = new Zone("lairofthebeast", lairofthebeastPic);
+		   crashzone = new Zone("crashZone", "the crash zone, where your spaceship is", crashZonePic);
+           glade = new Zone("glade", "the glade, a calm zone", gladePic);
+           forestS = new Zone("forestS","the south part of the forest", forestSPic);
+           forestW = new Zone("forestW","the west part of the forest", forestWPic);
+           forestN = new Zone("forestN", "the north part of the forest", forestNPic);
+           bridge = new Zone("bridge", "front of a long wooden bridge", bridgePic);
+           cityentrance = new Zone("cityentrance","the entrance of a little city", cityentrancePic);
+           marketplace = new Zone("marketplace", "the animated market place", marketplacePic);
+           house= new Zone("house", "the house of someone", housePic);
+           church = new Zone("church", "the church, the god house", churchPic);
+           jailentrance = new Zone("jailentrance", "the entrance of the jail", jailentrancePic);
+           jail = new Zone("jail", "the jail, what are you doing here", jailPic);
+           caveentrance = new Zone("caveentrance", "the entrance of a dark cave", caveentrancePic);
+           frozenlake = new Zone("frozenlake", "front of a beautiful lake", frozenlakePic);
+           mountainbase= new Zone("mountainbase", "the snow of the mountain base", mountainbasePic);
+           pick = new Zone("pick", "the pick of the mountain", pickPic);
+           cave = new Zone("cave", "the dark cave", cavePic);
+           lairofthebeast = new Zone("lairofthebeast", "the lair of the beast, be careful !", lairofthebeastPic);
            currentZone = crashzone;
          
            //list of items per zone           
@@ -473,31 +473,41 @@ public Chest getChestChurch() {
 }
 
 
-
+/**
+ * @return the pick zone
+ */
 public Zone getPick() {
 	return pick;
 }
 
 
-
+/**
+ * @return the lair of the beast zone
+ */
 public Zone getLairofthebeast() {
 	return lairofthebeast;
 }
 
 
-
+/**
+ * @return the south forest zone
+ */
 public Zone getForestS() {
 	return forestS;
 }
 
 
-
+/**
+ * @return the house zone
+ */
 public Zone getHouse() {
 	return house;
 }
 
 
-
+/**
+ * @return the jail zone
+ */
 public Zone getJail() {
 	return jail;
 }
