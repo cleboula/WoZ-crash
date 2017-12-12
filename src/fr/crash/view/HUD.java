@@ -34,7 +34,7 @@ import fr.crash.game.InitializeGame;
 
 public class HUD implements ActionListener {
 
-	private JFrame myFrame;  
+	private JFrame myFrame, inventFrame;  
     private JLabel myPlayerName, myHP, myEP, myWeapon;
     private JPanel myPanelInventory, myPanelWeapon, myPanelKey, myPanelChest, myPanelMedikit, myPanelObject;  
     private JTextArea myText;
@@ -63,7 +63,7 @@ public class HUD implements ActionListener {
 	 * @param weapon
 	 */
 	private JButton inventory(WoZ woz, JPanel myPanel, Medikit medikit) {
-		myButton = new JButton(medikit.getName());
+		myButton = new JButton(medikit.getImage());
 		myButton.addActionListener(new ActionListener (){
 	    	public void actionPerformed (ActionEvent e){
 	    		//creation of the dialog box
@@ -131,7 +131,7 @@ public class HUD implements ActionListener {
 	 */
     private JButton inventory(WoZ woz, JPanel myPanel, Chest chest) {
     	//creation of buttons for the chest
-    	myButton = new JButton(chest.getName());
+    	myButton = new JButton(chest.getImage());
 		myButton.addActionListener(new ActionListener (){
         	public void actionPerformed (ActionEvent e){
         		//creation of the dialog box to open the chest
@@ -143,13 +143,14 @@ public class HUD implements ActionListener {
 	                    	chest.checkChest(woz.getPlayer());
 	                    	//if we have the key, the chest is open
 	                    	if(chest.getIsOpened()) {
+	                    		//the chest is removed of the inventory
+	                    		myButton.setEnabled(false);
+	                    		woz.getPlayer().getInventory().remove(chest);
 	                    		JOptionPane.showMessageDialog(null, chest.getName() + 
 	                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
 	                    				chest.getContent().getName(), 
 	                    				"Information", JOptionPane.INFORMATION_MESSAGE);
-	                    		//the chest is removed of the inventory
-	                    		myButton.setEnabled(false);
-	                    		woz.getPlayer().getInventory().remove(chest);
+	                    		
 	                    	} 
 	                    	//if we have not the key
 	                    	else {
@@ -172,7 +173,7 @@ public class HUD implements ActionListener {
 	 */
     private JButton inventory(WoZ woz, JPanel myPanel, Key key) {
     	//creation of buttons for the part of ship
-    	myButton = new JButton(key.getName());
+    	myButton = new JButton(key.getImage());
 		myButton.addActionListener(new ActionListener (){
         	public void actionPerformed (ActionEvent e){
         		//creation of the dialog box to show an information message
@@ -197,13 +198,14 @@ public class HUD implements ActionListener {
             	public void actionPerformed (ActionEvent e){
             		Player player = woz.getPlayer();
             		ArrayList<Item> inventory = player.getInventory();
-            		JFrame inventFrame = new JFrame("Inventory");//create the inventory frame
+            		inventFrame = new JFrame("Inventory");//create the inventory frame
             		
             		//Panel of chest
             		myPanelChest = new JPanel();
             		myPanelChest.setLayout(new GridLayout(1,3));
             		// button for old chest
             		myButton = inventory(woz,myPanelChest,woz.getObjGame().getChestMarketplace());
+            		
             		myButton.setEnabled(false);
             		for (int i = 0; i < inventory.size(); i++) {
             			if(inventory.get(i) == woz.getObjGame().getChestMarketplace()) {
