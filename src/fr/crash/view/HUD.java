@@ -255,6 +255,7 @@ public class HUD implements ActionListener {
 		                    }
 		        			
 		        	}else if(woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
+		        		
 		        		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
             			if(woz.getCurrentZone().getCurrentNpcFightGuard().getHp()!=0) {
 	            		myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
@@ -751,13 +752,14 @@ public class HUD implements ActionListener {
 			woz.getCurrentZone().setListItemsEmpty();
 			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
+			System.out.println("avant");
 			
 			
 				
-			
+			//when there is a guard and you take items
 			
 			if (woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
-				
+				System.out.println("apres");
 				woz.setCurrentfight(true);
 				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
 				myHP.setText("My HP : " + woz.getPlayer().getHP());
