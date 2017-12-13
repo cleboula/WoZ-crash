@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class KeyTest {
 
 	private Key key1;
-	private Chest chest1;
 
     /**
      * Sets up the test fixture.

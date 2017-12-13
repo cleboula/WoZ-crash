@@ -55,109 +55,6 @@ public class HUD implements ActionListener {
     private WoZ woz;
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
 	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
-
-	/**
-	 * This method allows to create buttons for the different medikit, weapon, key, chest in the inventory
-	 * @param woz
-	 * @param myPanel
-	 * @param item
-	 * @param inventory
-	 * @return a new button
-	 */
-	private JButton inventory(WoZ woz, JPanel myPanel, Item item, ArrayList<Item> inventory) {
-    	// button for an item
-		myButton = new JButton(item.getName(), item.getImage());
-		myButton.addActionListener(new ActionListener (){
-        	public void actionPerformed (ActionEvent e){
-        		// if the item is a weapon
-        		if(item instanceof Weapon) {
-	        		if(woz.getPlayer().getCurrentWeapon()!= item) {
-	            		//creation of the dialog box to equip a new weapon
-	                    int n = JOptionPane.showConfirmDialog(null,item.getDescription() +
-	                    "Do you want to equip it?",
-	                    "Information",
-	                    JOptionPane.YES_NO_OPTION); 
-	                    if (n == JOptionPane.YES_OPTION) {
-	    					woz.getPlayer().setCurrentWeapon((Weapon)item);
-	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	                    } else if (n == JOptionPane.NO_OPTION) {
-	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	                    }
-	            	} else {
-	            		//creation of the dialog box to show an information message 
-	            		JOptionPane.showMessageDialog(null, item.getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
-	            	} 
-        		} 
-        		// if the item is a Medikit
-        		else if(item instanceof Medikit) {
-        			//creation of the dialog box
-    	            int n = JOptionPane.showConfirmDialog(null, item.getDescription() +
-    	            "\n Do you want to use "+ item.getName() + "?", "Information", JOptionPane.YES_NO_OPTION);                    		
-    	            if (n == JOptionPane.YES_OPTION) {
-    	            	((Medikit)item).cure(woz.getPlayer());
-    					//the medikit is used and removed from the inventory
-    					myButton.setEnabled(false);
-    					woz.getPlayer().getInventory().remove(item);
-    					JOptionPane.showMessageDialog(null,  "You have recovered " + ((Medikit)item).getHP() + " hp and " + 
-    							((Medikit)item).getEP() + " ep.", 
-    							"Information", JOptionPane.INFORMATION_MESSAGE);
-    					myHP.setText("My HP : " + woz.getPlayer().getHP());
-    	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
-    	        		myFrame.setContentPane(newPanel());
-    	    			myFrame.repaint();
-    	    			myFrame.revalidate();
-    	            } 
-        		}
-        		// if the item is a Chest
-        		else if(item instanceof Chest) {
-	            	int n = JOptionPane.showConfirmDialog(null,item.getDescription() +
-		                    "Do you want to open it?",
-		                    "Information",
-		                    JOptionPane.YES_NO_OPTION); 
-		                    if (n == JOptionPane.YES_OPTION) {
-		                    	((Chest)item).checkChest(woz.getPlayer());
-		                    	//if we have the key, the chest is open
-		                    	if(((Chest)item).getIsOpened()) {
-		                    		//the chest is removed of the inventory
-		                    		myButton.setEnabled(false);
-		        					woz.getPlayer().getInventory().remove(item);
-		                    		JOptionPane.showMessageDialog(null, item.getName() + 
-		                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
-		                    				((Chest)item).getContent().getName(), 
-		                    				"Information", JOptionPane.INFORMATION_MESSAGE);
-		                    		myHP.setText("My HP : " + woz.getPlayer().getHP());
-		        	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
-		                    		myFrame.setContentPane(newPanel());
-		        	    			myFrame.repaint();
-		        	    			myFrame.revalidate();
-		                    		
-		                    	} 
-		                    	//if we have not the key
-		                    	else {
-		    					JOptionPane.showMessageDialog(null,  item.getName() + 
-	                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
-		                    	}
-		                    } else if (n == JOptionPane.NO_OPTION) {
-		                    	JOptionPane.showMessageDialog(null,  item.getName() + 
-	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
-		                    }
-	            } 
-        		// if the item is a Key
-        		else if(item instanceof Key) {
-	                //creation of the dialog box to show an information message
-	                JOptionPane.showMessageDialog(null, item.getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
-	            }
-        	}
-        });
-		// the button is not enable if we have not the item in our inventory
-		myButton.setEnabled(false);
-		for (int i = 0; i < inventory.size(); i++) {
-			if(inventory.get(i) == item) {
-				myButton.setEnabled(true);
-			}
-		}
-		return(myButton);
-    }
     
         public HUD(WoZ woz) {
 
@@ -464,6 +361,106 @@ public class HUD implements ActionListener {
             myFrame.setLocationRelativeTo(null);
             myFrame.pack();
             myFrame.setVisible(true);
+        }
+        
+    	/**
+    	 * This method allows to create buttons for the different medikit, weapon, key, chest in the inventory
+    	 * @param woz
+    	 * @param myPanel
+    	 * @param item
+    	 * @param inventory
+    	 * @return a new button
+    	 */
+    	private JButton inventory(WoZ woz, JPanel myPanel, Item item, ArrayList<Item> inventory) {
+        	// button for an item
+    		myButton = new JButton(item.getName(), item.getImage());
+    		myButton.addActionListener(new ActionListener (){
+            	public void actionPerformed (ActionEvent e){
+            		// if the item is a weapon
+            		if(item instanceof Weapon) {
+    	        		if(woz.getPlayer().getCurrentWeapon()!= item) {
+    	            		//creation of the dialog box to equip a new weapon
+    	                    int n = JOptionPane.showConfirmDialog(null,item.getDescription() +
+    	                    "Do you want to equip it?",
+    	                    "Information",
+    	                    JOptionPane.YES_NO_OPTION); 
+    	                    if (n == JOptionPane.YES_OPTION) {
+    	    					woz.getPlayer().setCurrentWeapon((Weapon)item);
+    	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                    } else if (n == JOptionPane.NO_OPTION) {
+    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                    }
+    	            	} else {
+    	            		//creation of the dialog box to show an information message 
+    	            		JOptionPane.showMessageDialog(null, item.getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	            	} 
+            		} 
+            		// if the item is a Medikit
+            		else if(item instanceof Medikit) {
+            			//creation of the dialog box
+        	            int n = JOptionPane.showConfirmDialog(null, item.getDescription() +
+        	            "\n Do you want to use "+ item.getName() + "?", "Information", JOptionPane.YES_NO_OPTION);                    		
+        	            if (n == JOptionPane.YES_OPTION) {
+        	            	((Medikit)item).cure(woz.getPlayer());
+        					//the medikit is used and removed from the inventory
+        					myButton.setEnabled(false);
+        					woz.getPlayer().getInventory().remove(item);
+        					JOptionPane.showMessageDialog(null,  "You have recovered " + ((Medikit)item).getHP() + " hp and " + 
+        							((Medikit)item).getEP() + " ep.", 
+        							"Information", JOptionPane.INFORMATION_MESSAGE);
+        					myHP.setText("My HP : " + woz.getPlayer().getHP());
+        	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
+        	        		myFrame.setContentPane(newPanel());
+        	    			myFrame.repaint();
+        	    			myFrame.revalidate();
+        	            } 
+            		}
+            		// if the item is a Chest
+            		else if(item instanceof Chest) {
+    	            	int n = JOptionPane.showConfirmDialog(null,item.getDescription() +
+    		                    "Do you want to open it?",
+    		                    "Information",
+    		                    JOptionPane.YES_NO_OPTION); 
+    		                    if (n == JOptionPane.YES_OPTION) {
+    		                    ((Chest)item).checkChest(woz.getPlayer());
+    		                    //if we have the key, the chest is open
+    		                    	if(((Chest)item).getIsOpened()) {
+    		                    		//the chest is removed of the inventory
+    		                    		myButton.setEnabled(false);
+    		        					woz.getPlayer().getInventory().remove(item);
+    		                    		JOptionPane.showMessageDialog(null, item.getName() + 
+    		                    				" is open now. \nCongratulations !!! \nyou earn :\n " + 
+    		                    				((Chest)item).getContent().getName(), 
+    		                    				"Information", JOptionPane.INFORMATION_MESSAGE);
+    		                    		inventFrame.dispose();
+    		                    		
+    		        	    			
+    		                    	} 
+    		                    	//if we have not the key
+    		                    	else {
+    		    					JOptionPane.showMessageDialog(null,  item.getName() + 
+    	                    				" is not open. You have not the key.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    		                    	}
+    		                    } else if (n == JOptionPane.NO_OPTION) {
+    		                    	JOptionPane.showMessageDialog(null,  item.getName() + 
+    	                    				" is always closed.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    		                    }
+    	            } 
+            		// if the item is a Key
+            		else if(item instanceof Key) {
+    	                //creation of the dialog box to show an information message
+    	                JOptionPane.showMessageDialog(null, item.getDescription() , "Information", JOptionPane.INFORMATION_MESSAGE);
+    	            }
+            	}
+            });
+    		// the button is not enable if we have not the item in our inventory
+    		myButton.setEnabled(false);
+    		for (int i = 0; i < inventory.size(); i++) {
+    			if(inventory.get(i) == item) {
+    				myButton.setEnabled(true);
+    			}
+    		}
+    		return(myButton);
         }
         
         /**

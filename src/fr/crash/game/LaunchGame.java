@@ -19,7 +19,7 @@ public class LaunchGame implements ActionListener {
 	//when we want to play first frame where we enter the name
 	//Game
 
-	private JLabel labTitle,subtitle;
+	private JLabel labTitle;
 	private JButton butStart;
 	private JFrame myFrame;
 	private String playerName;

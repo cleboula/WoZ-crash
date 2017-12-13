@@ -29,8 +29,8 @@ class WoZTest {
     	
     	Zone glade,forestE;
     	Path glade_forestE;
-    	glade = new Zone("glade", null);
-        forestE = new Zone("forestE", null);
+    	glade = new Zone("glade", "a calm zone",null);
+        forestE = new Zone("forestE", "the east part of the forest", null);
     	
     	Key key1;
     	WoZ woz1 = new WoZ("toto");

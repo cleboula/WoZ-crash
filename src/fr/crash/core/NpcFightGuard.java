@@ -8,6 +8,7 @@ package fr.crash.core;
 
 public class NpcFightGuard extends NpcFight {
 	private Zone zonejail;
+	@SuppressWarnings("unused")
 	private int hpmax;
 	private WoZ woz1;
 

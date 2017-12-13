@@ -27,9 +27,9 @@ private Key assoZoneKey;
     @Before
     public void setUp()
     {
-    	glade = new Zone("glade",null);
+    	glade = new Zone("glade","blabla", null);
     	toGlade = new Path(glade, false, assoZoneKey);
-        zone1 = new Zone("crash zone",null);
+        zone1 = new Zone("crash zone","blabla",null);
         zone1.setExits("west",toGlade);
     }
 
@@ -46,9 +46,9 @@ private Key assoZoneKey;
     @Test
     public void testInitialState()
     {
-    	glade = new Zone("glade",null);
+    	glade = new Zone("glade", "blabla", null);
     	toGlade = new Path(glade, false, assoZoneKey);
-        zone1 = new Zone("crash zone",null);
+        zone1 = new Zone("crash zone", "blabla", null);
         zone1.setExits("west",toGlade);
         
         zone1.getZoneName();
