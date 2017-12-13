@@ -386,6 +386,10 @@ public class HUD implements ActionListener {
     	                    JOptionPane.YES_NO_OPTION); 
     	                    if (n == JOptionPane.YES_OPTION) {
     	    					woz.getPlayer().setCurrentWeapon((Weapon)item);
+    	    					myWeapon.setIcon(item.getImage());
+    	    					myFrame.setContentPane(newPanel());
+            	    			myFrame.repaint();
+            	    			myFrame.revalidate();
     	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
     	                    } else if (n == JOptionPane.NO_OPTION) {
     	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
