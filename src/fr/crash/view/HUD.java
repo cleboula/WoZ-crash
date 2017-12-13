@@ -8,6 +8,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -55,6 +56,11 @@ public class HUD implements ActionListener {
     private WoZ woz;
 	private Icon gameoverPic = (new ImageIcon(getClass().getResource("/images/gameover.png")));
 	private Icon winPic = (new ImageIcon(getClass().getResource("/images/win.jpg")));
+	private Icon snakeIcon = new ImageIcon(getClass().getResource("/images/snake.png"));
+	private Icon sharkIcon = new ImageIcon(getClass().getResource("/images/shark.png"));
+	private Icon wolfIcon = new ImageIcon(getClass().getResource("/images/wolf.png"));
+	private Icon guardIcon = new ImageIcon(getClass().getResource("/images/guard.jpeg"));
+	private Icon bossIcon = new ImageIcon(getClass().getResource("/images/boss.jpeg"));
     
         public HUD(WoZ woz) {
 
@@ -225,6 +231,7 @@ public class HUD implements ActionListener {
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
 		            		if(woz.isCurrentfight()==false) {//when the fight is finished, enabled buttons
+		            			JOptionPane.showMessageDialog(null, "You won the fight!\nYou can go on now" , "End of the fight", JOptionPane.INFORMATION_MESSAGE);
 		                        myAttackButton.setEnabled(false);
 		                        myNorthArrow.setEnabled(true); 
 		                        myEastArrow.setEnabled(true);
@@ -280,6 +287,7 @@ public class HUD implements ActionListener {
             		}
             	}
             });
+            
             
             //instantiation of labels
             myPlayerName = new JLabel(woz.getPlayer().getPlayerName());
@@ -631,6 +639,22 @@ public class HUD implements ActionListener {
             return correct;
         }
 
+        /**
+         * This method allows to determine the dialog box to display when there is a fight during the game
+         */
+        public void fightMessageDialog() {
+        	if ((woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) || woz.getCurrentZone().getCurrentNpcFightGuard()!=null || (woz.getCurrentZone().getCurrentNpcFightBoss()!=null &&woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1)) {
+        		if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Snake") {
+            		JOptionPane.showMessageDialog(null, "Be careful! \nA snake jumped on you!", "Fight", JOptionPane.INFORMATION_MESSAGE, snakeIcon);
+            	}else if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Shark") {
+            		JOptionPane.showMessageDialog(null, "Oh no! \nA shark came out of the water!", "Fight", JOptionPane.INFORMATION_MESSAGE, sharkIcon);
+            	}else if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Wolf") {
+            		JOptionPane.showMessageDialog(null, "A wolf is running after you! \nBe ready to fight it!", "Fight", JOptionPane.INFORMATION_MESSAGE, wolfIcon);
+            	}else if (woz.getCurrentZone().getCurrentNpcFightBoss().getName()=="Transplantor") {
+            		JOptionPane.showMessageDialog(null, "This is the big boss! \nBe ready to defeat him!!", "Fight", JOptionPane.INFORMATION_MESSAGE, bossIcon);
+            	}
+        	}
+        }
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
@@ -655,6 +679,10 @@ public class HUD implements ActionListener {
     			}else 
             		myText = new JTextArea (woz.move("north"));	
         			myText.setEditable(false);
+        			myFrame.setContentPane(newPanel());
+        			myFrame.repaint();
+       			 	myFrame.revalidate();
+        			fightMessageDialog();
         			if(woz.isCurrentfight()==true) {
                         myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
                         myNorthArrow.setEnabled(false); // disable direction button
@@ -674,6 +702,10 @@ public class HUD implements ActionListener {
     			dialogMove("east");
             	myText = new JTextArea (woz.move("east"));
             	myText.setEditable(false);
+            	myFrame.setContentPane(newPanel());
+            	myFrame.repaint();
+   			 	myFrame.revalidate();
+            	fightMessageDialog();
             	if(woz.isCurrentfight()==true) {
                     myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
                     myNorthArrow.setEnabled(false); // disable direction button
@@ -692,6 +724,10 @@ public class HUD implements ActionListener {
     			 dialogMove("south");
     			 myText = new JTextArea (woz.move("south"));
     			 myText.setEditable(false);
+    			 myFrame.setContentPane(newPanel());
+    			 myFrame.repaint();
+    			 myFrame.revalidate();
+    			 fightMessageDialog();
     			 if(woz.isCurrentfight()==true) {
     				 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
     				 myNorthArrow.setEnabled(false); // disable direction button
@@ -710,6 +746,10 @@ public class HUD implements ActionListener {
     			 dialogMove("west");
     			 myText = new JTextArea (woz.move("west"));
     			 myText.setEditable(false);
+    			 myFrame.setContentPane(newPanel());
+    			 myFrame.repaint();
+    			 myFrame.revalidate();
+    			 fightMessageDialog();
     			 if(woz.isCurrentfight()==true) {
     				 myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
     				 myNorthArrow.setEnabled(false); // disable direction button
@@ -748,20 +788,20 @@ public class HUD implements ActionListener {
      			content2 = content2 + item.getName() + "\n";
      		
 			}
-			JOptionPane.showMessageDialog(null, "Congratulations !!! \nyou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, "Congratulations!!! \nYou earn :\n" + content2, "Information", JOptionPane.INFORMATION_MESSAGE);
 			woz.getCurrentZone().setListItemsEmpty();
 			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
 			
 			
-			
-				
 			//when there is a guard and you take items
 			
 			if (woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
 				
 				woz.setCurrentfight(true);
 				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
+				JOptionPane.showMessageDialog(null, "A guard caught you stealing things into the house! \n You have been trapped into jail","Fight",JOptionPane.INFORMATION_MESSAGE, guardIcon);
+
 				myHP.setText("My HP : " + woz.getPlayer().getHP());
 				myEP.setText("My EP : " + woz.getPlayer().getEP());
 				myText.setEditable(false);
@@ -769,17 +809,7 @@ public class HUD implements ActionListener {
 				myFrame.repaint();
 				myFrame.revalidate();	
 			
-				if(woz.isCurrentfight()==true) {
-					myAttackButton.setEnabled(true); //if the player is performing a fight set the attack button available
-					myNorthArrow.setEnabled(false); // disable direction button
-					myEastArrow.setEnabled(false);
-					myWestArrow.setEnabled(false);
-					mySouthArrow.setEnabled(false);
-					mySearchButton.setEnabled(false);
-					JOptionPane.showMessageDialog(null, "A guard caught you robing things \n You have got trapped into jail","Information",JOptionPane.INFORMATION_MESSAGE);
-				}
-				
-			
+
 				
 			}
     		//when we want to talk to a character

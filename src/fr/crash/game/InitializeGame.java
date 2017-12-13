@@ -43,7 +43,7 @@ public InitializeGame() {
 			
 			//Fighter Non player characters
 			//the boss
-			NpcFightBoss boss= new NpcFightBoss( 300, 22, "transplantor"," uigfodnhk", 100);
+			NpcFightBoss boss= new NpcFightBoss( 300, 22, "Transplantor"," uigfodnhk", 100);
 			//the monsters
 			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");

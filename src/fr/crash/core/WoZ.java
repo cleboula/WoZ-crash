@@ -159,7 +159,7 @@ public class WoZ
 		   setCurrentZone(objGame.getJail());
 	   
 			if (currentZone.getZoneName() == "jail") {
-				messageatk = "The guard threw you in jail, you should not steal that chest";}
+				messageatk = "The guard threw you in jail, you should not have stolen that chest";}
 
 		 
 	   }
