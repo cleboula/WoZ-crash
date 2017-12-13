@@ -752,14 +752,14 @@ public class HUD implements ActionListener {
 			woz.getCurrentZone().setListItemsEmpty();
 			woz.setnewlistEmpty();
 			myTakeButton.setEnabled(false);
-			System.out.println("avant");
+			
 			
 			
 				
 			//when there is a guard and you take items
 			
 			if (woz.getCurrentZone().getCurrentNpcFightGuard()!=null) {
-				System.out.println("apres");
+				
 				woz.setCurrentfight(true);
 				myText =new JTextArea(woz.fightGuard(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightGuard()));
 				myHP.setText("My HP : " + woz.getPlayer().getHP());
@@ -784,9 +784,11 @@ public class HUD implements ActionListener {
 			}
     		//when we want to talk to a character
     		 } else if (talk.isEnabled() && e.getSource()==talk) {
+    			 
     			 //go find the right dialog
     			 String test = woz.getObjGame().dialogTree(woz.getPlayer(), woz.getObjGame().getKeyForestW(), woz.getObjGame().getKeyPick(), woz.getObjGame().getKeyJail(),woz.getObjGame().getKeyForestS(), woz.getCurrentZone().getCurrentNpcDialog());
     			 myText = new JTextArea(test);
+    			
     			 myText.setEditable(false);
     			 talk.setEnabled(false);
     			 myFrame.setContentPane(newPanel());
