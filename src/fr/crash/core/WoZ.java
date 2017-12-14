@@ -99,9 +99,6 @@ public class WoZ
 		   if(npc1.getHp()<1){ 
 			   setCurrentfight(false);
 			   messageatk ="You won the fight, you can move out this zone";
-			
-		   }else if(player1.getHP()<=0){
-			   //game over  
 		   }
 	   }
 	   
@@ -117,8 +114,7 @@ public class WoZ
     */
   public String fightBoss(Player player1,NpcFightBoss npc1){
 	   String messageatk ="";
-	  
-	   //setCurrentfight(true);	   
+	    
 	   if(player1.getHP()!=0 && npc1.getHp()!=0 ) { //if both player and npc are alive
 		   if (player1.getEP()>player1.getCurrentWeapon().getEnergybyshot()) {
 		   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
@@ -128,12 +124,9 @@ public class WoZ
 			   player1.setHp(player1.getHP()-npc1.attackPattern());//set the player hp
 			   messageatk="you do not have enough EP to attack";
 		   }
-		   if(npc1.getHp()==0){ 
+		   if(npc1.getHp()<1){ 
 			   setCurrentfight(false);
 			   messageatk ="You won the fight, you can move out this zone";
-			 
-		   }else if(player1.getHP()<=0){
-			   //game over  
 		   }
 	   }
 	   
@@ -307,7 +300,6 @@ public class WoZ
     	String message = "";
     	String newline = System.getProperty("line.separator");
     	if (getCurrentZone().getListItems().isEmpty() && (getCurrentZone().getCurrentNpcDialog()==null )) {//if there is no item is the current zone
-    		//&& getCurrentZone().getCurrentNpcFightMonster()==null && getCurrentZone().getCurrentNpcFightBoss()==null && getCurrentZone().getCurrentNpcFightGuard()==null)
 			message = "It seems there is nothing interesting to take in this zone.";
     	}else { //if there are items
     		for (Item i : getCurrentZone().getListItems()) { //the list of items of the current zone
@@ -316,13 +308,7 @@ public class WoZ
     		if (getCurrentZone().getCurrentNpcDialog()!=null) {
     			zoneNPC = getCurrentZone().getCurrentNpcDialog().getName() + ": " + getCurrentZone().getCurrentNpcDialog().getDescription();
     		}
-    		//else if (getCurrentZone().getCurrentNpcFightMonster()!=null) {
-    		//	zoneNPC = getCurrentZone().getCurrentNpcFightMonster().getName() + ": " + getCurrentZone().getCurrentNpcFightMonster().getDescription();
-    		//} else if (getCurrentZone().getCurrentNpcFightBoss()!=null) {
-    		//	zoneNPC = getCurrentZone().getCurrentNpcFightBoss().getName() + ": " + getCurrentZone().getCurrentNpcFightBoss().getDescription();
-    		//} else if (getCurrentZone().getCurrentNpcFightGuard()!=null) {
-    		//	zoneNPC = getCurrentZone().getCurrentNpcFightGuard().getName() + ": " + getCurrentZone().getCurrentNpcFightGuard().getDescription();
-    		//}
+    		
 			message = "In this zone, you can find: " + zoneItems + newline + zoneNPC; //to display objects of this zone
     	}
     	return message;

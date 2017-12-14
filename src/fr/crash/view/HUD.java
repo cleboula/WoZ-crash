@@ -242,9 +242,10 @@ public class HUD implements ActionListener {
 
             		}
             		
-	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {//if there is a boss in this zone
-	            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
-	            		if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
+	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null && woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1) {//if there is a boss in this zone
+	            		
+	            		//myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
+	            		//if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
 	            			myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
 		            		myHP.setText("My HP : " + woz.getPlayer().getHP());
 		            		myEP.setText("My EP : " + woz.getPlayer().getEP());
@@ -253,6 +254,7 @@ public class HUD implements ActionListener {
 		        			myFrame.repaint();
 		        			myFrame.revalidate();
 		        			if(woz.isCurrentfight()==false) {
+		        				JOptionPane.showMessageDialog(null, "You won the fight!\nYou can go on now" , "End of the fight", JOptionPane.INFORMATION_MESSAGE);
 		                        myAttackButton.setEnabled(false);
 		                        myNorthArrow.setEnabled(true); 
 		                        myEastArrow.setEnabled(true);
@@ -285,7 +287,7 @@ public class HUD implements ActionListener {
 	            			
 	            		
             		}
-            	}
+            	
             });
             
             
@@ -661,7 +663,7 @@ public class HUD implements ActionListener {
             	}else if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Wolf") {
             		JOptionPane.showMessageDialog(null, "A wolf is running after you! \nBe ready to fight it!", "Fight", JOptionPane.INFORMATION_MESSAGE, wolfIcon);
             	}
-            }else if ((woz.getCurrentZone().getCurrentNpcFightBoss()!=null &&woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1)) {
+            }else if ((woz.getCurrentZone().getCurrentNpcFightBoss()!=null && woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1)) {
             	JOptionPane.showMessageDialog(null, "This is the big boss! \nBe ready to defeat him!!", "Fight", JOptionPane.INFORMATION_MESSAGE, bossIcon);
             }
         }
