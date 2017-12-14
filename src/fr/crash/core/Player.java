@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 import fr.crash.game.InitializeGame;
 /**
- * This class represents our principal player
+ * This class represents our principal player. He has health and energy points.
+ * He can collect items and store them in his inventory. He also has
+ * a weapon to defeat his enemies.
+ * 
  *
  * @author Group 1 WoZ
  * @version 09/11/2017
@@ -15,7 +18,6 @@ public class Player
     private int ep; //energy points of our player (not negative)
     private String namePlayer; //player name
     private ArrayList<Item> inventory; //inventory with collected objects 
-    private ArrayList<Weapon>listweapon; //list of weapon in the inventory
     private Weapon currentWeapon; //the current weapon
 
 	/**
@@ -27,7 +29,6 @@ public class Player
         ep = 100; //default value for energy points
         
         inventory = new ArrayList<Item> (); //creation of an empty inventory
-        listweapon = new ArrayList<Weapon>(); //creation of a weapon list
         
         namePlayer = name.trim(); //trim() removes any leading and trailing whitespace
         
@@ -51,21 +52,6 @@ public class Player
 		this.currentWeapon = currentWeapon;
 	}
 
-	/**
-	 * Getter of the weapon list
-	 * @return weapon list
-	 */
-	public ArrayList<Weapon> getListweapon() {
-		return listweapon;
-	}
-
-	/**
-	 * Setter of the weapon list
-	 * @param listweapon
-	 */
-	public void setListweapon(ArrayList<Weapon> listweapon) {
-		this.listweapon = listweapon;
-	}
 
 	/**
 	 * Getter of the inventory
@@ -117,17 +103,6 @@ public class Player
     {
         return namePlayer;
     }
-
-
-
-	/**
-	 * Setter of the current weapon
-	 * @param weapon the new weapon that will be used by the player
-	 */
-    public void setWeapon (Weapon weap)
-    {
-    	currentWeapon = weap;
-    }    
     
     /**
      * This method is used to search if a specific item is present in the inventory of 
