@@ -55,11 +55,4 @@ public class Weapon extends Item
 		return picWeapon;
 	}
 
-	/**
-	 * Setter of the weapon picture
-	 * @param picWeapon the picWeapon to set
-	 */
-	public void setPicWeapon(Icon picWeapon) {
-		this.picWeapon = picWeapon;
-	}
 }

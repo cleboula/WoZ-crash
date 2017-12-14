@@ -157,6 +157,9 @@ public class WoZ
 		   
 		   setCurrentfight(false);
 		   setCurrentZone(objGame.getJail());
+	   
+			if (currentZone.getZoneName() == "jail") {
+				messageatk = "The guard threw you in jail, you should not have stolen that chest";}
 
 		 
 	   }
@@ -278,6 +281,7 @@ public class WoZ
                             		}else{
                             			if (currentZone.getZoneName() == "glade") {
                             				message = "You cannot go this way ! You need a machete to cut branches ";
+                            			
                             			}
                             		}
                             	}
