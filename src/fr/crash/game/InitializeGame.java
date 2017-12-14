@@ -23,8 +23,8 @@ public class InitializeGame {
 			marketplace_jailentrance, marketplace_church, church_marketplace, marketplace_cityentrance,
 			cityentrance_bridge, cityentrance_marketplace, marketplace_house, house_marketplace;//the different path
 	private Icon crashZonePic, gladePic, forestWPic, forestSPic, forestNPic, bridgePic, cityentrancePic, 
-	marketplacePic, housePic, churchPic,jailentrancePic, jailPic, caveentrancePic, frozenlakePic, 
-	mountainbasePic, pickPic, cavePic, lairofthebeastPic;//the different zone pictures 	
+			marketplacePic, housePic, churchPic,jailentrancePic, jailPic, caveentrancePic, frozenlakePic, 
+			mountainbasePic, pickPic, cavePic, lairofthebeastPic;//the different zone pictures 	
 	private Icon swordPic, knifePic, gunPic, key1Pic, key2Pic, key3Pic, bunchkeyPic, machetePic, 
 			grapplePic, medlakePic, medikitPic, chestPic, plankPic;//the different weapon pictures
 
@@ -43,7 +43,7 @@ public InitializeGame() {
 			
 			//Fighter Non player characters
 			//the boss
-			NpcFightBoss boss= new NpcFightBoss( 300, 22, "Transplantor"," uigfodnhk", 100);
+			NpcFightBoss boss= new NpcFightBoss(150, 22, "Transplantor"," the boss", 50);
 			//the monsters
 			NpcFightMonster snake1=new NpcFightMonster(10,2,"Snake","small snake");
 			NpcFightMonster snake1bis=new NpcFightMonster(10,2,"Snake","small snake");
@@ -97,8 +97,8 @@ public InitializeGame() {
 			gun = new Weapon(30, 12, "gun", "This gun was taken from a guard. You will need it sooner than you think.", gunPic);
 			
 			//creation of the medikits
-			medChurch = new Medikit(60, 40, "Small Medikit", "This is a medikit. Use it carefully!",medikitPic);
-			medLake = new Medikit(30,30,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",medlakePic);
+			medChurch = new Medikit(30, 30, "Small Medikit", "This is a medikit. Use it carefully!",medikitPic);
+			medLake = new Medikit(60,40,"Magic Lake Water", "This lake is refreshing. Oh, it can heal you! Come back as much as you need.",medlakePic);
 	
 			// creation of the keys
 			//keys to unlock the paths
@@ -269,6 +269,8 @@ public InitializeGame() {
        		house.setCurrentNpcFightGuard(guard);
 
 			lairofthebeast.setCurrentNpcFightBoss(boss);
+			System.out.println(lairofthebeast.getCurrentNpcFightBoss().getName());
+			//TODO
 			
 			glade.setCurrentNpcDialog(shaman);
 			cityentrance.setCurrentNpcDialog(citizen1);

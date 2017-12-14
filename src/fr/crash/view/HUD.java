@@ -8,7 +8,6 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.event.*;
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -242,6 +241,7 @@ public class HUD implements ActionListener {
 	            		
 
             		}
+            		
 	            	else if(woz.getCurrentZone().getCurrentNpcFightBoss()!=null) {//if there is a boss in this zone
 	            		myText =new JTextArea(woz.fightBoss(woz.getPlayer(),woz.getCurrentZone().getCurrentNpcFightBoss()));
 	            		if(woz.getCurrentZone().getCurrentNpcFightBoss().getHp()!=0) {
@@ -396,9 +396,11 @@ public class HUD implements ActionListener {
     	                    if (n == JOptionPane.YES_OPTION) {
     	    					woz.getPlayer().setCurrentWeapon((Weapon)item);
     	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	    					myWeapon.setIcon(item.getImage());
     	                    } else if (n == JOptionPane.NO_OPTION) {
-    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);	
     	                    }
+    	                    inventFrame.dispose();
     	            	} else {
     	            		//creation of the dialog box to show an information message 
     	            		JOptionPane.showMessageDialog(null, item.getDescription() + "\n You are equipped with this weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -419,6 +421,7 @@ public class HUD implements ActionListener {
         							"Information", JOptionPane.INFORMATION_MESSAGE);
         					myHP.setText("My HP : " + woz.getPlayer().getHP());
         	        		myEP.setText("My EP : " + woz.getPlayer().getEP());
+        	        		inventFrame.dispose();
         	        		myFrame.setContentPane(newPanel());
         	    			myFrame.repaint();
         	    			myFrame.revalidate();
@@ -643,23 +646,21 @@ public class HUD implements ActionListener {
          * This method allows to determine the dialog box to display when there is a fight during the game
          */
         public void fightMessageDialog() {
-        	if ((woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) || woz.getCurrentZone().getCurrentNpcFightGuard()!=null || (woz.getCurrentZone().getCurrentNpcFightBoss()!=null &&woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1)) {
+            if ((woz.getCurrentZone().getCurrentNpcFightMonster()!=null && woz.getCurrentZone().getCurrentNpcFightMonster().getHp()>1) ) {
         		if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Snake") {
             		JOptionPane.showMessageDialog(null, "Be careful! \nA snake jumped on you!", "Fight", JOptionPane.INFORMATION_MESSAGE, snakeIcon);
             	}else if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Shark") {
             		JOptionPane.showMessageDialog(null, "Oh no! \nA shark came out of the water!", "Fight", JOptionPane.INFORMATION_MESSAGE, sharkIcon);
             	}else if (woz.getCurrentZone().getCurrentNpcFightMonster().getName()=="Wolf") {
             		JOptionPane.showMessageDialog(null, "A wolf is running after you! \nBe ready to fight it!", "Fight", JOptionPane.INFORMATION_MESSAGE, wolfIcon);
-            	}else if (woz.getCurrentZone().getCurrentNpcFightBoss().getName()=="Transplantor") {
-            		JOptionPane.showMessageDialog(null, "This is the big boss! \nBe ready to defeat him!!", "Fight", JOptionPane.INFORMATION_MESSAGE, bossIcon);
             	}
-        	}
+            }else if ((woz.getCurrentZone().getCurrentNpcFightBoss()!=null &&woz.getCurrentZone().getCurrentNpcFightBoss().getHp()>1)) {
+            	JOptionPane.showMessageDialog(null, "This is the big boss! \nBe ready to defeat him!!", "Fight", JOptionPane.INFORMATION_MESSAGE, bossIcon);
+            }
         }
         
     	@Override
     	public void actionPerformed(ActionEvent e) {
-    		@SuppressWarnings("unused")
-			InitializeGame objHUDGame = new InitializeGame();
     		//When we click on a direction button
     		if (e.getSource() == myNorthArrow) //when we go to the north
     		{
