@@ -399,7 +399,9 @@ public class HUD implements ActionListener {
     	    					myFrame.setContentPane(newPanel());
             	    			myFrame.repaint();
             	    			myFrame.revalidate();
+            	    			
     	    					JOptionPane.showMessageDialog(null,  "You are now armed with a gun.", "Information", JOptionPane.INFORMATION_MESSAGE);
+    	    					inventFrame.dispose();
     	                    } else if (n == JOptionPane.NO_OPTION) {
     	                    	JOptionPane.showMessageDialog(null,  "You keep your current weapon.", "Information", JOptionPane.INFORMATION_MESSAGE);
     	                    }
@@ -426,6 +428,7 @@ public class HUD implements ActionListener {
         	        		myFrame.setContentPane(newPanel());
         	    			myFrame.repaint();
         	    			myFrame.revalidate();
+        	    			inventFrame.dispose();
         	            } 
             		}
             		// if the item is a Chest
