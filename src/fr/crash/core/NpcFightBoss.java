@@ -50,7 +50,7 @@ public class NpcFightBoss extends NpcFight {
 	/**
 	 * This method is used to define the pattern of fight for the Boss
 	 *Method that return the Boss's attack score for one turn and that make change in Hp and Ep in special cases
-	 * If the Hp are less than 25 % 6 random event can happen
+	 * If the Hp are less than 25 % 4 random event can happen
 	 * If the Hp are less than 50 % atk is * 2
 	 * If the Hp are less than 75 % atk is normal
 	 * If the Hp are moore atk is divided by 2
